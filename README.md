@@ -1,4 +1,6 @@
-# covid-vaccine-database
+# Covid Vaccine Database
+
+Authors: Annie, Emma, Phoebe
 
 The domain of our application is public health management related to Covid-19. 
 

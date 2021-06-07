@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaccine Appointment Booking - BC Health COVID-19</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/wickedpicker.css" rel="stylesheet" type='text/css' media="all" />  <!-- time-picker-CSS -->
+    <link href="http://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+</head>
+<body>
+<div class="banner-top">
+    <!-- slider -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+            <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+            <li data-target="#myCarousel" data-slide-to="3" class=""></li>
+            <li data-target="#myCarousel" data-slide-to="4" class=""></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <div class="banner-dott">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1>Covid-19 Vaccination</h1>
+                            <div class="contrast">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="agileits_reservation">
+        <form action="#" method="post">
+            <h2>Vaccine Appointment Booking</h2>
+
+            <div class="cuisine">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <label for="location"></label>
+                <select class="frm-field sect" id="location" name="Text" required>
+                    <option value="">Select Location</option>
+                    <option value="1">A street</option>
+                    <option value="2">B street</option>
+                    <option value="3">C street</option>
+                    <option value="4">D street</option>
+                    <option value="5">E street</option>
+                </select>
+            </div>
+
+
+<!--            <div class="cuisine">-->
+<!--                    <label for="loca"></label>-->
+<!--                    <select id="loca" name="loca" required>-->
+<!--                        <option value="">Select Location</option>-->
+<!--                        <option value="1">A street</option>-->
+<!--                        <option value="2">B street</option>-->
+<!--                        <option value="3">D street</option>-->
+<!--                        <option value="4">E street</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+
+            <div class="clearfix"> </div>
+            <div class="agileits_reservation_grid">
+                <div  class="span1_of_1 book_date">
+                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                    <label for="datepicker"></label>
+                    <input class="date" id="datepicker" name="Text" placeholder="Select Date"  type="text" required="">
+                </div>
+                <div class="span1_of_1 section_room">
+                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                    <label for="time"></label>
+                    <input type="text" id="time" name="Time" class="timepicker" value=" Time">
+                </div>
+                <div class="span1_of_1 section_room">
+                    <!-- start_section_room -->
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    <label for="vaccineb"></label>
+                    <select class="frm-field sect" id="vaccineb" name="Text" required>
+                        <option value="">Select Vaccine</option>
+                        <option value="1">Moderna</option>
+                        <option value="2">Janssen</option>
+                        <option value="3">Pfizer-BioNTech</option>
+                        <option value="4">AstraZeneca</option>
+                        <option value="5">Novavax</option>
+                        <option value="5">Gamaleya</option>
+                    </select>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="date_btn">
+                <input type="submit" value="Book An Appointment" />
+            </div>
+        </form>
+    </div>
+
+<!-- js -->
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<!-- carousal -->
+<script src="js/slick.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(document).on('ready', function() {
+        $(".center").slick({
+            dots: true,
+            infinite: true,
+            centerMode: true,
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: true,
+                        centerMode: false,
+                        slidesToShow: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: true,
+                        centerMode: false,
+                        centerPadding: '40px',
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        });
+    });
+</script>
+<!-- //carousal -->
+
+
+<script src="js/SmoothScroll.min.js"></script>
+<!-- smooth scrolling-bottom-to-top -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        /*
+            var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear'
+            };
+        */
+        $().UItoTop({ easingType: 'easeOutQuart' });
+    });
+</script>
+<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+<!-- //smooth scrolling-bottom-to-top -->
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $(".scroll").click(function(event){
+            event.preventDefault();
+            $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+        });
+    });
+</script>
+<!-- Time select -->
+<script type="text/javascript" src="js/wickedpicker.js"></script>
+<script type="text/javascript">
+    $('.timepicker').wickedpicker({twentyFour: false});
+</script>
+<!-- //Time select -->
+<!-- Calendar -->
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<script src="js/jquery-ui.js"></script>
+<script>
+    $(function() {
+        $( "#datepicker" ).datepicker();
+    });
+</script>
+<!-- //Calendar -->
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script> <!-- Necessary-JavaScript-File-For-Bootstrap -->
+
+</body>
+</html>

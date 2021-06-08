@@ -141,7 +141,7 @@ label{
 .span1_of_1{
 	float: left;
 	list-style:none;
-	width:30.9%;
+	width:90.9%;
 }
 .span1_of_1:nth-child(2) {
     margin: 0 1em;
@@ -476,7 +476,7 @@ div#services {
 .span1_of_1{
 	float: left;
 	list-style:none;
-	width:30.9%;
+	width:90.9%;
 }
 .span1_of_1:nth-child(2) {
     margin: 0 1em;
@@ -2088,7 +2088,7 @@ div#bs-example-navbar-collapse-1 {
     top: 71%;
 }
 .agileits_reservation {
-    position: static;
+    position: relative;
     width: 90%;
     bottom: 0%;
     margin: 2em auto;

@@ -8,8 +8,9 @@ function OpenCon()
  $db = "Covid-19_Vaccine_Database";
 
 
- $conn = new mysqli($dbhost, $dbuser, $dbpass,$db) or die("Connect failed: %s\n". $conn -> error);
+ $conn = new mysqli($dbhost, $dbuser, $dbpass, $db) or die("Connect failed: %s\n". $conn -> error);
 
+ echo "Connected Successfully";
  
  return $conn;
  }

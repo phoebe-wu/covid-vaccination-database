@@ -163,7 +163,7 @@
 									   <th>Closing Time</th>
 								    </tr>
 								    <?php
-								   include 'connect.php';
+								   include '../connect.php';
                                    $conn = OpenCon();
 								   $sql = "SELECT * FROM Testing_Center";
 								   $result = $conn->query($sql);

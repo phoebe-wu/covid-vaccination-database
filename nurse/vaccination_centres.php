@@ -23,79 +23,89 @@
 
 <body>
 	<div id="app">
-		<div id="sidebar" class="active">
-			<div class="sidebar-wrapper active">
-				<div class="sidebar-header">
-					<div class="d-flex justify-content-between">
-						<div class="logo">
-							<a href="index.html"><img src="medical.png" alt="Logo" srcset=""></a>
-						</div>
-						<div class="toggler">
-							<a href="#" class="sidebar-hide d-xl-none d-block"><i
-									class="bi bi-x bi-middle"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="sidebar-menu">
-					<ul class="menu">
-						<li class="sidebar-title">Menu</li>
+	<div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header">
+                    <div class="d-flex justify-content-between">
+                        <div class="logo">
+                            <a href="index.html"><img src="medical.png" alt="Logo" srcset=""></a>
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <li class="sidebar-title">Menu</li>
 
-						<li class="sidebar-item ">
-							<a href="index.html" class='sidebar-link'>
-								<i class="bi bi-grid-fill"></i>
-								<span>Dashboard</span>
-							</a>
-						</li>
-						<li class="sidebar-item  ">
-							<a href="booking.html" class='sidebar-link'>
-								<i class="bi bi-pen-fill"></i>
-								<span>Book An Appointment</span>
-							</a>
-						</li>
+                        <li class="sidebar-item active ">
+                            <a href="index.html" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item  ">
+                            <a href="appointment_summary.html" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>Upcoming Appointments</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item  ">
+                            <a href="application-gallery.html" class='sidebar-link'>
+                                <i class="bi bi-pen-fill"></i>
+                                <span>Job Signup</span>
+                            </a>
+                        </li>
 
-						<li class="sidebar-item  active">
-							<a href="vaccine_centres.php" class='sidebar-link'>
-								<i class="bi bi-hexagon-fill"></i>
-								<span>Vaccination Centres</span>
-							</a>
-						</li>
+                        <li class="sidebar-item active ">
+                            <a href="vaccination_centres.php" class='sidebar-link'>
+                                <i class="bi bi-hexagon-fill"></i>
+                                <span>Vaccination Centres</span>
+                            </a>
+                        </li>
 
-						<li class="sidebar-item  ">
-							<a href="testing_centres.php" class='sidebar-link'>
-								<i class="bi bi-egg-fill"></i>
-								<span>Testing Centres</span>
-							</a>
-						</li>
+                        <li class="sidebar-item  ">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-egg-fill"></i>
+                                <span>Testing Centres</span>
+                            </a>
+                        </li>
 
 
-						<li class="sidebar-title">My Records</li>
-
-						<li class="sidebar-item  ">
-							<a href="p_testing_record.html" class='sidebar-link'>
-								<i class="bi bi-file-earmark-medical-fill"></i>
-								<span>Testing Records</span>
-							</a>
-						</li>
-						<li class="sidebar-item  ">
-							<a href="p_vaccine_record.html" class='sidebar-link'>
-								<i class="bi bi-file-earmark-medical-fill"></i>
-								<span>Vaccine Records</span>
-							</a>
-						</li>
-
-						<li class="sidebar-title"> </li>
-
-						<li class="sidebar-item  ">
-							<a href="login.html" class='sidebar-link'>
-								<i class="bi bi-person-badge-fill"></i>
-								<span>Logout</span>
-							</a>
-						</li>
-					</ul>
-				</div>
-				<button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
-			</div>
-		</div>
+                        <li class="sidebar-title">Records</li>
+                        
+                        <li class="sidebar-item  ">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-medical-fill"></i>
+                                <span>Patient List</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item ">
+                            <a href="n_vaccine_inventory.html" class='sidebar-link'>
+                                <i class="bi bi-collection-fill"></i>
+                                <span>Vaccine Inventory</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item  ">
+                            <a href="n_testingkit_inventory.html" class='sidebar-link'>
+                                <i class="bi bi-collection-fill"></i>
+                                <span>Testing Kit Inventory</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-title"> </li>
+                        
+                        <li class="sidebar-item  ">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-person-badge-fill"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
 		<div id="main">
 			<header class="mb-3">
 				<a href="#" class="burger-btn d-block d-xl-none">

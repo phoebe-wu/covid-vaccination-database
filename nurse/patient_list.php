@@ -1,34 +1,31 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testing Centres - BC Health COVID-19</title>
+    <title>Patient List - BC Health COVID-19</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/bootstrap.css">
-   
+
     <link rel="stylesheet" href="../assets/iconly/bold.css">
 
     <link rel="stylesheet" href="../assets/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="../assets/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/app.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
-
-    <link rel="stylesheet" href="../assets/choices.min.css"/>
 </head>
 
 <body>
     <div id="app">
-    <div id="sidebar" class="active">
+        <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="nurse_main.html"><img src="medical.png" alt="Logo" srcset=""></a>
+                            <a href="index.html"><img src="medical.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -39,7 +36,7 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
-                        <li class="sidebar-item">
+                        <li class="sidebar-item ">
                             <a href="nurse_main.html" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
@@ -65,7 +62,7 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item active ">
+                        <li class="sidebar-item  ">
                             <a href="testing_centres.php" class='sidebar-link'>
                                 <i class="bi bi-egg-fill"></i>
                                 <span>Testing Centres</span>
@@ -75,8 +72,8 @@
 
                         <li class="sidebar-title">Records</li>
                         
-                        <li class="sidebar-item  ">
-                            <a href="patient_list.php" class='sidebar-link'>
+                        <li class="sidebar-item  active">
+                            <a href="#" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>Patient List</span>
                             </a>
@@ -107,93 +104,91 @@
             </div>
         </div>
         <div id="main">
-            <div class="page-heading">
+		   <div class="page-heading">
 			 <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>BC COVID-19 Testing Centres</h3>
+                        <h3>Patient List</h3>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="nurse_main.html">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Testing Centres</li>
+                                <li class="breadcrumb-item active" aria-current="page">Patients</li>
                             </ol>
                         </nav>
                     </div>
                 </div>
             </div>
 		  <br>
-		  <section id="multiple-column-form">
+		  <section id="input-group-buttons">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Find a Patient</h4>
+							 <p> Look up a patient with their name <span style="font-weight:bold;"> OR </span> personal health number </p>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6 mb-1">
+                                                <div class="input-group mb-3">
+									   		<span class="input-group-text" id="basic-addon1"><i
+                                                            class="bi bi-search"></i></span>
+                                                    	<input type="text" class="form-control"
+                                                        	placeholder="Name"
+                                                       	aria-label="Recipient's username"
+                                                        	aria-describedby="button-addon2">
+                                                    	<button class="btn btn-outline-secondary" type="button"
+                                                        id="button-addon2">Search</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-1">
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon1"><i
+                                                            class="bi bi-search"></i></span>
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Personal Health Number"
+                                                        aria-label="Recipient's username"
+                                                        aria-describedby="button-addon2">
+                                                    <button class="btn btn-outline-secondary" type="button"
+                                                        id="button-addon2">Search</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+			 <section id="multiple-column-form">
 			<div class="row match-height">
 			    <div class="col-12">
 				   <div class="card">
-					  <div class="card-header">
-						 <h4 class="card-title">Find a Testing Centre</h4>
-						 <p> Use the filters to find a  BC testing centre best suited to your needs.</p>
-					  </div>
 					  <div class="card-content">
 						 <div class="card-body">
 							<form class="form">
-							    <div class="row">
-								   <div class="col-12">
-									<div class="form-group">
-									    <label for="city-column">City</label>
-									    <select class="choices form-select">
-										   <option selected> Choose... </option>
-										   <option value="richmond">Richmond</option>
-										   <option value="vancouver">Vancouver</option>
-										   <option value="sechelt">Sechelt</option>
-										   <option value="saanichton">Saanichton</option>
-										   <option value="kelowna">Kelowna</option>
-										   <option value="burnaby">Burnaby</option>
-										   <option value="coquitlam">Coquitlam</option>
-									    </select>
-									</div>
-									<br>
-								   </div>
-								   <div class="col-md-6 col-12">
-									 <div class="checkbox">
-										<input type="checkbox" id="checkbox5"
-										    class='form-check-input' unchecked>
-										<label for="checkbox5"> Offers Drive Through Testing</label>
-									 </div>
-								   </div>
-								   <div class="col-md-6 col-12">
-									<div class="checkbox">
-									    <input type="checkbox" id="checkbox5"
-										   class='form-check-input' unchecked>
-									    <label for="checkbox5"> Open Now</label>
-									</div>
-								  </div>
-								   <div class="col-12 d-flex justify-content-end">
-									  <button type="submit"
-										 class="btn btn-primary me-1 mb-1">Filter</button>
-									  <button type="reset"
-										 class="btn btn-light-secondary me-1 mb-1">Reset</button>
-								   </div>
-							    </div>
 							    <table class="table table-striped" id="table1">
 								    <tr>
-									   <th>Address</th>
-									   <th>City</th>
-									   <th>Phone</th>
-									   <th>Opening Time</th>
-									   <th>Closing Time</th>
+									   <th>PHN</th>
+									   <th>Name</th>
+									   <th>Age</th>
+									   <th>Manage Records</th>
 								    </tr>
 								    <?php
 								   include '../connect.php';
                                    	$conn = OpenCon();
-								   $sql = "SELECT * FROM Testing_Center";
+								   $sql = "SELECT * FROM Patient";
 								   $result = $conn->query($sql);
 								   if ($result->num_rows > 0) {
 								   // output data of each row
 								   while($row = $result->fetch_assoc()) {
-                                        echo "<tr><td class='border-class'>".$row["address"].
-                                   	"</td><td class='border-class'>".$row["phone"].
-                                   	"</td><td class='border-class'>".$row["city"].
-                                   	"</td><td class='border-class'>".$row["opening_time"].
-                                   	"</td><td class='border-class'>".$row["closing_time"].
+                                        echo "<tr><td class='border-class'>".$row["phn"].
+                                   	"</td><td class='border-class'>".$row["name"].
+                                   	"</td><td class='border-class'>".$row["age"].
                                    	"</td></tr>";
 								   }
 								   echo "</table>";
@@ -215,28 +210,5 @@
 			</div>
 
 		 </section>
-
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
-    <script src="assets~/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script>
-        // Simple Datatable
-        let table1 = document.querySelector('#table1');
-        let dataTable = new simpleDatatables.DataTable(table1);
-    </script>
-	<script src="assets/choices.min.js"></script>	
-    
 </body>
-
 </html>

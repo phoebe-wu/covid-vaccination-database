@@ -28,7 +28,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="medical.png" alt="Logo" srcset=""></a>
+                            <a href="nurse_main.html"><img src="medical.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -40,7 +40,7 @@
                         <li class="sidebar-title">Menu</li>
 
                         <li class="sidebar-item ">
-                            <a href="index.html" class='sidebar-link'>
+                            <a href="nurse_main.html" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -76,7 +76,7 @@
                         <li class="sidebar-title">Records</li>
                         
                         <li class="sidebar-item  ">
-                            <a href="#" class='sidebar-link'>
+                            <a href="patient_list.php" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>Patient List</span>
                             </a>
@@ -107,15 +107,23 @@
             </div>
         </div>
 		<div id="main">
-			<header class="mb-3">
-				<a href="#" class="burger-btn d-block d-xl-none">
-					<i class="bi bi-justify fs-3"></i>
-				</a>
-			</header>
-
 			<div class="page-heading">
-				<h3>Cough Here Often? ;)</h3>
-			</div>
+			 <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>BC COVID-19 Vaccination Centres</h3>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="nurse_main.html">Dashboard</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Vaccination Centres</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+		  <br>
 			<section id="multiple-column-form">
 				<div class="row match-height">
 					<div class="col-12">

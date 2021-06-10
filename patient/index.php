@@ -126,10 +126,9 @@
                                             $sql = "SELECT name, phn FROM patient WHERE user_ID = {$_SESSION['userid']}";
                                             $results = $conn->query($sql);
                                             
-                                            foreach ($results as $row) {
-                                                echo '<h5 class="font-bold">' . $row['name'] . '</h5>';
-                                                echo '<h6 class="text-muted mb-0">PHN: ' . $row['phn'] . '</h6>';
-                                            }
+                                            $row = $results->fetch_assoc();
+                                            echo '<h5 class="font-bold">' . $row['name'] . '</h5>';
+                                            echo '<h6 class="text-muted mb-0">PHN: ' . $row['phn'] . '</h6>';
                                         ?>
                                         
                                         

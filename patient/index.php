@@ -1,7 +1,16 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+    include '../connect.php';
+    $conn = OpenCon();
+    
+    session_start();
+    // for single page testing
+    if (!isset($_SESSION['userid'])) {
+        $_SESSION['userid'] = 80001;
+    }
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +35,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="../medical.png" alt="Logo" srcset=""></a>
+                            <a href="index.html"><img src="medical.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -38,13 +47,13 @@
                         <li class="sidebar-title">Menu</li>
 
                         <li class="sidebar-item active ">
-                            <a href="index.html" class='sidebar-link'>
+                            <a href="index.php" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="booking.html" class='sidebar-link'>
+                            <a href="booking.php" class='sidebar-link'>
                                 <i class="bi bi-pen-fill"></i>
                                 <span>Book An Appointment</span>
                             </a>
@@ -68,20 +77,22 @@
                         <li class="sidebar-title">My Records</li>
                         
                         <li class="sidebar-item  ">
-                            <a href="p_testing_record.html" class='sidebar-link'>
+                            <a href="p_testing_record.php" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>Testing Records</span>
                             </a>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="p_vaccine_record.html" class='sidebar-link'>
+                            <a href="p_vaccine_record.php" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>Vaccine Records</span>
                             </a>
                         </li>
                         
+                        <li class="sidebar-title"> </li>
+                        
                         <li class="sidebar-item  ">
-                            <a href="login.html" class='sidebar-link'>
+                            <a href="../logout.php" class='sidebar-link'>
                                 <i class="bi bi-person-badge-fill"></i>
                                 <span>Logout</span>
                             </a>
@@ -99,7 +110,7 @@
             </header>
 
             <div class="page-heading">
-                <h3>Cough Here Often? ;)</h3>
+                <h3>Cough Here Often? ∠( ᐛ 」∠)＿</h3>
             </div>
             <div class="page-content">
                 <section class="row">
@@ -111,8 +122,17 @@
                                         <h4>Profile</h4>
                                     </div>
                                     <div class="card-body">
-                                        <h5 class="font-bold">NAME</h5>
-                                        <h6 class="text-muted mb-0">PHN 123-1234-12345</h6>
+                                        <?php
+                                            $sql = "SELECT name, phn FROM patient WHERE user_ID = {$_SESSION['userid']}";
+                                            $results = $conn->query($sql);
+                                            
+                                            foreach ($results as $row) {
+                                                echo '<h5 class="font-bold">' . $row['name'] . '</h5>';
+                                                echo '<h6 class="text-muted mb-0">PHN: ' . $row['phn'] . '</h6>';
+                                            }
+                                        ?>
+                                        
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -134,33 +154,21 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <p class="font-bold ms-3 mb-0">2021-07-05</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">08:00:00</p>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">Canada Place</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <p class="font-bold ms-3 mb-0">2021-08-15</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">13:00:00</p>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">VGH</p>
-                                                        </td>
-                                                    </tr>
-                                                    
+                                                <?php
+                                                    $sql = "SELECT date, time, address FROM Appointments, Vaccine_Center WHERE p_ID = {$_SESSION['userid']} AND Appointments.facility_ID = Vaccine_Center.facility_ID";
+                                                    $results = $conn->query($sql);
+                                                    if ($results->num_rows > 0){
+                                                        while($row = $results->fetch_assoc()){
+                                                            echo "<tr><td class='col-3'><div class='d-flex align-items-center'>
+                                                            <p class='font-bold ms-3 mb-0'>".$row["date"]."</p>
+                                                            </div></td><td class='col-auto'>
+                                                            <p class=' mb-0'>".$row["time"]."</p>
+                                                            </td><td class='col-auto'>
+                                                            <p class=' mb-0'>".$row["address"]."</p></td></tr>";
+                                                        }
+                                                    }
+                                                ?>
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -178,19 +186,34 @@
                                 <div class="summary d-flex px-6 py-3">
                                     <div class="name ms-4">
                                         <h5 class="text-center"># Vaccine Records</h5>
-                                        <h6 class="text-muted text-center">1</h6>
+                                        <?php
+                                            $sql = "SELECT COUNT(*) AS total FROM Vaccine_Record WHERE user_ID = {$_SESSION['userid']}";
+                                            $results = $conn->query($sql);
+                                            $row = $results->fetch_assoc();
+                                            echo '<h6 class="text-muted text-center">'.$row['total'].'</h6>';
+                                        ?>
                                     </div>
                                 </div>
                                 <div class="summary d-flex px-6 py-3">
                                     <div class="name ms-4">
                                         <h5 class="text-center"># Testing Records</h5>
-                                        <h6 class="text-muted text-center">1</h6>
+                                        <?php
+                                            $sql = "SELECT COUNT(*) AS total FROM Testing_Record WHERE user_ID = {$_SESSION['userid']}";
+                                            $results = $conn->query($sql);
+                                            $row = $results->fetch_assoc();
+                                            echo '<h6 class="text-muted text-center">'.$row['total'].'</h6>';
+                                        ?>
                                     </div>
                                 </div>
                                 <div class="summary d-flex px-6 py-3">
                                     <div class="name ms-4">
                                         <h5 class="text-center"># Appointments</h5>
-                                        <h6 class="text-muted text-center">0</h6>
+                                        <?php
+                                            $sql = "SELECT COUNT(*) AS total FROM Appointments WHERE p_ID = {$_SESSION['userid']}";
+                                            $results = $conn->query($sql);
+                                            $row = $results->fetch_assoc();
+                                            echo '<h6 class="text-muted text-center">'.$row['total'].'</h6>';
+                                        ?>
                                     </div>
                                 </div>
 
@@ -213,13 +236,13 @@
             </footer>
         </div>
     </div>
-    <script src="assets~/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets~/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="assets/vendors/apexcharts/apexcharts.js"></script>
-    <script src="assets/js/pages/dashboard.js"></script>
+    <script src="../assets/vendors/apexcharts/apexcharts.js"></script>
+    <script src="../assets/js/pages/dashboard.js"></script>
 
-    <script src="assets/js/main.js"></script>
+    <script src="../assets/js/main.js"></script>
 </body>
 
 </html>

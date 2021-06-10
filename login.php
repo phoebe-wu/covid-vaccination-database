@@ -20,14 +20,14 @@ function handleLoginRequest($conn) {
 
     if ($num == 1) {
         echo "<br>Logged In Successfully!<br>";
-        header('refresh:0.5; url=patient/index.html');
+        header('refresh:0.5; url=patient/index.php');
     } else if ($num == 0) {
         $sql_n = "SELECT Count(*) FROM Nurse WHERE (Nurse.user_ID='$userid' and Nurse.password='$password')";
         $result_n = mysqli_query($conn, $sql_n);
         $num_n = ($result_n->fetch_array())[0];
         if ($num_n == 1) {
             echo "<br>Hi Nurse. Logged In Successfully!<br>";
-            header('refresh:0.5; url=nurse/nurse_main.html');
+            header('refresh:0.5; url=nurse/nurse_main.php');
         } else if ($num_n == 0) {
             header('refresh:2; url=login.html');
             echo "<br>Email or password wrong. Auto-refresh in 1 seconds.<br>";

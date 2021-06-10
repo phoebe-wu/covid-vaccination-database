@@ -1,6 +1,16 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<?php
+    include '../connect.php';
+    $conn = OpenCon();
+    
+    session_start();
+    // for single page testing
+    if (!isset($_SESSION['userid'])) {
+        $_SESSION['userid'] = 10001;
+    }
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -38,13 +48,13 @@
                         <li class="sidebar-title">Menu</li>
 
                         <li class="sidebar-item active ">
-                            <a href="nurse_main.html" class='sidebar-link'>
+                            <a href="nurse_main.php" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="appointment_summary.html" class='sidebar-link'>
+                            <a href="appointment_summary.php" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
                                 <span>Upcoming Appointments</span>
                             </a>
@@ -80,13 +90,13 @@
                             </a>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="n_vaccine_inventory.html" class='sidebar-link'>
+                            <a href="n_vaccine_inventory.php" class='sidebar-link'>
                                 <i class="bi bi-collection-fill"></i>
                                 <span>Vaccine Inventory</span>
                             </a>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="n_testingkit_inventory.html" class='sidebar-link'>
+                            <a href="n_testingkit_inventory.php" class='sidebar-link'>
                                 <i class="bi bi-collection-fill"></i>
                                 <span>Testing Kit Inventory</span>
                             </a>
@@ -94,7 +104,7 @@
                         <li class="sidebar-title"> </li>
                         
                         <li class="sidebar-item  ">
-                            <a href="#" class='sidebar-link'>
+                            <a href="../logout.php" class='sidebar-link'>
                                 <i class="bi bi-person-badge-fill"></i>
                                 <span>Logout</span>
                             </a>
@@ -124,8 +134,14 @@
                                         <h4>Profile</h4>
                                     </div>
                                     <div class="card-body">
-                                        <h5 class="font-bold">NAME</h5>
-                                        <h6 class="text-muted mb-0">nurse_id 5555555</h6>
+                                        <?php
+                                            $sql = "SELECT name FROM Nurse WHERE user_ID = {$_SESSION['userid']}";
+                                            $results = $conn->query($sql);
+                                            
+                                            $row = $results->fetch_assoc();
+                                            echo '<h5 class="font-bold">' . $row['name'] . '</h5>';
+                                            echo '<h6 class="text-muted mb-0">ID: ' . $_SESSION['userid'] . '</h6>';
+                                        ?>
                                     </div>
                                 </div>
                             </div>
@@ -147,33 +163,69 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <p class="font-bold ms-3 mb-0">2021-07-05</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">08:00:00</p>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">Canada Place</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <p class="font-bold ms-3 mb-0">2021-08-15</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">13:00:00</p>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">VGH</p>
-                                                        </td>
-                                                    </tr>
+                                                    <?php
+                                                    $sql = "SELECT date, time, address FROM Appointments, Vaccine_Center WHERE n_ID = {$_SESSION['userid']} AND Appointments.facility_ID = Vaccine_Center.facility_ID";
+                                                    $results = $conn->query($sql);
+                                                    if ($results->num_rows > 0){
+                                                        $minnum = min(3, $results->num_rows);
+                                                        for ($x = 0; $x < $minnum; $x++) {
+                                                            $row = $results->fetch_assoc();
+                                                            echo "<tr><td class='col-3'><div class='d-flex align-items-center'>
+                                                            <p class='font-bold ms-3 mb-0'>".$row["date"]."</p>
+                                                            </div></td><td class='col-auto'>
+                                                            <p class=' mb-0'>".$row["time"]."</p>
+                                                            </td><td class='col-auto'>
+                                                            <p class=' mb-0'>".$row["address"]."</p></td></tr>";
+                                                        }
+                                                    }
+                                                    ?>
                                                     
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-xl-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>job locations</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-lg">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Type</th>
+                                                        <th>Location</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                        $sql = "SELECT address FROM Works_At_VC, Vaccine_Center WHERE nurse_ID = {$_SESSION['userid']} AND Works_At_VC.facility_ID = Vaccine_Center.facility_ID";
+                                                        $results = $conn->query($sql);
+                                                        if ($results->num_rows > 0){
+                                                            while($row = $results->fetch_assoc()){
+                                                                echo "<tr><td class='col-auto'>
+                                                                <p class=' mb-0'>Vaccine centre</p>
+                                                                </td><td class='col-auto'>
+                                                                <p class=' mb-0'>".$row["address"]."</p></td></tr>";
+                                                            }
+                                                        }
+                                                    
+                                                        $sql = "SELECT address FROM Works_At_TC, Testing_Center WHERE nurse_ID = {$_SESSION['userid']} AND Works_At_TC.facility_ID = Testing_Center.facility_ID";
+                                                            $results = $conn->query($sql);
+                                                            if ($results->num_rows > 0){
+                                                                while($row = $results->fetch_assoc()){
+                                                                    echo "<tr><td class='col-auto'>
+                                                                    <p class=' mb-0'>Testing centre</p>
+                                                                    </td><td class='col-auto'>
+                                                                    <p class=' mb-0'>".$row["address"]."</p></td></tr>";
+                                                                }
+                                                        }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -191,19 +243,35 @@
                                 <div class="summary d-flex px-6 py-3">
                                     <div class="name ms-4">
                                         <h5 class="text-center"># Vaccine centres</h5>
-                                        <h6 class="text-muted text-center">1</h6>
+                                        <?php
+                                            $sql = "SELECT COUNT(*) AS total FROM Works_At_VC WHERE nurse_ID = {$_SESSION['userid']}";
+                                            $results = $conn->query($sql);
+                                            $row = $results->fetch_assoc();
+                                            echo '<h6 class="text-muted text-center">'.$row['total'].'</h6>';
+                                        ?>
                                     </div>
                                 </div>
                                 <div class="summary d-flex px-6 py-3">
                                     <div class="name ms-4">
                                         <h5 class="text-center"># Testing centres</h5>
-                                        <h6 class="text-muted text-center">1</h6>
+                                        <?php
+                                            $sql = "SELECT COUNT(*) AS total FROM Works_At_TC WHERE nurse_ID = {$_SESSION['userid']}";
+                                            $results = $conn->query($sql);
+                                            $row = $results->fetch_assoc();
+                                            echo '<h6 class="text-muted text-center">'.$row['total'].'</h6>';
+                                        ?>
                                     </div>
                                 </div>
                                 <div class="summary d-flex px-6 py-3">
                                     <div class="name ms-4">
                                         <h5 class="text-center"># Appointments</h5>
-                                        <h6 class="text-muted text-center">0</h6>
+                                        <?php
+                                            $sql = "SELECT COUNT(*) AS total FROM Appointments WHERE n_ID = {$_SESSION['userid']}";
+                                            $results = $conn->query($sql);
+                                            $row = $results->fetch_assoc();
+                                            echo '<h6 class="text-muted text-center">'.$row['total'].'</h6>';
+                                        ?>
+
                                     </div>
                                 </div>
 
@@ -226,13 +294,13 @@
             </footer>
         </div>
     </div>
-    <script src="/assets/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="/assets/vendors/apexcharts/apexcharts.js"></script>
-    <script src="/assets/js/pages/dashboard.js"></script>
+    <script src="../assets/vendors/apexcharts/apexcharts.js"></script>
+    <script src="../assets/js/pages/dashboard.js"></script>
 
-    <script src="/assets/js/main.js"></script>
+    <script src="../assets/js/main.js"></script>
 </body>
 
 </html>

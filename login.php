@@ -22,8 +22,16 @@ function handleLoginRequest($conn) {
         echo "<br>Logged In Successfully!<br>";
         header('refresh:0.5; url=patient/index.html');
     } else if ($num == 0) {
-        header('refresh:2; url=login.html');
-        echo "<br>Email or password wrong. Auto-refresh in 1 seconds.<br>";
+        $sql_n = "SELECT Count(*) FROM Nurse WHERE (Nurse.user_ID='$userid' and Nurse.password='$password')";
+        $result_n = mysqli_query($conn, $sql_n);
+        $num_n = ($result_n->fetch_array())[0];
+        if ($num_n == 1) {
+            echo "<br>Hi Nurse. Logged In Successfully!<br>";
+            header('refresh:0.5; url=nurse/nurse_main.html');
+        } else if ($num_n == 0) {
+            header('refresh:2; url=login.html');
+            echo "<br>Email or password wrong. Auto-refresh in 1 seconds.<br>";
+        }
     }
     # CloseCon($conn);
 }

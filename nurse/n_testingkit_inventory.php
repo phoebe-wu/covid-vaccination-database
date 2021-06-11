@@ -1,3 +1,11 @@
+<?php
+    include '../connect.php';
+    $conn = OpenCon();
+
+    session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,7 +33,7 @@
             <div class="sidebar-header">
                 <div class="d-flex justify-content-between">
                     <div class="logo">
-                        <a href="nurse_main.html"><img src="../medical.png" alt="Logo" srcset=""></a>
+                        <a href="nurse_main.php"><img src="../medical.png" alt="Logo" srcset=""></a>
                     </div>
                     <div class="toggler">
                         <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -37,7 +45,7 @@
                     <li class="sidebar-title">Menu</li>
 
                     <li class="sidebar-item">
-                        <a href="nurse_main.html" class='sidebar-link'>
+                        <a href="nurse_main.php" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Dashboard</span>
                         </a>
@@ -79,13 +87,13 @@
                         </a>
                     </li>
                     <li class="sidebar-item  ">
-                        <a href="n_vaccine_inventory.html" class='sidebar-link'>
+                        <a href="n_vaccine_inventory.php" class='sidebar-link'>
                             <i class="bi bi-collection-fill"></i>
                             <span>Vaccine Inventory</span>
                         </a>
                     </li>
                     <li class="sidebar-item active ">
-                        <a href="n_testingkit_inventory.html" class='sidebar-link'>
+                        <a href="n_testingkit_inventory.php" class='sidebar-link'>
                             <i class="bi bi-collection-fill"></i>
                             <span>Testing Kit Inventory</span>
                         </a>
@@ -121,7 +129,7 @@
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="nurse_main.html">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="nurse_main.php">Dashboard</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Testing Kit Inventory</li>
                             </ol>
                         </nav>
@@ -146,13 +154,15 @@
                                             Kit Kind
                                             <!--                                                kind ENUM('Nasal swab','Saliva test','Rapid test','Blood test','Nasopharyngeal swab' ),-->
                                         </button>
+                                        <form action="n_testingkit_inventory.php" method="post">
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Nasal swab</a>
-                                            <a class="dropdown-item" href="#">Saliva test</a>
-                                            <a class="dropdown-item" href="#">Rapid test</a>
-                                            <a class="dropdown-item" href="#">Blood test</a>
-                                            <a class="dropdown-item" href="#">Nasopharyngeal swab</a>
+                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="NS">Nasal swab</a>
+                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="ST">Saliva test</a>
+                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="RT">Rapid test</a>
+                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="BT">Blood test</a>
+                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="NPS">Nasopharyngeal swab</a>
                                         </div>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="btn-group mb-1">
@@ -163,16 +173,18 @@
                                             City
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonSec">
-                                            <a class="dropdown-item" href="#">Richmond</a>
-                                            <a class="dropdown-item" href="#">Vancouver</a>
-                                            <a class="dropdown-item" href="#">Sechelt</a>
-                                            <a class="dropdown-item" href="#">Saanichton</a>
-                                            <a class="dropdown-item" href="#">Kelowna</a>
-                                            <a class="dropdown-item" href="#">Burnaby</a>
-                                            <a class="dropdown-item" href="#">Coquitlam</a>
+                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="R">Richmond</a>
+                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="V">Vancouver</a>
+                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="SE">Sechelt</a>
+                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="SA">Saanichton</a>
+                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="K">Kelowna</a>
+                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="B">Burnaby</a>
+                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="C">Coquitlam</a>
                                         </div>
                                     </div>
                                 </div>
+
+
                                 <table class="table table-striped" id="table1">
                                     <thead>
                                     <tr>
@@ -185,20 +197,21 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>4201231</td>
-                                        <td>123 street</td>
-                                        <td>Vancouver</td>
-                                        <td>Nasal swab</td>
-                                        <td>100</td>
-                                    </tr>
-                                    <tr>
-                                        <td>114224</td>
-                                        <td>234 street</td>
-                                        <td>Richmond</td>
-                                        <td>Rapid test</td>
-                                        <td>120</td>
-                                    </tr>
+
+                                    <?php
+                                    $sql = "SELECT , facility_ID, date, kind, amount FROM Inventory_Of_Tests";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0){
+                                        while($row = $result->fetch_assoc()){
+                                            echo "<tr>
+                                            <td>".$row["facility_ID"]."</td>
+                                            <td>".$row["kind"]."</td>
+                                            <td>".$row["amount"]."</td>
+                                            </tr>";
+                                        }
+                                    }
+                                    ?>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -225,10 +238,10 @@
     </div>
 </div>
 
-<script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
 
-<script src="assets/js/main.js"></script>
+<script src="../assets/js/main.js"></script>
 </body>
 
 </html>

@@ -1,4 +1,11 @@
 
+<?php
+include '../connect.php';
+$conn = OpenCon();
+
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,13 +87,13 @@
                                 </a>
                             </li>
                             <li class="sidebar-item active ">
-                                <a href="n_vaccine_inventory.html" class='sidebar-link'>
+                                <a href="n_vaccine_inventory.php" class='sidebar-link'>
                                     <i class="bi bi-collection-fill"></i>
                                     <span>Vaccine Inventory</span>
                                 </a>
                             </li>
                             <li class="sidebar-item  ">
-                                <a href="n_testingkit_inventory.html" class='sidebar-link'>
+                                <a href="n_testingkit_inventory.php" class='sidebar-link'>
                                     <i class="bi bi-collection-fill"></i>
                                     <span>Testing Kit Inventory</span>
                                 </a>
@@ -186,6 +193,21 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+
+                                        <?php
+                                        $sql = "SELECT , facility_ID, date, brand, amount FROM Inventory_Of_Vaccine";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0){
+                                            while($row = $result->fetch_assoc()){
+                                                echo "<tr>
+                                            <td>".$row["facility_ID"]."</td>
+                                            <td>".$row["kind"]."</td>
+                                            <td>".$row["amount"]."</td>
+                                            </tr>";
+                                            }
+                                        }
+                                        ?>
+
                                         <tr>
                                             <td>4201231</td>
                                             <td>123 street</td>

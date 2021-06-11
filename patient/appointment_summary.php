@@ -3,6 +3,17 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+    include '../connect.php';
+    $conn = OpenCon();
+    
+    session_start();
+    // for single page testing
+    if (!isset($_SESSION['userid'])) {
+        $_SESSION['userid'] = 80002;
+    }
+?>
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,39 +38,39 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="../medical.png" alt="Logo" srcset=""></a>
+                            <a href="../index.php"><img src="../medical.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="sidebar-menu active">
+                <div class="sidebar-menu ">
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
                         <li class="sidebar-item ">
-                            <a href="index.html" class='sidebar-link'>
+                            <a href="../index.html" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a href="booking.html" class='sidebar-link'>
+                        <li class="sidebar-item active">
+                            <a href="booking.php" class='sidebar-link'>
                                 <i class="bi bi-pen-fill"></i>
                                 <span>Book An Appointment</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item  ">
-                            <a href="vaccine_centres.html" class='sidebar-link'>
+                            <a href="vaccine_centres.php" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
                                 <span>Vaccination Centres</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item  ">
-                            <a href="testing_centres.html" class='sidebar-link'>
+                            <a href="testing_centres.php" class='sidebar-link'>
                                 <i class="bi bi-egg-fill"></i>
                                 <span>Testing Centres</span>
                             </a>
@@ -69,13 +80,13 @@
                         <li class="sidebar-title">My Records</li>
                         
                         <li class="sidebar-item  ">
-                            <a href="p_testing_record.html" class='sidebar-link'>
+                            <a href="p_testing_record.php" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>Testing Records</span>
                             </a>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="p_vaccine_record.html" class='sidebar-link'>
+                            <a href="p_vaccine_record.php" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>Vaccine Records</span>
                             </a>
@@ -84,7 +95,7 @@
                         <li class="sidebar-title"> </li>
                         
                         <li class="sidebar-item  ">
-                            <a href="login.html" class='sidebar-link'>
+                            <a href="../logout.php" class='sidebar-link'>
                                 <i class="bi bi-person-badge-fill"></i>
                                 <span>Logout</span>
                             </a>
@@ -114,49 +125,56 @@
                             <div class="card-body">
                                 <form class="form form-horizontal">
                                     <div class="form-body">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label>Name</label>
+                                        <div class="row">                                            
+                                            <div class="table-responsive">
+                                                <table class="table table-hover table-lg">
+                                                    <thead>
+                                                   </thead>
+                                                    <tbody>
+                                                        <?php
+                                                            $sql = "SELECT name, date, time, vaccine_brand, Vaccine_Center.address FROM Appointments, Patient, Vaccine_Center WHERE app_ID = {$_GET['appID']} AND Patient.user_ID = Appointments.p_ID AND Vaccine_Center.facility_ID = Appointments.facility_ID";
+                                                            $result = $conn->query($sql);
+                                                            if ($result->num_rows > 0){
+                                                                $row = $result->fetch_assoc();
+
+                                                                echo "<tr><td class='col-auto'>
+                                                                <p class=' mb-0'>name</p>
+                                                                </td><td class='col-auto'>
+                                                                <p class=' mb-0'>".$row["name"]."</p></td></tr>";
+                    
+                                                                echo "<tr><td class='col-auto'>
+                                                                <p class=' mb-0'>date</p>
+                                                                </td><td class='col-auto'>
+                                                                <p class=' mb-0'>".$row["date"]."</p></td></tr>";
+                                                                
+                                                                echo "<tr><td class='col-auto'>
+                                                                <p class=' mb-0'>time</p>
+                                                                </td><td class='col-auto'>
+                                                                <p class=' mb-0'>".$row["time"]."</p></td></tr>";
+
+                                                                echo "<tr><td class='col-auto'>
+                                                                <p class=' mb-0'>preferred brand</p>
+                                                                </td><td class='col-auto'>
+                                                                <p class=' mb-0'>".$row["vaccine_brand"]."</p></td></tr>";
+                                                                
+                                                                echo "<tr><td class='col-auto'>
+                                                                <p class=' mb-0'>location</p>
+                                                                </td><td class='col-auto'>
+                                                                <p class=' mb-0'>".$row["address"]."</p></td></tr>";
+
+                                                            }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                            <div class="col-md-8 form-group">
-                                                <input type="text" id="name" class="form-control" name="name"
-                                                    placeholder="name">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Date</label>
-                                            </div>
-                                            <div class="col-md-8 form-group">
-                                                <input type="date" id="date" class="form-control" name="date"
-                                                    placeholder="date">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Time</label>
-                                            </div>
-                                            <div class="col-md-8 form-group">
-                                                <input type="time" id="time" class="form-control" name="time"
-                                                    placeholder="time">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Preferred brand</label>
-                                            </div>
-                                            <div class="col-md-8 form-group">
-                                                <input type="text" id="brand" class="form-control" name="brand"
-                                                    placeholder="vaccine brand">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Location</label>
-                                            </div>
-                                            <div class="col-md-8 form-group">
-                                                <input type="text" id="location" class="form-control" name="location"
-                                                    placeholder="location">
-                                            </div>
+                                            
                                             <div class="col-sm-12 d-flex justify-content-end">
                                                 <form>
                                                     <script type="module">
                                                         import confetti from 'https://cdn.skypack.dev/canvas-confetti';
                                                         confetti();
                                                     </script>
-                                                    <button formaction="index.html">Return to main page</button>
+                                                    <button formaction="index.php">Return to main page</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -169,13 +187,16 @@
             </div>
         </div>
     </div>
-    <script src="assets~/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <?php
+        CloseCon($conn);
+    ?>
+    <script src="../assets~/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="assets/vendors/apexcharts/apexcharts.js"></script>
-    <script src="assets/js/pages/dashboard.js"></script>
+    <script src="../assets/vendors/apexcharts/apexcharts.js"></script>
+    <script src="../assets/js/pages/dashboard.js"></script>
 
-    <script src="assets/js/main.js"></script>
+    <script src="../assets/js/main.js"></script>
 </body>
 
 </html>

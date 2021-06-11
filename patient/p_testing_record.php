@@ -2,6 +2,17 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+    include '../connect.php';
+    $conn = OpenCon();
+    
+    session_start();
+    // for single page testing
+    if (!isset($_SESSION['userid'])) {
+        $_SESSION['userid'] = 80001;
+    }
+?>
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +39,7 @@
             <div class="sidebar-header">
                 <div class="d-flex justify-content-between">
                     <div class="logo">
-                        <a href="index.html"><img src="../medical.png" alt="Logo" srcset=""></a>
+                        <a href="index.php"><img src="../medical.png" alt="Logo" srcset=""></a>
                     </div>
                     <div class="toggler">
                         <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -40,27 +51,27 @@
                     <li class="sidebar-title">Menu</li>
 
                     <li class="sidebar-item ">
-                        <a href="index.html" class='sidebar-link'>
+                        <a href="index.php" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li class="sidebar-item  ">
-                        <a href="booking.html" class='sidebar-link'>
+                        <a href="booking.php" class='sidebar-link'>
                             <i class="bi bi-pen-fill"></i>
                             <span>Book An Appointment</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item  ">
-                        <a href="vaccine_centres.html" class='sidebar-link'>
+                        <a href="vaccine_centres.php" class='sidebar-link'>
                             <i class="bi bi-hexagon-fill"></i>
                             <span>Vaccination Centres</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item  ">
-                        <a href="testing_centres.html" class='sidebar-link'>
+                        <a href="testing_centres.php" class='sidebar-link'>
                             <i class="bi bi-egg-fill"></i>
                             <span>Testing Centres</span>
                         </a>
@@ -70,13 +81,13 @@
                     <li class="sidebar-title">My Records</li>
 
                     <li class="sidebar-item  active">
-                        <a href="p_testing_record.html" class='sidebar-link'>
+                        <a href="p_testing_record.php" class='sidebar-link'>
                             <i class="bi bi-file-earmark-medical-fill"></i>
                             <span>Testing Records</span>
                         </a>
                     </li>
                     <li class="sidebar-item  ">
-                        <a href="p_vaccine_record.html" class='sidebar-link'>
+                        <a href="p_vaccine_record.php" class='sidebar-link'>
                             <i class="bi bi-file-earmark-medical-fill"></i>
                             <span>Vaccine Records</span>
                         </a>
@@ -85,7 +96,7 @@
                     <li class="sidebar-title"> </li>
 
                     <li class="sidebar-item  ">
-                        <a href="login.html" class='sidebar-link'>
+                        <a href="../logout.php" class='sidebar-link'>
                             <i class="bi bi-person-badge-fill"></i>
                             <span>Logout</span>
                         </a>
@@ -106,12 +117,12 @@
         </header>
 
         <div class="page-heading">
-            <h3>Cough Here Often? ;)</h3>
+            <h3>Record of Tests</h3>
         </div>
         <section class="section">
             <div class="card">
                 <div class="card-header">
-                    Your Testing Record
+                    <h4><b>Your Testing Record</b></h4>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="table1">
@@ -120,43 +131,33 @@
                             <th>User id</th>
                             <th>Record id</th>
                             <th>Date</th>
-                            <th>Location</th>
                             <th>Result</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>abcd</td>
-                            <td>123</td>
-                            <td>2021-02-10</td>
-                            <td>2345 LowerMall Vancouver</td>
-                            <td>Negative</td>
-                        </tr>
-                        <tr>
-                            <td>abcd</td>
-                            <td>456</td>
-                            <td>2021-05-10</td>
-                            <td>UBC hospital</td>
-                            <td>Negative</td>
-                        </tr>
+                        <?php                                                            
+                            $sql = "SELECT user_ID, record_ID, date, result FROM Testing_Record where user_ID = {$_SESSION['userid']}";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0){
+                                while($row = $result->fetch_assoc()){
+                                    echo "<tr>
+                                    <td>".$row["user_ID"]."</td>
+                                    <td>".$row["record_ID"]."</td>
+                                    <td>".$row["date"]."</td>
+                                    <td>".$row["result"]."</td>
+                                    </tr>";
+                                }
+                            }
+                        ?>
                         </tbody>
                     </table>
                 </div>
             </div>
 
         </section>
-
-        <footer>
-            <div class="footer clearfix mb-0 text-muted">
-                <div class="float-start">
-                    <p>2021 &copy; Mazer</p>
-                </div>
-                <div class="float-end">
-                    <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                            href="http://ahmadsaugi.com">A. Saugi</a></p>
-                </div>
-            </div>
-        </footer>
+        <?php
+            CloseCon($conn);
+        ?>    
     </div>
 </div>
 <script src="assets~/perfect-scrollbar/perfect-scrollbar.min.js"></script>

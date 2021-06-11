@@ -1,7 +1,16 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+    include '../connect.php';
+    $conn = OpenCon();
+    
+    session_start();
+    // for single page testing
+    if (!isset($_SESSION['userid'])) {
+        $_SESSION['userid'] = 80001;
+    }
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +42,7 @@
             <div class="sidebar-header">
                 <div class="d-flex justify-content-between">
                     <div class="logo">
-                        <a href="index.html"><img src="../medical.png" alt="Logo" srcset=""></a>
+                        <a href="index.php"><img src="../medical.png" alt="Logo" srcset=""></a>
                     </div>
                     <div class="toggler">
                         <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -45,27 +54,27 @@
                     <li class="sidebar-title">Menu</li>
 
                     <li class="sidebar-item ">
-                        <a href="index.html" class='sidebar-link'>
+                        <a href="index.php" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li class="sidebar-item  active">
-                        <a href="booking.html" class='sidebar-link'>
+                        <a href="booking.php" class='sidebar-link'>
                             <i class="bi bi-pen-fill"></i>
                             <span>Book An Appointment</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item  ">
-                        <a href="vaccine_centres.html" class='sidebar-link'>
+                        <a href="vaccine_centres.php" class='sidebar-link'>
                             <i class="bi bi-hexagon-fill"></i>
                             <span>Vaccination Centres</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item  ">
-                        <a href="testing_centres.html" class='sidebar-link'>
+                        <a href="testing_centres.php" class='sidebar-link'>
                             <i class="bi bi-egg-fill"></i>
                             <span>Testing Centres</span>
                         </a>
@@ -75,13 +84,13 @@
                     <li class="sidebar-title">My Records</li>
 
                     <li class="sidebar-item  ">
-                        <a href="p_testing_record.html" class='sidebar-link'>
+                        <a href="p_testing_record.php" class='sidebar-link'>
                             <i class="bi bi-file-earmark-medical-fill"></i>
                             <span>Testing Records</span>
                         </a>
                     </li>
                     <li class="sidebar-item  ">
-                        <a href="p_vaccine_record.html.html" class='sidebar-link'>
+                        <a href="p_vaccine_record.php" class='sidebar-link'>
                             <i class="bi bi-file-earmark-medical-fill"></i>
                             <span>Vaccine Records</span>
                         </a>
@@ -90,7 +99,7 @@
                     <li class="sidebar-title"> </li>
 
                     <li class="sidebar-item  ">
-                        <a href="login.html" class='sidebar-link'>
+                        <a href="../logout.php" class='sidebar-link'>
                             <i class="bi bi-person-badge-fill"></i>
                             <span>Logout</span>
                         </a>
@@ -110,56 +119,70 @@
             </a>
         </header>
         <div class="page-heading">
-            <h3>Cough Here Often? ;)</h3>
+            <h3>Book an Appointment</h3>
         </div>
 
-
-                                <div class="agileits_reservation">
-                                            <form action="#" method="post">
-                                                <h2>Vaccine Appointment Booking</h2>
-                                        <div class="cuisine">
-                                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                            <label for="location"></label>
-                                            <select class="frm-field sect" id="location" name="Text" required>
-                                                <option value="">Select Location</option>
-                                                <option value="1">A street</option>
-                                                <option value="2">B street</option>
-                                                <option value="3">C street</option>
-                                                <option value="4">D street</option>
-                                                <option value="5">E street</option>
-                                            </select>
-                                        </div>
-                                        <div class="agileits_reservation_grid">
-                                            <div class="cuisine">
-                                                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                                                <label for="datepicker"></label>
-                                                <input class="date" id="datepicker" name="Text" placeholder="Select Date"  type="text" required="">
-                                            </div>
-                                            <div class="cuisine">
-                                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                                <label for="time"></label>
-                                                <input type="text" id="time" name="Time" class="timepicker" value=" Time">
-                                            </div>
-                                            <div class="cuisine">
-                                                <!-- start_section_room -->
-                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                                <label for="vaccineb"></label>
-                                                <select class="frm-field sect" id="vaccineb" name="Text" required>
-                                                    <option value="">Select Vaccine</option>
-                                                    <option value="1">Moderna</option>
-                                                    <option value="2">Janssen</option>
-                                                    <option value="3">Pfizer-BioNTech</option>
-                                                    <option value="4">AstraZeneca</option>
-                                                    <option value="5">Novavax</option>
-                                                    <option value="5">Gamaleya</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="date_btn">
-                                            <input type="submit" value="Book An Appointment" />
-                                        </div>
-                                            </form>
-                                        </div>
+        <div class="agileits_reservation">
+            <form action="#" method="post">
+                <h2>Vaccine Appointment Booking</h2>
+                <div class="cuisine">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    <label for="location"></label>
+                    <select class="frm-field sect" id="location" name="Text" required>
+                        <option value="">Select Location</option>
+                        <?php 
+                            $sql = "SELECT facility_ID, address, city FROM Vaccine_Center";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                            // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                    echo "<option value=".$row["facility_ID"];
+                                    if(isset($_GET['f_ID'])) {
+                                        if($_GET['f_ID'] == $row["facility_ID"]){
+                                            echo " selected='selected'";
+                                        }
+                                    }
+                                    echo ">".$row["address"].", ".$row["city"]."</option>";
+                                }
+                            }
+                        ?>
+                    </select>
+                </div>
+                <div class="agileits_reservation_grid">
+                    <div class="cuisine">
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                        <label for="datepicker"></label>
+                        <input class="date" id="datepicker" name="Text" placeholder="Select Date"  type="text" required="">
+                    </div>
+                    <div class="cuisine">
+                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                        <label for="time"></label>
+                        <input type="text" id="time" name="Time" class="timepicker" value=" Time">
+                    </div>
+                    <div class="cuisine">
+                        <!-- start_section_room -->
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <label for="vaccineb"></label>
+                        <select class="frm-field sect" id="vaccineb" name="Text" required>
+                            <option value="">Select Vaccine</option>
+                            <?php 
+                                $sql = "SELECT brand FROM Vaccine_Brand_Delivery";
+                                $result = $conn->query($sql);
+                                if ($result->num_rows > 0) {
+                                // output data of each row
+                                    while($row = $result->fetch_assoc()) {
+                                        echo "<option value=".$row["brand"].">".$row["brand"]."</option>";
+                                    }
+                                }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="date_btn">
+                    <input type="submit" value="Book An Appointment" />
+                </div>
+            </form>
+        </div>
 
     </div>
 </div>

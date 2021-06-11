@@ -14,9 +14,15 @@
     <link rel="stylesheet" href="../assets/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/app.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
+	
     <div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
@@ -130,8 +136,12 @@
 									<h4 class="card-title">Vaccination Record</h4>
             						</div>
             						<div class="col-sm-2 col-12 d-flex justify-content-end">
-								  <button type="submit" class="btn btn-success me-1 mb-1">New Record</button>
-           						 </div>
+									<div class="form-group">
+								  		<a href="new_vaccine_record.php" type="button" class="btn btn-sm btn-success">
+                                                New Record
+										</a>
+									</div>
+           						</div>
 							</div>
 							 <table class="table table-striped" id="table1">
 								<thead>
@@ -150,8 +160,7 @@
 									<td>vehicula.a</td>
 									<td>076 4820 8838</td>
 									<td>Offenburg</td>
-									<td><button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
-                                                data-bs-target="#inlineForm">
+									<td><button type="button" class="btn btn-sm btn-outline-primary">
                                                 Update
                                             </button> </td>
 									<td>
@@ -195,7 +204,7 @@
                                     <h4 class="card-title">Testing Record</h4>
             						</div>
             						<div class="col-sm-2 col-12 d-flex justify-content-end">
-								  <button type="submit" class="btn btn-success me-1 mb-1">New Record</button>
+								  <a href="new_testing_record.php" type="submit" class="btn btn-sm btn-success me-1 mb-1">New Record</a>
            						 </div>
 							</div>
 							 <table class="table table-striped" id="table1">
@@ -230,6 +239,7 @@
                                   			"</td><td class='border-class'>".$row["date"].
                                    		"</td><td class='border-class'>".$row["brand"].
                                    		"</td><td class='border-class'>".$row["dose"].
+
                                    		"</td></tr>";
 								   	}
 								   	echo "</table>";

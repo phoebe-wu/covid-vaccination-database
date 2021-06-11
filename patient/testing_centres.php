@@ -117,9 +117,10 @@
 						 <div class="card-body">
 							<form class="form">
 							    <div class="row">
-								   <div class="col-12">
+								   <div class="col-md-6 col-12">
 									<div class="form-group">
 									    <label for="city-column">City</label>
+                                        <p> Select your preferred city </p>
 									    <select class="choices form-select">
 										   <option selected> Choose... </option>
 										   <option value="richmond">Richmond</option>
@@ -131,8 +132,20 @@
 										   <option value="coquitlam">Coquitlam</option>
 									    </select>
 									</div>
-									<br>
 								   </div>
+                                   <div class="col-md-6 col-12">
+												<div class="form-group">
+													<label for="vaccine-column">Testing Method</label>
+													<p> Select all your preferred testing methods </p>
+                                                    	<select class="choices form-select multiple-remove" multiple="multiple">
+                                                        	<option value="nasal swab">Nasal Swab</option>
+                                                        	<option value="saliva test">Saliva Test</option>
+                                                        	<option value="rapid test">Rapid Test</option>
+                                                        	<option value="blood test">Blood Test</option>
+                                                            <option value="nasopharyngeal test">Nasopharyngeal Test</option>
+                                                    	</select>
+											    </div>
+                                    </div>
 								   <div class="col-md-6 col-12">
 									 <div class="checkbox">
 										<input type="checkbox" id="checkbox5"
@@ -154,6 +167,7 @@
 										 class="btn btn-light-secondary me-1 mb-1">Reset</button>
 								   </div>
 							    </div>
+                                <br>
 							    <table class="table table-striped" id="table1">
 								    <tr>
 									   <th>Address</th>
@@ -210,13 +224,8 @@
             </footer>
         </div>
     </div>
-    <script src="assets~/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script>
-        // Simple Datatable
-        let table1 = document.querySelector('#table1');
-        let dataTable = new simpleDatatables.DataTable(table1);
-    </script>
-	<script src="assets/choices.min.js"></script>	
+    <script src="../assets~/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script src="../assets/choices.min.js"></script>	
     
 </body>
 

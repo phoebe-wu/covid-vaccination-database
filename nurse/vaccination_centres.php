@@ -125,6 +125,7 @@
             </div>
 		  <br>
 			<section id="multiple-column-form">
+				
 				<div class="row match-height">
 					<div class="col-12">
 						<div class="card">
@@ -137,9 +138,10 @@
 								<div class="card-body">
 									<form class="form">
 										<div class="row">
-											<div class="col-12">
+											<div class="col-md-6 col-12">
 												<div class="form-group">
 													<label for="city-column">City</label>
+													<p> Select your preferred city </p>
 													<select class="choices form-select">
 														<option selected> Choose... </option>
 														<option value="richmond">Richmond</option>
@@ -152,6 +154,19 @@
 													</select>
 												</div>
 											</div>
+											<div class="col-md-6 col-12">
+												<div class="form-group">
+													<label for="vaccine-column">Vaccine Brand</label>
+													<p> Select all your preferred brands </p>
+                                                    			<select class="choices form-select multiple-remove" multiple="multiple">
+                                                        			<option value="moderna">Moderna</option>
+                                                        			<option value="pfizer">Pfizer</option>
+                                                        			<option value="janssen">Janssen</option>
+                                                        			<option value="astra zeneca">Astra Zeneca</option>
+                                                    			</select>
+												</div>
+                                                		</div>
+                                               		</div>
 											<div class="col-12 d-flex justify-content-end">
 												<button type="submit"
 													class="btn btn-primary me-1 mb-1">Filter</button>
@@ -159,6 +174,7 @@
 													class="btn btn-light-secondary me-1 mb-1">Reset</button>
 											</div>
 										</div>
+										<br>
 										<table class="table table-striped" id="table1">
 											<thead>
 												<tr>
@@ -239,13 +255,7 @@
 	</div>
 
 	<script src="assets~/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script src="assets/simple-datatables.js"></script>
-	<script>
-		// Simple Datatable
-		let table1 = document.querySelector('#table1');
-		let dataTable = new simpleDatatables.DataTable(table1);
-	</script>
-	<script src="assets/choices.min.js"></script>
+	<script src="../assets/choices.min.js"></script>
 
 </body>
 

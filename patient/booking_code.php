@@ -1,13 +1,21 @@
 <?php
 session_start();
-require 'connect.php';
+require '../connect.php';
 
 
 
-function handleSubmitRequest($conn) {
+function handleSubmitRequest($conn)
+{
 
     $pid = $_SESSION['userid'];
+
     $time = $_POST['Time'];
+    echo "<br>TIME $time <br>";
+//    $infot = date_parse($time);
+//    var_dump($infot);
+//    echo "--------------";
+    $time_in_24_h  = date("H:i:s", strtotime(str_replace(' ', '', strval($time))));
+    echo "<br>TIME24 INPUT $time_in_24_h <br>";
     $date = $_POST['Date'];
     $vaccineB = $_POST['vaccineB'];
     $loc_id = $_POST['loc_id'];
@@ -48,8 +56,8 @@ function handleSubmitRequest($conn) {
             echo "<br>Email or password wrong. Auto-refresh in 1 seconds.<br>";
         }
     }
-    # CloseCon($conn);
 }
+
 
 
 function handlePOSTRequest() {

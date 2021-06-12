@@ -4,6 +4,7 @@
 <?php
     include '../connect.php';
     $conn = OpenCon();
+    
 ?>
 <head>
 	<meta charset="UTF-8">
@@ -129,7 +130,7 @@
 													<p> Select your preferred city </p>
 													<select class="choices form-select">
 														<option selected> Choose... </option>
-                                                        <?php 
+                                                        	<?php 
                                                             $sql = "SELECT city FROM Vaccine_Center";
                                                             $result = $conn->query($sql);
                                                             if ($result->num_rows > 0) {
@@ -138,7 +139,7 @@
                                                                     echo "<option value=".$row["city"].">".$row["city"]."</option>";
                                                                 }
                                                             }
-                                                        ?>
+                                                        	?>
 													</select>
 												</div>
 											</div>
@@ -147,7 +148,7 @@
 													<label for="vaccine-column">Vaccine Brand</label>
 													<p> Select all your preferred brands </p>
                                                     <select class="choices form-select multiple-remove" multiple="multiple">
-                                                        <?php 
+                                                        	<?php 
                                                             $sql = "SELECT brand FROM Vaccine_Brand_Delivery";
                                                             $result = $conn->query($sql);
                                                             if ($result->num_rows > 0) {
@@ -156,7 +157,7 @@
                                                                     echo "<option value=".$row["brand"].">".$row["brand"]."</option>";
                                                                 }
                                                             }
-                                                        ?>
+                                                        	?>
                                                     </select>
 												</div>
                                             </div>
@@ -191,7 +192,7 @@
                                                     "</td><td class='border-class'>".$row["city"].
                                                     "</td><td class='border-class'>".$row["opening_time"].
                                                     "</td><td class='border-class'>".$row["closing_time"].
-                                                "</td><td class='border-class'>".$row["facility_type"].
+                                                "	</td><td class='border-class'>".$row["facility_type"].
                                                     "</td><td>
                                                         <a href='booking.php?f_ID=".$row["facility_ID"]."'
                                                         class='badge bg-light-primary'> Book Here</a>

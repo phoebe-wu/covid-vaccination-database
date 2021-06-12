@@ -1,3 +1,7 @@
+<?php
+    include '../connect.php';
+    $conn = OpenCon();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -166,10 +170,16 @@
                                                             <option value="interior">Interior</option>
                                                         </optgroup>
                                                         <optgroup label="City">
-                                                            <option value="richmond">Richmond</option>
-                                                            <option value="burnaby">Burnaby</option>
-                                                            <option value="kewlona">Kewlona</option>
-                                                            <option value="saanichton">Saanichton</option>
+                                                        <?php 
+                                                            $sql = "SELECT city FROM Vaccine_Center";
+                                                            $result = $conn->query($sql);
+                                                            if ($result->num_rows > 0) {
+                                                            // output data of each row
+                                                                while($row = $result->fetch_assoc()) {
+                                                                    echo "<option value=".$row["city"].">".$row["city"]."</option>";
+                                                                }
+                                                            }
+                                                        ?>
                                                         </optgroup>
                                                     </select>
                                             </div>
@@ -226,29 +236,23 @@
 									   <th>Name</th>
                                        <th>Address</th>
 									   <th>Age</th>
-									   <th class="text-center align-middle">Manage Record</th>
-                                       <th class="text-center align-middle">Delete Patient</th>
+									   <th>Manage Record</th>
+                                       <th>Delete Patient</th>
 								    </tr>
 								    <?php
-								   include '../connect.php';
-                                   	$conn = OpenCon();
 								   $sql = "SELECT * FROM Patient";
 								   $result = $conn->query($sql);
 								   if ($result->num_rows > 0) {
 								   // output data of each row
 								   while($row = $result->fetch_assoc()) {
-                                    ?>
-                                    <tr>
-                                    <td><?php echo $row['phn']; ?></a></td>
-                                    <td><?php echo $row['name']; ?></td>
-                                    <td><?php echo $row['address']; ?></td>
-                                    <td><?php echo $row['age']; ?></td>
-                                    <td class="text-center align-middle"><button name="action" type="submit" value="Update" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#myModal">Manage</button>
-                                    <td class="text-center align-middle"><button name="deletePatient" value="Delete" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete_patient">Delete</button>
-                                    
-                                  </td>
-                                  </tr>
-                                  <?php
+                                    echo "<tr>";
+                                    echo "<td>".$row['phn']."</td>";
+                                    echo "<td>".$row['name']."</td>";
+                                    echo "<td>".$row['address']."</td>";
+                                    echo "<td>".$row['age']."</td>";
+                                    echo "<td> <a href='patient_record.php?id=".$row["user_ID"]."'class='badge bg-light-primary'> Manage</a></td>";
+                                    echo "<td> <a href='patient_record.php?id=".$row["user_ID"]."'class='badge bg-light-danger'> Delete</a></td>";
+                                    echo "</tr>";
 								   }
 								   echo "</table>";
 								   } else {

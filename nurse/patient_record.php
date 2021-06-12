@@ -1,3 +1,13 @@
+<?php 
+include '../connect.php';
+$conn = OpenCon();
+
+session_start();
+    // for single page testing
+    if(!isset($_GET['id'])) {
+        $_GET['id'] = 80002;
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -112,7 +122,13 @@
 			 <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>Patient Record - Test Patient</h3>
+                            <?php
+                                $sql = "SELECT * FROM Patient WHERE user_ID = {$_GET['id']}";
+                                $results = $conn->query($sql);
+                                            
+                                $row = $results->fetch_assoc();
+                                echo '<h3 >Patient Record - ' . $row['name'] . '</h3>';
+                            ?>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -150,43 +166,29 @@
 									<th>Date</th>
 									<th>Vaccine</th>
 									<th>Dose</th>
-									<th>Update</th>
 									<th>Delete</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-									<td>Graiden</td>
-									<td>vehicula.a</td>
-									<td>076 4820 8838</td>
-									<td>Offenburg</td>
-									<td><button type="button" class="btn btn-sm btn-outline-primary">
-                                                Update
-                                            </button> </td>
-									<td>
-									<a href="#" class="btn btn-sm btn-outline-danger">Delete</a></td>
-									</td>
-									</tr>
 									<?php
-									include '../connect.php';
-                                   		$conn = OpenCon();
-								   	$sql = "SELECT * FROM Vaccine_Record";
+								   	$sql = "SELECT record_ID, date, dose, brand FROM Vaccine_Record where user_ID = {$_GET['id']}";
 								   	$result = $conn->query($sql);
 								   	if ($result->num_rows > 0) {
 								   	// output data of each row
 									while($row = $result->fetch_assoc()) {
-                                        	echo "<tr><td class='border-class'>".$row["record_id"].
-                                  			"</td><td class='border-class'>".$row["date"].
-                                   		"</td><td class='border-class'>".$row["brand"].
-                                   		"</td><td class='border-class'>".$row["dose"].
-                                   		"</td></tr>";
+                                        echo "<tr>";
+                                        echo "<td>".$row['record_ID']."</td>";
+                                        echo "<td>".$row['date']."</td>";
+                                        echo "<td>".$row['brand']."</td>";
+                                        echo "<td>".$row['dose']."</td>";
+                                        echo "<td> <a href='patient_record.php?id=".$row["user_ID"]."'class='badge bg-light-danger'> Delete</a></td>";
+                                        echo "</tr>";
 								   	}
 								   	echo "</table>";
 								   	} else {
 									echo "0 results";
-								   	}
-								   	CloseCon($conn);
-								    	?>
+                                    }
+								    ?>
 									</tbody>
 								</table>
                               </div>
@@ -218,36 +220,26 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-									<td>Graiden</td>
-									<td>076 4820 8838</td>
-									<td>Offenburg</td>
-									<td><a href="#" class="btn btn-sm btn-outline-primary">Update</a></td>
-									<td>
-									<a href="#" class="btn btn-sm btn-outline-danger">Delete</a></td>
-									</td>
-									</tr>
-									<?php
-									include '../connect.php';
-                                   		$conn = OpenCon();
-								   	$sql = "SELECT * FROM Testing_Record";
+								<?php
+								   	$sql = "SELECT record_ID, date, result FROM Testing_Record where user_ID = {$_GET['id']}";
 								   	$result = $conn->query($sql);
 								   	if ($result->num_rows > 0) {
 								   	// output data of each row
 									while($row = $result->fetch_assoc()) {
-                                        	echo "<tr><td class='border-class'>".$row["record_id"].
-                                  			"</td><td class='border-class'>".$row["date"].
-                                   		"</td><td class='border-class'>".$row["brand"].
-                                   		"</td><td class='border-class'>".$row["dose"].
-
-                                   		"</td></tr>";
+                                        echo "<tr>";
+                                        echo "<td>".$row['record_ID']."</td>";
+                                        echo "<td>".$row['date']."</td>";
+                                        echo "<td>".$row['result']."</td>";
+                                        echo "<td> <a href='patient_record.php?id=".$row["user_ID"]."'class='badge bg-light-primary'> Manage</a></td>";
+                                        echo "<td> <a href='patient_record.php?id=".$row["user_ID"]."'class='badge bg-light-danger'> Delete</a></td>";
+                                        echo "</tr>";
 								   	}
 								   	echo "</table>";
 								   	} else {
 									echo "0 results";
-								   	}
-								   	CloseCon($conn);
-								    	?>
+                                    }
+								    CloseCon($conn);
+								?>
 									</tbody>
 								</table>
                               </div>

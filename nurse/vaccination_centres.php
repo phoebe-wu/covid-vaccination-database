@@ -183,25 +183,9 @@
 													<th>Opening Time</th>
 													<th>Closing Time</th>
 													<th>Facility Type</th>
-													<th>Link to Book</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>Graiden</td>
-													<td>vehicula.aliquet@semconsequat.co.uk</td>
-													<td>076 4820 8838</td>
-													<td>Offenburg</td>
-													<td>
-														<span class="badge bg-success">Active</span>
-													</td>
-
-													<td>Pharmacy</td>
-													<td>
-														<a href="appointment_booking page/appointment_booking.html"
-															class="badge bg-light-primary"> Book Here</a>
-													</td>
-												</tr>
 												<?php
 								   			include '../connect.php';
                                    				$conn = OpenCon();

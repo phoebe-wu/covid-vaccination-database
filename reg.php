@@ -29,7 +29,7 @@ function handleRegisterRequest($conn) {
     $result = mysqli_query($conn, $sql);
     if ($result == false) {
         header("refresh:2; url='register.html'");
-        echo "<br>Register Unsuccessfully, try again. Auto-refresh in 1 second.<br>";
+        echo "<br>Register Unsuccessful, try again. Auto-refresh in 1 second.<br>";
         exit;
     } else {
         header('refresh:2; url=login.html');

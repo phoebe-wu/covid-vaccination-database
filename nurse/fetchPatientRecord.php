@@ -7,11 +7,7 @@ require 'connect.php';
 function handleSubmitRequest($conn) {
 
     $pid = $_SESSION['userid'];
-    $time = $_POST['Time'];
-    $date = $_POST['Date'];
-    $vaccineB = $_POST['vaccineB'];
-    $loc_id = $_POST['loc_id'];
-    $facilityid = //need query from v-c
+    $userid = //need query from v-c
 
     $nresult = $conn-> query("SELECT user_ID FROM Nurse");
     $ncount = $conn-> query("SELECT COUNT(*) FROM Nurse");
@@ -21,7 +17,7 @@ function handleSubmitRequest($conn) {
     }
     $nid =  $nids[rand()]
 
-    $facilityid = //need query from v-c
+    $userid = //need query from v-c
 
 
     if (($userid == '') || ($password == '')) {

@@ -173,9 +173,8 @@
 												<button type="reset"
 													class="btn btn-light-secondary me-1 mb-1">Reset</button>
 											</div>
-										</div>
-										<br>
-										<table class="table table-striped" id="table1">
+											<br>
+											<table class="table table-striped" id="table1">
 											<thead>
 												<tr>
 													<th>Address</th>
@@ -228,17 +227,12 @@
 											</tbody>
 										</table>
 										</div>
+									</form>
 								</div>
-								</form>
 							</div>
 						</div>
 					</div>
 				</div>
-		</div>
-		<div class="card-body">
-
-		</div>
-
 		</section>
 
 		<footer>

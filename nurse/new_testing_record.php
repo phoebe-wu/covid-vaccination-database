@@ -158,7 +158,7 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
-                                                                <input type="email" class="form-control"
+                                                                <input type="text" class="form-control"
                                                                     placeholder="User ID" id="first-name-icon">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-person"></i>
@@ -186,21 +186,21 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
-												<div class="form-check">
+												    <div class="form-check">
                                         					<input class="form-check-input" type="radio" name="flexRadioDefault"
                                             						id="flexRadioDefault1">
                                         					<label class="form-check-label" for="flexRadioDefault1">
                                             						Positive
                                         					</label>
                                    					 </div>
-												 <div class="form-check">
+												    <div class="form-check">
                                         					<input class="form-check-input" type="radio" name="flexRadioDefault"
                                             						id="flexRadioDefault1">
                                         					<label class="form-check-label" for="flexRadioDefault1">
                                             						Negative
                                         					</label>
                                    					 </div>
-												 <div class="form-check">
+												    <div class="form-check">
                                         					<input class="form-check-input" type="radio" name="flexRadioDefault"
                                             						id="flexRadioDefault1">
                                         					<label class="form-check-label" for="flexRadioDefault1">

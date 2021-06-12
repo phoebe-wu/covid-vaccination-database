@@ -142,7 +142,7 @@
                                             echo " selected='selected'";
                                         }
                                     }
-                                    echo " <option value= ".$row["facility_ID"]." > ".$row["address"].", ".$row["city"]."</option>  ";
+                                    echo ">".$row["address"].", ".$row["city"]."</option>";
                                 }
                             }
                         ?>

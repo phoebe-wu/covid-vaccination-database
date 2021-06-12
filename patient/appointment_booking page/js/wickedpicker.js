@@ -311,7 +311,7 @@
          * @param {object} The input element
          */
         setText: function (input) {
-            $(input.target).val(this.formatTime(this.selectedHour, this.selectedMin));
+            $(input.target).val(this.formatTime(this.selectedHour, this.selectedMin, this.selectedMeridiem));
         },
 
         /*
@@ -336,10 +336,10 @@
          */
         formatTime: function (hour, min, meridiem) {
             if (this.options.twentyFour) {
-                return hour+':'+min;
+                return hour + ' : ' + min;
             }
             else {
-                return hour+':'+min;
+                return hour + ' : ' + min + ' ' + meridiem;
             }
         },
 
@@ -357,7 +357,7 @@
          */
         _time: function () {
             var inputValue = $(this.element).val();
-            return (inputValue === '') ? this.formatTime(this.selectedHour, this.selectedMin, this.selectedMeridiem):inputValue;
+            return (inputValue === '') ? this.formatTime(this.selectedHour, this.selectedMin, this.selectedMeridiem) : inputValue;
         }
     });
 

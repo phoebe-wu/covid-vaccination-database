@@ -192,7 +192,7 @@
     let table1 = document.querySelector('#table1');
     let dataTable = new simpleDatatables.DataTable(table1);
 </script>
-<script src="assets/choices.min.js"></script>
+<script src="../assets/choices.min.js"></script>
 <!-- js -->
 <script type="text/javascript" src="appointment_booking%20page/js/jquery-2.1.4.min.js"></script>
 <!-- carousal -->
@@ -258,7 +258,7 @@
 <!-- Time select -->
 <script type="text/javascript" src="appointment_booking%20page/js/wickedpicker.js"></script>
 <script type="text/javascript">
-    $('.timepicker').wickedpicker({twentyFour: false});
+    $('.timepicker').wickedpicker({twentyFour: true});
 </script>
 <!-- //Time select -->
 <!-- Calendar -->

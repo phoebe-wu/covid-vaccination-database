@@ -16,8 +16,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vaccination Centres - BC Health COVID-19</title>
 
-    <link href="../appointment_booking%20page/css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="../appointment_booking%20page/css/wickedpicker.css" rel="stylesheet" type='text/css' media="all" />  <!-- time-picker-CSS -->
+    <link href="../patient/appointment_booking%20page/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../patient/appointment_booking%20page/css/wickedpicker.css" rel="stylesheet" type='text/css' media="all" />  <!-- time-picker-CSS -->
     <link href="http://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 
@@ -123,12 +123,12 @@
         </div>
 
         <div class="agileits_reservation">
-            <form action="#" method="post">
+            <form action="booking_code.php" method="post">
                 <h2>Vaccine Appointment Booking</h2>
                 <div class="cuisine">
                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                     <label for="location"></label>
-                    <select class="frm-field sect" id="location" name="Text" required>
+                    <select class="frm-field sect" id="location" name="f_id" required>
                         <option value="">Select Location</option>
                         <?php 
                             $sql = "SELECT facility_ID, address, city FROM Vaccine_Center";
@@ -142,7 +142,7 @@
                                             echo " selected='selected'";
                                         }
                                     }
-                                    echo ">".$row["address"].", ".$row["city"]."</option>";
+                                    echo " <option value= ".$row["facility_ID"]." > ".$row["address"].", ".$row["city"]."</option>  ";
                                 }
                             }
                         ?>
@@ -152,7 +152,7 @@
                     <div class="cuisine">
                         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                         <label for="datepicker"></label>
-                        <input class="date" id="datepicker" name="Text" placeholder="Select Date"  type="text" required="">
+                        <input class="date" id="datepicker" name="Date" placeholder="Select Date"  type="text" required="">
                     </div>
                     <div class="cuisine">
                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
@@ -163,7 +163,7 @@
                         <!-- start_section_room -->
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                         <label for="vaccineb"></label>
-                        <select class="frm-field sect" id="vaccineb" name="Text" required>
+                        <select class="frm-field sect" id="vaccineb" name="vaccineB" required>
                             <option value="">Select Vaccine</option>
                             <?php 
                                 $sql = "SELECT brand FROM Vaccine_Brand_Delivery";
@@ -171,7 +171,7 @@
                                 if ($result->num_rows > 0) {
                                 // output data of each row
                                     while($row = $result->fetch_assoc()) {
-                                        echo "<option value=".$row["brand"].">".$row["brand"]."</option>";
+                                        echo " <option value= ".$row["brand"]." > ".$row["brand"]." </option>  ";
                                     }
                                 }
                             ?>
@@ -179,7 +179,7 @@
                     </div>
                 </div>
                 <div class="date_btn">
-                    <input type="submit" value="Book An Appointment" />
+                    <input type="submit" value="Book An Appointment" formaction="booking_code.php" name="submit" />
                 </div>
             </form>
         </div>

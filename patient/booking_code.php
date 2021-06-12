@@ -1,62 +1,55 @@
 <?php
 session_start();
-require 'connect.php';
+require '../connect.php';
 
 
 
-function handleSubmitRequest($conn) {
+function handleSubmitRequest($conn)
+{
 
     $pid = $_SESSION['userid'];
+
     $time = $_POST['Time'];
+    $time_in_24_h  = date("H:i:s", strtotime($time));
+
     $date = $_POST['Date'];
+    $date_changed = str_replace('/', '-', $date);
+    $date_in_dash =  date('Y-m-d', strtotime($date_changed));
+
     $vaccineB = $_POST['vaccineB'];
-    $loc_id = $_POST['loc_id'];
-    $facilityid = //need query from v-c
+    $facilityid = $_POST['f_id'];
+    echo "<br>pid: $pid, time:$time, date: $date, brand:$vaccineB, facilityid:$facilityid <br>";
+    //    randomly generate app_id
+    $aresult = $conn->query("SELECT app_ID FROM Appointments order by app_ID DESC");
+    $aid = ($aresult->fetch_row())[0] + 1;
+    $nresult = $conn->query("SELECT user_ID FROM Nurse");
+    $ncount = $conn->query("SELECT COUNT(*) FROM Nurse");
+    $nnum = ($ncount->fetch_row())[0];
+    echo "<br>aid is $aid <br>";
+    echo "<br>nid index is $nnum <br>";
+    echo "<br>before nid, all set.<br>";
 
-    $nresult = $conn-> query("SELECT user_ID FROM Nurse");
-    $ncount = $conn-> query("SELECT COUNT(*) FROM Nurse");
-    while($row = $nresult->fetch_row());
+    while ($row = $nresult->fetch_array()) ;
     {
-        $nids[]=$row;
+        $nids[] = $row;
     }
-    $nid =  $nids[rand()]
+    //    randomly generate n_id
+    echo "<br>the array nids is  $nids[0],$nids[1],$nids[2],$nids[3],$nids[4] <br>";
+    $nid = $nids[rand(0, ($nnum - 1))];
+    echo "<br>the THIS nid is  $nid <br>";
 
-    $facilityid = //need query from v-c
+    $sql = "INSERT INTO `Appointments`(`app_ID`, `time`, `date`, `p_ID`, `n_ID`, `vaccine_brand`, `facility_ID`) 
+VALUES ('$aid','$time_in_24_h','$date_in_dash','$pid','$nid','$vaccineB','$facilityid')";
 
-
-
-
-
-
-
-
-
-    if (($userid == '') || ($password == '')) {
-        header("refresh:2; url='login.html'");
-        echo "<br>Email or password cannot be empty. Auto-refresh in 1 second.<br>";
-        exit;
+    if ($conn->query($sql) === TRUE) {
+        header('refresh:6; url=appointment_summary.php');
+        echo "<br>Appointment booked successfully.<br>";
+    } else {
+        header('refresh:6; url=booking.php');
+        echo "Error: Appointment booking failed " . $sql . "<br>" . $conn->error;
     }
-    $sql = "SELECT Count(*) FROM Patient WHERE (Patient.user_ID='$userid' and Patient.PASSWORD='$password')";
-    $result = mysqli_query($conn, $sql);
-    $num = ($result->fetch_array())[0];
-
-    if ($num == 1) {
-        echo "<br>Logged In Successfully!<br>";
-        header('refresh:0.5; url=patient/index.php');
-    } else if ($num == 0) {
-        $sql_n = "SELECT Count(*) FROM Nurse WHERE (Nurse.user_ID='$userid' and Nurse.password='$password')";
-        $result_n = mysqli_query($conn, $sql_n);
-        $num_n = ($result_n->fetch_array())[0];
-        if ($num_n == 1) {
-            echo "<br>Hi Nurse. Logged In Successfully!<br>";
-            header('refresh:0.5; url=nurse/nurse_main.php');
-        } else if ($num_n == 0) {
-            header('refresh:2; url=login.html');
-            echo "<br>Email or password wrong. Auto-refresh in 1 seconds.<br>";
-        }
-    }
-    # CloseCon($conn);
 }
+
 
 
 function handlePOSTRequest() {

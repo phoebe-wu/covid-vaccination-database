@@ -158,7 +158,7 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
-                                                                <input type="email" class="form-control"
+                                                                <input type="text" class="form-control"
                                                                     placeholder="User ID" id="first-name-icon">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-person"></i>
@@ -186,15 +186,38 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="Vaccine">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-droplet-half"></i>
-                                                                </div>
+												    <div class="form-check">
+                                        					<input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            						id="flexRadioDefault1">
+                                        					<label class="form-check-label" for="flexRadioDefault1">
+                                            						Moderna
+                                        					</label>
+                                   					 </div>
+												    <div class="form-check">
+                                        					<input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            						id="flexRadioDefault1">
+                                        					<label class="form-check-label" for="flexRadioDefault1">
+                                            						Pfizer
+                                        					</label>
+                                   					 </div>
+												    <div class="form-check">
+                                        					<input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            						id="flexRadioDefault1">
+                                        					<label class="form-check-label" for="flexRadioDefault1">
+                                            						Janssen
+                                        					</label>
+                                   					</div>
+                                                    <div class="form-check">
+                                        					<input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            						id="flexRadioDefault1">
+                                        					<label class="form-check-label" for="flexRadioDefault1">
+                                            						Astra Zeneca
+                                        					</label>
+                                   					 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-										  <div class="col-md-4">
+										            <div class="col-md-4">
                                                         <label>Dose Number</label>
                                                     </div>
                                                     <div class="col-md-8">

@@ -129,18 +129,16 @@
                                 <div class="card-header">
                                     <h4 class="card-title">Find a Patient</h4>
 							 <p> Look up a patient with their name <span style="font-weight:bold;"> OR </span> personal health number </p>
+                                        <form method="post" action="patient_list.php">
                                             <div class="btn-group me-1 mb-1">
-                                                <fieldset class="form-group">
                                                     <select class="form-select" id="basicSelect">
                                                         <option selected>Vaccination Status</option>
                                                         <option>Vaccinated with One Dose</option>
                                                         <option>Vaccinated with Two Doses</option>
                                                         <option>Unvaccinated</option>
                                                     </select>
-                                                </fieldset>
                                             </div>
                                             <div class="btn-group me-1 mb-1">
-                                                <fieldset class="form-group">
                                                     <select class="form-select" id="basicSelect">
                                                         <option selected>Vaccine Brand</option>
                                                         <option>Moderna</option>
@@ -148,22 +146,18 @@
                                                         <option>Janssen</option>
                                                         <option>Astra Zeneca</option>
                                                     </select>
-                                                </fieldset>
                                             </div>
                                             <div class="btn-group me-1 mb-1">
-                                                <fieldset class="form-group">
                                                     <select class="form-select" id="basicSelect">
                                                         <option selected>Test Result</option>
                                                         <option>Positive</option>
                                                         <option>Negative</option>
                                                     </select>
-                                                </fieldset>
                                             </div>
 
                                             <div class="btn-group me-12 mb-1">
-                                                <fieldset class="form-group">
-                                                    <select class="choices form-select">
-                                                        <option seleted>Choose...</option>
+                                                    <select name="location" class="choices form-select">
+                                                        <option selected value="">Choose...</option>
                                                         <optgroup label="Health Authority">
                                                             <option value="fraser">Fraser</option>
                                                             <option value="coastal">Coastal</option>
@@ -178,28 +172,25 @@
                                                             <option value="saanichton">Saanichton</option>
                                                         </optgroup>
                                                     </select>
-                                                </fieldset>
                                             </div>
                                             <div class="btn-group me-1 mb-1">
-                                                <div class="form-group">
                                                     <input type="text" class="form-control" id="basicInput"
                                                     placeholder="Medical Condition">
-                                                </div>
                                             </div>
                                             <br>
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="row">
+                                            <div class="card-content">
+                                                 <div class="card-body">
+                                                <div class="row">
                                             <div class="col-md-6 mb-1">
-                                                <div class="input-group mb-3">
+                                            <div class="input-group mb-3">
 									   		<span class="input-group-text" id="basic-addon1"><i
                                                             class="bi bi-search"></i></span>
-                                                    	<input type="text" class="form-control"
+                                                    	<input type="text" class="form-control" name="nameToSearch"
                                                         	placeholder="Name"
                                                        	aria-label="Recipient's username"
-                                                        	aria-describedby="button-addon2">
-                                                    	<button class="btn btn-outline-secondary" type="button"
-                                                        id="button-addon2">Search</button>
+                                                        	aria-describedby="search_name">
+                                                    	<button class="btn btn-outline-secondary" type="submit" name="nameSubmit"
+                                                        id="search_name">Search</button>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 mb-1">
@@ -216,6 +207,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                  </form>
                                 </div>
                             </div>
                         </div>
@@ -232,11 +224,10 @@
 								    <tr>
 									   <th>PHN</th>
 									   <th>Name</th>
-									   <th>Age</th>
                                        <th>Address</th>
-                                       <th>Phone</th>
-									   <th>Manage Records</th>
-                                       <th>Delete Patient</th>
+									   <th>Age</th>
+									   <th class="text-center align-middle">Manage Record</th>
+                                       <th class="text-center align-middle">Delete Patient</th>
 								    </tr>
 								    <?php
 								   include '../connect.php';
@@ -246,12 +237,18 @@
 								   if ($result->num_rows > 0) {
 								   // output data of each row
 								   while($row = $result->fetch_assoc()) {
-                                        echo "<tr><td class='border-class'>".$row["phn"].
-                                   	"</td><td class='border-class'>".$row["name"].
-                                   	"</td><td class='border-class'>".$row["age"].
-                                   	"</td><td class='border-class'>".$row["address"].
-                                   	"</td><td class='border-class'>".$row["phone"].
-                                   	"</td></tr>";
+                                    ?>
+                                    <tr>
+                                    <td><?php echo $row['phn']; ?></a></td>
+                                    <td><?php echo $row['name']; ?></td>
+                                    <td><?php echo $row['address']; ?></td>
+                                    <td><?php echo $row['age']; ?></td>
+                                    <td class="text-center align-middle"><button name="action" type="submit" value="Update" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#myModal">Manage</button>
+                                    <td class="text-center align-middle"><button name="deletePatient" value="Delete" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete_patient">Delete</button>
+                                    
+                                  </td>
+                                  </tr>
+                                  <?php
 								   }
 								   echo "</table>";
 								   } else {
@@ -274,6 +271,5 @@
 		 </section>
     </div>
     <script src="../assets~/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script src="assets/choices.min.js"></script>	
 </body>
 </html>

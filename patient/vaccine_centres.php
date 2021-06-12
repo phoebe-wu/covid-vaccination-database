@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+    include '../connect.php';
+    $conn = OpenCon();
+?>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +32,7 @@
 				<div class="sidebar-header">
 					<div class="d-flex justify-content-between">
 						<div class="logo">
-							<a href="index.html"><img src="../medical.png" alt="Logo" srcset=""></a>
+							<a href="index.php"><img src="../medical.png" alt="Logo" srcset=""></a>
 						</div>
 						<div class="toggler">
 							<a href="#" class="sidebar-hide d-xl-none d-block"><i
@@ -41,13 +45,13 @@
 						<li class="sidebar-title">Menu</li>
 
 						<li class="sidebar-item ">
-							<a href="index.html" class='sidebar-link'>
+							<a href="index.php" class='sidebar-link'>
 								<i class="bi bi-grid-fill"></i>
 								<span>Dashboard</span>
 							</a>
 						</li>
 						<li class="sidebar-item  ">
-							<a href="booking.html" class='sidebar-link'>
+							<a href="booking.php" class='sidebar-link'>
 								<i class="bi bi-pen-fill"></i>
 								<span>Book An Appointment</span>
 							</a>
@@ -71,13 +75,13 @@
 						<li class="sidebar-title">My Records</li>
 
 						<li class="sidebar-item  ">
-							<a href="p_testing_record.html" class='sidebar-link'>
+							<a href="p_testing_record.php" class='sidebar-link'>
 								<i class="bi bi-file-earmark-medical-fill"></i>
 								<span>Testing Records</span>
 							</a>
 						</li>
 						<li class="sidebar-item  ">
-							<a href="p_vaccine_record.html" class='sidebar-link'>
+							<a href="p_vaccine_record.php" class='sidebar-link'>
 								<i class="bi bi-file-earmark-medical-fill"></i>
 								<span>Vaccine Records</span>
 							</a>
@@ -86,7 +90,7 @@
 						<li class="sidebar-title"> </li>
 
 						<li class="sidebar-item  ">
-							<a href="login.html" class='sidebar-link'>
+							<a href="../logout.php" class='sidebar-link'>
 								<i class="bi bi-person-badge-fill"></i>
 								<span>Logout</span>
 							</a>
@@ -104,7 +108,7 @@
 			</header>
 
 			<div class="page-heading">
-				<h3>Cough Here Often? ;)</h3>
+				<h3>Vaccination Centres</h3>
 			</div>
 			<section id="multiple-column-form">
 				<div class="row match-height">
@@ -125,13 +129,16 @@
 													<p> Select your preferred city </p>
 													<select class="choices form-select">
 														<option selected> Choose... </option>
-														<option value="richmond">Richmond</option>
-														<option value="vancouver">Vancouver</option>
-														<option value="sechelt">Sechelt</option>
-														<option value="saanichton">Saanichton</option>
-														<option value="kelowna">Kelowna</option>
-														<option value="burnaby">Burnaby</option>
-														<option value="coquitlam">Coquitlam</option>
+                                                        <?php 
+                                                            $sql = "SELECT city FROM Vaccine_Center";
+                                                            $result = $conn->query($sql);
+                                                            if ($result->num_rows > 0) {
+                                                            // output data of each row
+                                                                while($row = $result->fetch_assoc()) {
+                                                                    echo "<option value=".$row["city"].">".$row["city"]."</option>";
+                                                                }
+                                                            }
+                                                        ?>
 													</select>
 												</div>
 											</div>
@@ -139,14 +146,20 @@
 												<div class="form-group">
 													<label for="vaccine-column">Vaccine Brand</label>
 													<p> Select all your preferred brands </p>
-                                                    			<select class="choices form-select multiple-remove" multiple="multiple">
-                                                        			<option value="moderna">Moderna</option>
-                                                        			<option value="pfizer">Pfizer</option>
-                                                        			<option value="janssen">Janssen</option>
-                                                        			<option value="astra zeneca">Astra Zeneca</option>
-                                                    			</select>
+                                                    <select class="choices form-select multiple-remove" multiple="multiple">
+                                                        <?php 
+                                                            $sql = "SELECT brand FROM Vaccine_Brand_Delivery";
+                                                            $result = $conn->query($sql);
+                                                            if ($result->num_rows > 0) {
+                                                            // output data of each row
+                                                                while($row = $result->fetch_assoc()) {
+                                                                    echo "<option value=".$row["brand"].">".$row["brand"]."</option>";
+                                                                }
+                                                            }
+                                                        ?>
+                                                    </select>
 												</div>
-                                                		</div>
+                                            </div>
 											<div class="col-12 d-flex justify-content-end">
 												<button type="submit"
 													class="btn btn-primary me-1 mb-1">Filter</button>
@@ -167,57 +180,42 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>Graiden</td>
-													<td>vehicula.aliquet@semconsequat.co.uk</td>
-													<td>076 4820 8838</td>
-													<td>Offenburg</td>
-													<td>
-														<span class="badge bg-success">Active</span>
-													</td>
-
-													<td>Pharmacy</td>
-													<td>
-														<a href="appointment_booking page/appointment_booking.html"
-															class="badge bg-light-primary"> Book Here</a>
-													</td>
-												</tr>
-												<?php
-								   			include '../connect.php';
-                                   				$conn = OpenCon();
-								   			$sql = "SELECT * FROM Vaccine_Center";
-								   			$result = $conn->query($sql);
-								   			if ($result->num_rows > 0) {
-								   			// output data of each row
-								   			while($row = $result->fetch_assoc()) {
-                                        			echo "<tr><td class='border-class'>".$row["address"].
-                                  					"</td><td class='border-class'>".$row["phone"].
-                                   				"</td><td class='border-class'>".$row["city"].
-                                   				"</td><td class='border-class'>".$row["opening_time"].
-                                   				"</td><td class='border-class'>".$row["closing_time"].
-											"</td><td class='border-class'>".$row["facility_type"].
-                                   				"</td></tr>";
-								   			}
-								   			echo "</table>";
-								   			} else {
-								   			echo "0 results";
-								   			}
-								   			CloseCon($conn);
+												<?php								   			
+                                                $sql = "SELECT * FROM Vaccine_Center";
+                                                $result = $conn->query($sql);
+                                                if ($result->num_rows > 0) {
+                                                // output data of each row
+                                                while($row = $result->fetch_assoc()) {
+                                                        echo "<tr><td class='border-class'>".$row["address"].
+                                                        "</td><td class='border-class'>".$row["phone"].
+                                                    "</td><td class='border-class'>".$row["city"].
+                                                    "</td><td class='border-class'>".$row["opening_time"].
+                                                    "</td><td class='border-class'>".$row["closing_time"].
+                                                "</td><td class='border-class'>".$row["facility_type"].
+                                                    "</td><td>
+                                                        <a href='booking.php?f_ID=".$row["facility_ID"]."'
+                                                        class='badge bg-light-primary'> Book Here</a>
+													</td></tr>";
+                                                }
+                                                echo "</table>";
+                                                } else {
+                                                echo "0 results";
+                                                }
+                                                CloseCon($conn);
 								    			?>
 											</tbody>
 										</table>
-								</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-		</div>
-		<div class="card-body">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="card-body">
 
 		</div>
 
-		</section>
+            </section>
 
 		<footer>
 			<div class="footer clearfix mb-0 text-muted">
@@ -230,7 +228,7 @@
 				</div>
 			</div>
 		</footer>
-	</div>
+	   </div>
 	</div>
 
 	<script src="../assets~/perfect-scrollbar/perfect-scrollbar.min.js"></script>

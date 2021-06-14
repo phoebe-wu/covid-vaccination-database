@@ -138,27 +138,27 @@
                                                                 $row = $result->fetch_assoc();
 
                                                                 echo "<tr><td class='col-auto'>
-                                                                <p class=' mb-0'>name</p>
+                                                                <p class=' mb-0'>Name</p>
                                                                 </td><td class='col-auto'>
                                                                 <p class=' mb-0'>".$row["name"]."</p></td></tr>";
                     
                                                                 echo "<tr><td class='col-auto'>
-                                                                <p class=' mb-0'>date</p>
+                                                                <p class=' mb-0'>Date</p>
                                                                 </td><td class='col-auto'>
                                                                 <p class=' mb-0'>".$row["date"]."</p></td></tr>";
                                                                 
                                                                 echo "<tr><td class='col-auto'>
-                                                                <p class=' mb-0'>time</p>
+                                                                <p class=' mb-0'>Time</p>
                                                                 </td><td class='col-auto'>
                                                                 <p class=' mb-0'>".$row["time"]."</p></td></tr>";
 
                                                                 echo "<tr><td class='col-auto'>
-                                                                <p class=' mb-0'>preferred brand</p>
+                                                                <p class=' mb-0'>Preferred Brand</p>
                                                                 </td><td class='col-auto'>
                                                                 <p class=' mb-0'>".$row["vaccine_brand"]."</p></td></tr>";
                                                                 
                                                                 echo "<tr><td class='col-auto'>
-                                                                <p class=' mb-0'>location</p>
+                                                                <p class=' mb-0'>Location</p>
                                                                 </td><td class='col-auto'>
                                                                 <p class=' mb-0'>".$row["address"]."</p></td></tr>";
 

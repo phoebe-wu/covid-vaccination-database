@@ -1,4 +1,12 @@
+<?php 
+include '../../connect.php';
+$conn = OpenCon();
 
+session_start();
+    // for single page testing
+    $_SESSION['new_id'] = $_POST['new_id'];
+    $id = $_POST['new_id'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,7 +115,13 @@
 			 <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>New Patient Record - Test Patient</h3>
+                            <?php
+                                $sql = "SELECT * FROM Patient WHERE user_ID = $id";
+                                $results = $conn->query($sql);
+                                            
+                                $row = $results->fetch_assoc();
+                                echo '<h3 >New Vaccination Record - ' . $row['name'] . '</h3>';
+                            ?>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -135,31 +149,17 @@
                               </div>
 						<div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-horizontal">
+                                        <form action="insertVaccineRecord.php" method="post" class="form form-horizontal">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label>Record Number</label>
+                                                        <label>Patient ID</label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
-												    	placeholder="Record #" id="first-name-icon">
-                                                                <div class="form-control-icon">
-                                                                    <i class="bi bi-file-earmark-medical"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label>User ID</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="form-group has-icon-left">
-                                                            <div class="position-relative">
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="User ID" id="first-name-icon">
+                                                                    placeholder="User ID" name="new_id" id="new_id" readonly="readonly" value="<?= $id ?>">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-person"></i>
                                                                 </div>
@@ -172,7 +172,7 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
-                                                                <input type="date" class="form-control"
+                                                                <input type="date" class="form-control" name="date" id ="date"
                                                                     placeholder="Date">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-calendar3-event"></i>
@@ -187,30 +187,30 @@
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
 												    <div class="form-check">
-                                        					<input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            						id="flexRadioDefault1">
-                                        					<label class="form-check-label" for="flexRadioDefault1">
+                                        					<input class="form-check-input" type="radio" name="vaccineBrand"
+                                            						id="vaccineBrand">
+                                        					<label class="form-check-label" for="vaccineBrand">
                                             						Moderna
                                         					</label>
                                    					 </div>
 												    <div class="form-check">
-                                        					<input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            						id="flexRadioDefault1">
-                                        					<label class="form-check-label" for="flexRadioDefault1">
+                                        					<input class="form-check-input" type="radio" name="vaccineBrand"
+                                            						id="vaccineBrand">
+                                        					<label class="form-check-label" for="vaccineBrand">
                                             						Pfizer
                                         					</label>
                                    					 </div>
 												    <div class="form-check">
-                                        					<input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            						id="flexRadioDefault1">
-                                        					<label class="form-check-label" for="flexRadioDefault1">
+                                        					<input class="form-check-input" type="radio" name="vaccineBrand"
+                                            						id="vaccineBrand">
+                                        					<label class="form-check-label" for="vaccineBrand">
                                             						Janssen
                                         					</label>
                                    					</div>
                                                     <div class="form-check">
-                                        					<input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            						id="flexRadioDefault1">
-                                        					<label class="form-check-label" for="flexRadioDefault1">
+                                        					<input class="form-check-input" type="radio" name="vaccineBrand"
+                                            						id="vaccineBrand">
+                                        					<label class="form-check-label" for="vaccineBrand">
                                             						Astra Zeneca
                                         					</label>
                                    					 </div>
@@ -223,7 +223,7 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
-                                                                <input type="number" max ="2" min="1" class="form-control"
+                                                                <input type="number" max ="2" min="1" class="form-control" name="dose" id="dose"
                                                                     placeholder="Dose #">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-droplet-half"></i>
@@ -234,8 +234,8 @@
                                                     <div class="col-12 d-flex justify-content-end">
                                                         <button type="reset"
                                                             class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                                        <button type="submit"
-                                                            class="btn btn-success me-1 mb-1">Add Record</button>
+                                                        <input type="submit" name="submit" formaction="insertVaccineRecord.php"
+                                                            class="btn btn-success me-1 mb-1" value="Add Record" />
                                                     </div>
                                                 </div>
                                             </div>

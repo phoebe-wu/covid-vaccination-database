@@ -152,11 +152,10 @@ session_start();
 									<h4 class="card-title">Vaccination Record</h4>
             						</div>
             						<div class="col-sm-2 col-12 d-flex justify-content-end">
-									<div class="form-group">
-								  		<a href="new_vaccine_record.php" type="button" class="btn btn-sm btn-success">
-                                                New Record
-										</a>
-									</div>
+									<form method="POST" action="new_vaccine_record.php">
+								  		<input type="hidden" name="new_id" value="<?= $_GET['id']; ?>"> </>
+                                        <input type="submit" class="btn btn-sm btn-success" value="New Record" />
+									</form>
            						</div>
 							</div>
 							 <table class="table table-striped" id="table1">

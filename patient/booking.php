@@ -6,10 +6,6 @@
     $conn = OpenCon();
     
     session_start();
-    // for single page testing
-    if (!isset($_SESSION['userid'])) {
-        $_SESSION['userid'] = 80001;
-    }
 ?>
 <head>
     <meta charset="UTF-8">

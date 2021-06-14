@@ -1,5 +1,5 @@
 <?php
-    include '../connect.php';
+    include '../../connect.php';
     $conn = OpenCon();
 
     session_start();
@@ -16,13 +16,13 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/bootstrap.css">
+    <link rel="stylesheet" href="../../assets/bootstrap.css">
 
-    <link rel="stylesheet" href="../assets/iconly/bold.css">
+    <link rel="stylesheet" href="../../assets/iconly/bold.css">
 
-    <link rel="stylesheet" href="../assets/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="../assets/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="../assets/app.css">
+    <link rel="stylesheet" href="../../assets/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="../../assets/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../assets/app.css">
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
 </head>
 
@@ -33,7 +33,7 @@
             <div class="sidebar-header">
                 <div class="d-flex justify-content-between">
                     <div class="logo">
-                        <a href="nurse_main.php"><img src="../medical.png" alt="Logo" srcset=""></a>
+                        <a href="../nurse_main.php"><img src="../../medical.png" alt="Logo" srcset=""></a>
                     </div>
                     <div class="toggler">
                         <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -45,13 +45,13 @@
                     <li class="sidebar-title">Menu</li>
 
                     <li class="sidebar-item">
-                        <a href="nurse_main.php" class='sidebar-link'>
+                        <a href="../nurse_main.php" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li class="sidebar-item  ">
-                        <a href="appointment_summary.html" class='sidebar-link'>
+                        <a href="../appointment_summary.html" class='sidebar-link'>
                             <i class="bi bi-stack"></i>
                             <span>Upcoming Appointments</span>
                         </a>
@@ -64,14 +64,14 @@
                     </li>
 
                     <li class="sidebar-item  ">
-                        <a href="vaccination_centres.php" class='sidebar-link'>
+                        <a href="../vaccination_centres.php" class='sidebar-link'>
                             <i class="bi bi-hexagon-fill"></i>
                             <span>Vaccination Centres</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item  ">
-                        <a href="testing_centres.php" class='sidebar-link'>
+                        <a href="../testing_centres.php" class='sidebar-link'>
                             <i class="bi bi-egg-fill"></i>
                             <span>Testing Centres</span>
                         </a>
@@ -81,13 +81,13 @@
                     <li class="sidebar-title">Records</li>
 
                     <li class="sidebar-item  ">
-                        <a href="patient_list.php" class='sidebar-link'>
+                        <a href="../patient_list.php" class='sidebar-link'>
                             <i class="bi bi-file-earmark-medical-fill"></i>
                             <span>Patient List</span>
                         </a>
                     </li>
                     <li class="sidebar-item  ">
-                        <a href="n_vaccine_inventory.php" class='sidebar-link'>
+                        <a href="../n_vaccine_inventory/n_vaccine_inventory.php" class='sidebar-link'>
                             <i class="bi bi-collection-fill"></i>
                             <span>Vaccine Inventory</span>
                         </a>
@@ -129,7 +129,7 @@
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="nurse_main.php">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="../nurse_main.php">Dashboard</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Testing Kit Inventory</li>
                             </ol>
                         </nav>
@@ -141,48 +141,73 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title">filter by testing kit type</h5>
-                            </div>
-
                             <div class="card-body">
-                                <div class="btn-group mb-1">
-                                    <div class="dropdown">
-                                        <button class="btn btn-primary dropdown-toggle me-1" type="button"
-                                                id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false">
-                                            Kit Kind
-                                            <!--                                                kind ENUM('Nasal swab','Saliva test','Rapid test','Blood test','Nasopharyngeal swab' ),-->
-                                        </button>
-                                        <form action="n_testingkit_inventory.php" method="post">
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="NS">Nasal swab</a>
-                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="ST">Saliva test</a>
-                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="RT">Rapid test</a>
-                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="BT">Blood test</a>
-                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="NPS">Nasopharyngeal swab</a>
+
+                                    <div class="col-md-6 mb-4">
+                                        <h6>Filter</h6>
+                                        <form id="myform_t" action="n_testingkit_inv_filter.php" method="post">
+                                            <div class="input-group mb-3">
+                                            <label class="input-group-text"
+                                                   for="kind">Kit Kind</label>
+                                                <select class="form-select" name="kind" onchange="this.form.submit();">
+                                                <option value=""> All</option>
+                                                <?php
+                                                    $sql = "SELECT kind FROM Testing_Kit";
+                                                    $result = $conn->query($sql);
+                                                    if ($result->num_rows > 0) {
+                                                        // output data of each row
+                                                        while($row = $result->fetch_assoc()) {
+                                                            $k = str_replace(' ', '_', $row["kind"]);
+
+                                                            echo "<option value=".$k;
+                                                            if(isset($_GET['t_kind'])) {
+                                                                if(str_replace('_', ' ', $_GET['t_kind']) == $row["kind"]){
+                                                                    echo " selected='selected'";
+                                                                }
+                                                            }
+                                                            echo ">".$row["kind"]."</option>";
+
+
+//                                                            echo "<option value=".$row["kind"];
+//                                                            if (isset($_GET['t_kind'])) {
+//                                                                if($_GET['t_kind'] == $row["kind"]){
+//                                                                    echo " selected='selected'";
+//                                                                }
+//                                                            }
+//
+//                                                            echo "<option value=".$k.">".$row["kind"]."
+//                                                                    </option>";
+                                                        }
+                                                    }
+
+
+
+
+                                                ?>
+                                                </select>
                                         </div>
                                         </form>
+
+
                                     </div>
-                                </div>
-                                <div class="btn-group mb-1">
-                                    <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle me-1" type="button"
-                                                id="dropdownMenuButtonSec" data-bs-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false">
-                                            City
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonSec">
-                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="R">Richmond</a>
-                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="V">Vancouver</a>
-                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="SE">Sechelt</a>
-                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="SA">Saanichton</a>
-                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="K">Kelowna</a>
-                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="B">Burnaby</a>
-                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="C">Coquitlam</a>
-                                        </div>
-                                    </div>
-                                </div>
+<!--                                <div class="btn-group mb-1">-->
+<!--                                    <div class="dropdown">-->
+<!--                                        <button class="btn btn-secondary dropdown-toggle me-1" type="button"-->
+<!--                                                id="dropdownMenuButtonSec" data-bs-toggle="dropdown"-->
+<!--                                                aria-haspopup="true" aria-expanded="false">-->
+<!--                                            City-->
+<!--                                        </button>-->
+<!--                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonSec">-->
+<!--                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="R">Richmond</a>-->
+<!--                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="V">Vancouver</a>-->
+<!--                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="SE">Sechelt</a>-->
+<!--                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="SA">Saanichton</a>-->
+<!--                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="K">Kelowna</a>-->
+<!--                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="B">Burnaby</a>-->
+<!--                                            <a class="dropdown-item" href="n_testingkit_inventory.php" id="C">Coquitlam</a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
 
 
                                 <table class="table table-striped" id="table1">
@@ -190,8 +215,6 @@
                                     <tr>
                                         <!--                                                kind ENUM('Nasal swab','Saliva test','Rapid test','Blood test','Nasopharyngeal swab' ),-->
                                         <th>Facility id</th>
-                                        <th>Address</th>
-                                        <th>City</th>
                                         <th>Testing Kit Kind</th>
                                         <th>Amount</th>
                                     </tr>
@@ -199,8 +222,15 @@
                                     <tbody>
 
                                     <?php
-                                    $sql = "SELECT , facility_ID, date, kind, amount FROM Inventory_Of_Tests";
-                                    $result = $conn->query($sql);
+                                    if (isset($_GET['t_kind'])) {
+                                        $kind = str_replace('_', " ",$_GET['t_kind']);
+                                        $sql = "SELECT * FROM Inventory_Of_Tests WHERE (Inventory_Of_Tests.kind like '$kind')";
+                                        $result = mysqli_query($conn, $sql);
+                                    } else {
+                                        $sql = "SELECT * FROM Inventory_Of_Tests";
+                                        $result = $conn->query($sql);
+                                    }
+
                                     if ($result->num_rows > 0){
                                         while($row = $result->fetch_assoc()){
                                             echo "<tr>
@@ -209,7 +239,11 @@
                                             <td>".$row["amount"]."</td>
                                             </tr>";
                                         }
+                                    } else {
+                                        echo '0 records';
                                     }
+
+                                    CloseCon($conn);
                                     ?>
 
                                     </tbody>
@@ -238,10 +272,10 @@
     </div>
 </div>
 
-<script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-<script src="../assets/js/bootstrap.bundle.min.js"></script>
+<script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="../../assets/js/bootstrap.bundle.min.js"></script>
 
-<script src="../assets/js/main.js"></script>
+<script src="../../assets/js/main.js"></script>
 </body>
 
 </html>

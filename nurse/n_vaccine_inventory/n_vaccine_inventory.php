@@ -1,6 +1,6 @@
 
 <?php
-include '../connect.php';
+include '../../connect.php';
 $conn = OpenCon();
 
 session_start();
@@ -16,13 +16,13 @@ session_start();
     
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../assets/bootstrap.css">
+        <link rel="stylesheet" href="../../assets/bootstrap.css">
     
-        <link rel="stylesheet" href="../assets/iconly/bold.css">
+        <link rel="stylesheet" href="../../assets/iconly/bold.css">
     
-        <link rel="stylesheet" href="../assets/perfect-scrollbar/perfect-scrollbar.css">
-        <link rel="stylesheet" href="../assets/bootstrap-icons/bootstrap-icons.css">
-        <link rel="stylesheet" href="../assets/app.css">
+        <link rel="stylesheet" href="../../assets/perfect-scrollbar/perfect-scrollbar.css">
+        <link rel="stylesheet" href="../../assets/bootstrap-icons/bootstrap-icons.css">
+        <link rel="stylesheet" href="../../assets/app.css">
         <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
     </head>
     
@@ -33,7 +33,7 @@ session_start();
                     <div class="sidebar-header">
                         <div class="d-flex justify-content-between">
                             <div class="logo">
-                                <a href="nurse_main.html"><img src="../medical.png" alt="Logo" srcset=""></a>
+                                <a href="nurse_main.html"><img src="../../medical.png" alt="Logo" srcset=""></a>
                             </div>
                             <div class="toggler">
                                 <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -51,7 +51,7 @@ session_start();
                                 </a>
                             </li>
                             <li class="sidebar-item  ">
-                                <a href="appointment_summary.html" class='sidebar-link'>
+                                <a href="../appointment_summary.html" class='sidebar-link'>
                                     <i class="bi bi-stack"></i>
                                     <span>Upcoming Appointments</span>
                                 </a>
@@ -64,14 +64,14 @@ session_start();
                             </li>
     
                             <li class="sidebar-item  ">
-                                <a href="vaccination_centres.php" class='sidebar-link'>
+                                <a href="../vaccination_centres.php" class='sidebar-link'>
                                     <i class="bi bi-hexagon-fill"></i>
                                     <span>Vaccination Centres</span>
                                 </a>
                             </li>
     
                             <li class="sidebar-item  ">
-                                <a href="testing_centres.php" class='sidebar-link'>
+                                <a href="../testing_centres.php" class='sidebar-link'>
                                     <i class="bi bi-egg-fill"></i>
                                     <span>Testing Centres</span>
                                 </a>
@@ -81,7 +81,7 @@ session_start();
                             <li class="sidebar-title">Records</li>
                             
                             <li class="sidebar-item  ">
-                                <a href="patient_list.php" class='sidebar-link'>
+                                <a href="../patient_list.php" class='sidebar-link'>
                                     <i class="bi bi-file-earmark-medical-fill"></i>
                                     <span>Patient List</span>
                                 </a>
@@ -93,7 +93,7 @@ session_start();
                                 </a>
                             </li>
                             <li class="sidebar-item  ">
-                                <a href="n_testingkit_inventory.php" class='sidebar-link'>
+                                <a href="../n_testing_inventory/n_testingkit_inventory.php" class='sidebar-link'>
                                     <i class="bi bi-collection-fill"></i>
                                     <span>Testing Kit Inventory</span>
                                 </a>
@@ -146,48 +146,86 @@ session_start();
                             </div>
 
                                 <div class="card-body">
-                                    <div class="btn-group mb-1">
-                                        <div class="dropdown">
-                                            <button class="btn btn-primary dropdown-toggle me-1" type="button"
-                                                    id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                    aria-haspopup="true" aria-expanded="false">
-                                                Brand
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#">Moderna</a>
-                                                <a class="dropdown-item" href="#">Janssen</a>
-                                                <a class="dropdown-item" href="#">Pfizer-BioNTech</a>
-                                                <a class="dropdown-item" href="#">AstraZeneca</a>
-                                                <a class="dropdown-item" href="#">Novavax</a>
-                                                <a class="dropdown-item" href="#">Gamaleya</a>
+
+                                    <div class="col-md-6 mb-4">
+                                        <h6>Filter</h6>
+                                        <form id="myform_v" action="n_vaccine_inv_filter.php" method="post">
+                                            <div class="input-group mb-3">
+                                                <label class="input-group-text"
+                                                       for="brand">Vaccine Brand</label>
+                                                <select class="form-select" name="brand" onchange="this.form.submit();">
+                                                    <option value=""> All</option>
+                                                    <?php
+                                                    $sql = "SELECT brand FROM Vaccine_Brand_Delivery";
+                                                    $result = $conn->query($sql);
+                                                    if ($result->num_rows > 0) {
+                                                        // output data of each row
+                                                        while($row = $result->fetch_assoc()) {
+                                                            $b = str_replace(' ', '_', $row["brand"]);
+
+                                                            echo "<option value=".$b;
+                                                            if(isset($_GET['v_brand'])) {
+                                                                if(str_replace('_', ' ', $_GET['v_brand']) == $row["brand"]){
+                                                                    echo " selected='selected'";
+                                                                }
+                                                            }
+                                                            echo ">".$row["brand"]."</option>";
+
+                                                        }
+                                                    }
+
+
+
+                                                    ?>
+                                                </select>
                                             </div>
-                                        </div>
+                                        </form>
+
+
                                     </div>
-                                    <div class="btn-group mb-1">
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle me-1" type="button"
-                                                    id="dropdownMenuButtonSec" data-bs-toggle="dropdown"
-                                                    aria-haspopup="true" aria-expanded="false">
-                                                City
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonSec">
-                                                <a class="dropdown-item" href="#">Richmond</a>
-                                                <a class="dropdown-item" href="#">Vancouver</a>
-                                                <a class="dropdown-item" href="#">Sechelt</a>
-                                                <a class="dropdown-item" href="#">Saanichton</a>
-                                                <a class="dropdown-item" href="#">Kelowna</a>
-                                                <a class="dropdown-item" href="#">Burnaby</a>
-                                                <a class="dropdown-item" href="#">Coquitlam</a>
-                                            </div>
-                                        </div>
-                                    </div>
+
+
+<!--                                    <div class="btn-group mb-1">-->
+<!--                                        <div class="dropdown">-->
+<!--                                            <button class="btn btn-primary dropdown-toggle me-1" type="button"-->
+<!--                                                    id="dropdownMenuButton" data-bs-toggle="dropdown"-->
+<!--                                                    aria-haspopup="true" aria-expanded="false">-->
+<!--                                                Brand-->
+<!--                                            </button>-->
+<!--                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+<!--                                                <a class="dropdown-item" href="#">Moderna</a>-->
+<!--                                                <a class="dropdown-item" href="#">Janssen</a>-->
+<!--                                                <a class="dropdown-item" href="#">Pfizer-BioNTech</a>-->
+<!--                                                <a class="dropdown-item" href="#">AstraZeneca</a>-->
+<!--                                                <a class="dropdown-item" href="#">Novavax</a>-->
+<!--                                                <a class="dropdown-item" href="#">Gamaleya</a>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+
+<!--                                    <div class="btn-group mb-1">-->
+<!--                                        <div class="dropdown">-->
+<!--                                            <button class="btn btn-secondary dropdown-toggle me-1" type="button"-->
+<!--                                                    id="dropdownMenuButtonSec" data-bs-toggle="dropdown"-->
+<!--                                                    aria-haspopup="true" aria-expanded="false">-->
+<!--                                                City-->
+<!--                                            </button>-->
+<!--                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonSec">-->
+<!--                                                <a class="dropdown-item" href="#">Richmond</a>-->
+<!--                                                <a class="dropdown-item" href="#">Vancouver</a>-->
+<!--                                                <a class="dropdown-item" href="#">Sechelt</a>-->
+<!--                                                <a class="dropdown-item" href="#">Saanichton</a>-->
+<!--                                                <a class="dropdown-item" href="#">Kelowna</a>-->
+<!--                                                <a class="dropdown-item" href="#">Burnaby</a>-->
+<!--                                                <a class="dropdown-item" href="#">Coquitlam</a>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                     <table class="table table-striped" id="table1">
                                         <thead>
                                         <tr>
-                                            <!--(facility_ID: INTEGER, kind: ENUM , amount: INTEGER-->
+                                            <!--(facility_ID: INTEGER, brand: ENUM , amount: INTEGER-->
                                             <th>Facility id</th>
-                                            <th>Address</th>
-                                            <th>City</th>
                                             <th>Vaccine Brand</th>
                                             <th>Amount</th>
                                         </tr>
@@ -195,33 +233,31 @@ session_start();
                                         <tbody>
 
                                         <?php
-                                        $sql = "SELECT , facility_ID, date, brand, amount FROM Inventory_Of_Vaccine";
-                                        $result = $conn->query($sql);
+
+                                        if (isset($_GET['v_brand'])) {
+                                            $brand = str_replace('_', " ",$_GET['v_brand']);
+                                            $sql = "SELECT * FROM Inventory_Of_Vaccine WHERE (Inventory_Of_Vaccine.brand like '$brand')";
+                                            $result = mysqli_query($conn, $sql);
+                                        } else {
+                                            $sql = "SELECT * FROM Inventory_Of_Vaccine";
+                                            $result = $conn->query($sql);
+                                        }
+
                                         if ($result->num_rows > 0){
                                             while($row = $result->fetch_assoc()){
                                                 echo "<tr>
                                             <td>".$row["facility_ID"]."</td>
-                                            <td>".$row["kind"]."</td>
+                                            <td>".$row["brand"]."</td>
                                             <td>".$row["amount"]."</td>
                                             </tr>";
                                             }
+                                        } else {
+                                            echo '0 records';
                                         }
+
+                                        CloseCon($conn);
                                         ?>
 
-                                        <tr>
-                                            <td>4201231</td>
-                                            <td>123 street</td>
-                                            <td>Vancouver</td>
-                                            <td>Moderna</td>
-                                            <td>100</td>
-                                        </tr>
-                                        <tr>
-                                            <td>114224</td>
-                                            <td>234 street</td>
-                                            <td>Richmond</td>
-                                            <td>Janssen</td>
-                                            <td>1230</td>
-                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>

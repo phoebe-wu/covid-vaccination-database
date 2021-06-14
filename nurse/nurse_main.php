@@ -90,13 +90,13 @@
                             </a>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="n_vaccine_inventory.php" class='sidebar-link'>
+                            <a href="n_vaccine_inventory/n_vaccine_inventory.php" class='sidebar-link'>
                                 <i class="bi bi-collection-fill"></i>
                                 <span>Vaccine Inventory</span>
                             </a>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="n_testingkit_inventory.php" class='sidebar-link'>
+                            <a href="n_testing_inventory/n_testingkit_inventory.php" class='sidebar-link'>
                                 <i class="bi bi-collection-fill"></i>
                                 <span>Testing Kit Inventory</span>
                             </a>

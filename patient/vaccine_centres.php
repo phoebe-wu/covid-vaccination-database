@@ -194,10 +194,10 @@
 <!--                                                </li>-->
 
                                                 <?php
-                                                $arrayAttr1 = array( 'All','Address', 'Phone','City','Opening Time',
-                                                    'Closing Time','Facility Type','Link to Book');
-                                                $arrayAttr2 = array( 'All','Address', 'Phone','City','Offer Vaccine','Opening Time',
-                                                    'Closing Time','Facility Type','Link to Book');
+                                                $arrayAttr1 = array( 'All','address', 'phone','city','opening_time',
+                                                    'closing_time','facility_type','Link to Book');
+                                                $arrayAttr2 = array( 'All','address', 'phone','city','brand','opening_time',
+                                                    'closing_time','facility_type','Link to Book');
                                                 if (isset($_GET['Vbrands'])) { //vbrands selected, two table join
                                                     foreach ($arrayAttr2 as $attr) {
 
@@ -289,7 +289,7 @@
                                                             <th>Address</th>
                                                             <th>Phone</th>
                                                             <th>City</th>
-                                                            <th>Offer Vaccine</th>
+                                                            <th>brand </th>
                                                             <th>Opening Time</th>
                                                             <th>Closing Time</th>
                                                             <th>Facility Type</th>
@@ -304,7 +304,7 @@
                                                             <th>Address</th>
                                                             <th>Phone</th>
                                                             <th>City</th>
-                                                            <th>Offer Vaccine</th>
+                                                            <th>brand</th>
                                                             <th>Opening Time</th>
                                                             <th>Closing Time</th>
                                                             <th>Facility Type</th>
@@ -350,7 +350,15 @@
                                                     $attrib = json_decode($_GET['Column']);
                                                 }
                                                 if (isset($_GET['Column']) && (!in_array("All", $attrib)) ) {       //columns selected & All is not selected
-                                                    echo "entered columns selected & All is not selected";
+                                                    $temp = $attrib;
+                                                    if (in_array('Link to Book',$attrib)) {
+                                                        array_pop($temp);
+                                                    }
+                                                    $coln = implode(' , ',$temp);
+                                                    var_dump($coln);
+
+                                                    $result2 = '';
+
                                                         if (isset($_GET['Vbrands'])) { //vbrands selected, two table join
                                                             $vbrand = $_GET['Vbrands'];
                                                             $sql_join = "CREATE VIEW vc_iv_join AS
@@ -360,48 +368,52 @@
                                                                         JOIN Inventory_Of_Vaccine AS iv
                                                                         ON vc.facility_ID = iv.facility_ID";
                                                             $result = mysqli_query($conn, $sql_join);
-                                                            if($result == 0) {
-                                                                echo 'create view error';
-                                                            }
-
-                                                            $temp = $attrib;
-                                                            if (in_array('Link to Book',$attrib)) {
-                                                                array_pop($temp);
-                                                            }
-                                                            $temp = implode(',', $temp);
-                                                            echo "val of temp is $temp";
-
+//
+//                                                            if($result == 0) {
+//                                                                echo 'create view error';
+//                                                            }
                                                             if (isset($_GET['Vcity'])) {       //city is selected
                                                                 $vcity = $_GET['Vcity'];
-                                                                $sql = " SELECT '$temp' FROM vc_iv_join Where city like '$vcity' AND brand like '$vbrand'";
+                                                                $sql = " SELECT $coln FROM vc_iv_join Where city like '$vcity' AND brand like '$vbrand'";
+                                                                $sql2 = " SELECT facility_ID FROM vc_iv_join Where city like '$vcity' AND brand like '$vbrand'";
+//                                                                var_dump($sql);
+//                                                                var_dump($sql2);
                                                                 $result = mysqli_query($conn, $sql);
+                                                                $result2 = mysqli_query($conn,$sql2);
                                                             } else {        //city is not selected
-                                                                echo 'city is not selected';
-                                                                $sql = " SELECT '$temp' FROM vc_iv_join Where brand like '$vbrand'";
+                                                                $sql = " SELECT $coln FROM vc_iv_join Where brand like '$vbrand'";
+                                                                $sql2 =" SELECT facility_ID FROM vc_iv_join Where brand like '$vbrand'";
                                                                 $result = mysqli_query($conn, $sql);
+                                                                $result2 = mysqli_query($conn,$sql2);
                                                             }
 
                                                             if ($result->num_rows > 0) {
                                                                 // output data of each row
-                                                                while($row = $result->fetch_assoc()) {
+                                                                while(($row = $result->fetch_array(MYSQLI_NUM)) && ($row2 = $result2->fetch_assoc())) {
+                                                                    echo "<tr>";
                                                                     if (!in_array('Link to Book',$attrib)){
-                                                                        foreach ($attrib as $item) {
-                                                                            echo "$item";
-                                                                            echo "<tr><td class='border-class'>".$row[$item];
+                                                                        for ($i = 0; $i < count($temp); $i++) {
+                                                                            echo "<td class='border-class'>".$row["$i"];
                                                                         }
-                                                                        echo "</td></tr>";
+//                                                                        foreach ($attrib as $item) {
+//                                                                            echo "$item";
+//                                                                            echo "<tr><td class='border-class'>".$row[$item];
+//                                                                        }
+                                                                        echo "</td>";
                                                                     } else{
-                                                                        foreach ($temp as $item) {
-                                                                            echo "<tr><td class='border-class'>".$row[$item];
+                                                                        for ($i = 0; $i < count($temp); $i++) {
+                                                                            echo "<td class='border-class'>".$row["$i"];
                                                                         }
+//                                                                        foreach ($temp as $item) {
+//                                                                            echo "<tr><td class='border-class'>".$row[$item];
+//                                                                        }
                                                                         echo "</td> 
-                                                                                </td> <a href='booking.php?f_ID=".$row["facility_ID"]."'
+                                                                                <td> <a href='booking.php?f_ID=".$row2["facility_ID"]."'
                                                                                         class='badge bg-light-primary'> Book Here</a> 
-                                                                                        </td>
-                                                                                        </tr>";
+                                                                                        </td>";
                                                                 }
                                                                     }
-                                                                echo "</table>";
+                                                                echo "</tr></table>";
                                                                 $sql_drop = "DROP VIEW vc_iv_join";
                                                                 $result_drop = $conn->query($sql_drop);
                                                                 if ($result_drop == 0) {
@@ -415,48 +427,63 @@
 
 
                                                         } else {                        //vbrand not selected, will not join tables
-                                                            $temp = $attrib;
-                                                            if (in_array('Link to Book',$attrib)) {
-                                                                array_pop($temp);
-                                                            }
-                                                            $temp = implode(',', $temp);
 
-                                                            echo "val of temp is".var_dump($temp);
                                                             $result='';
-                                                            if (isset($_GET['Vcity'])) {       //city is selected
+                                                            if (isset($_GET['Vcity'])) {        //city is selected
                                                                 $vcity = $_GET['Vcity'];
-                                                                $sql = "SELECT '.$temp.' FROM Vaccine_Center Where city like '$vcity'";
+                                                                $sql = "SELECT $coln FROM Vaccine_Center Where city like '$vcity'";
+                                                                $sql2 = " SELECT facility_ID FROM Vaccine_Center Where city like '$vcity'";
+//                                                                var_dump($sql);
+//                                                                var_dump($sql2);
                                                                 $result = $conn->query($sql);
-                                                            } else {
-                                                                $sql = "SELECT * FROM Vaccine_Center";
-                                                                $result = $conn->query($sql);
-                                                            }
-                                                            echo "SQLresult is".var_dump($result);
+                                                                $result2 = mysqli_query($conn,$sql2);
 
+                                                            } else {
+                                                                $sql = "SELECT $coln FROM Vaccine_Center";
+                                                                $sql2 = "SELECT facility_ID FROM Vaccine_Center";
+                                                                $result = $conn->query($sql);
+                                                                $result2 = $conn->query($sql);
+//                                                                if ($result==0) {
+//                                                                    echo "FAILED";
+//                                                                } else {
+//                                                                    echo "SUCCESS";
+//                                                                }
+
+                                                            }
                                                             if ($result->num_rows > 0) {
                                                                 // output data of each row
-                                                                while($row = $result->fetch_assoc()) {
+                                                                while(($row = $result->fetch_array(MYSQLI_NUM))&&($row2 = $result2->fetch_assoc())) {
                                                                     if (!in_array('Link to Book',$attrib)){
-                                                                        foreach ($attrib as $item) {
-                                                                            echo "THE ITEM INDEX IS $item";
-                                                                            $input = strval($item);
-                                                                            echo "THE ITEM INPUT IS $input";
-                                                                            echo "<tr><td class='border-class'>".$row['$input'];
+                                                                        echo "<tr>";
+                                                                        for ($i = 0; $i < count($temp); $i++) {
+                                                                            echo "<td class='border-class'>".$row["$i"];
                                                                         }
-                                                                        echo "</td></tr>";
+
+//                                                                        foreach ($attrib as $item) {
+//                                                                            echo "THE ITEM INDEX IS $item";
+//                                                                            $input = strval($item);
+//                                                                            echo "THE ITEM INPUT IS $input";
+//                                                                            echo "<tr><td class='border-class'>".$row['$input'];
+//                                                                        }
+
+                                                                        echo "</td>";
                                                                     } else{
-                                                                        foreach ($temp as $item) {
-                                                                            $input = strval($item);
-                                                                            echo "<tr><td class='border-class'>".$row['$input'];
+                                                                        echo "<tr>";
+                                                                        for ($i = 0; $i < count($temp); $i++) {
+                                                                            echo "<td class='border-class'>".$row["$i"];
                                                                         }
+//                                                                        foreach ($temp as $item) {
+//                                                                            $input = strval($item);
+//                                                                            echo "<tr><td class='border-class'>".$row['$input'];
+//                                                                        }
                                                                         echo "</td> 
-                                                                                </td> <a href='booking.php?f_ID=".$row["facility_ID"]."'
+                                                                                <td> <a href='booking.php?f_ID=".$row2["facility_ID"]."'
                                                                                         class='badge bg-light-primary'> Book Here</a> 
                                                                                         </td>
-                                                                                        </tr>";
+                                                                                        ";
                                                                     }
                                                                 }
-                                                                echo "</table>";
+                                                                echo "</tr></table>";
                                                             } else {
                                                                 echo "0 results";
                                                             }
@@ -472,9 +499,9 @@
                                                                         JOIN Inventory_Of_Vaccine AS iv
                                                                         ON vc.facility_ID = iv.facility_ID";
                                                         $result = mysqli_query($conn, $sql_join);
-                                                        if($result == 0) {
-                                                            echo 'create view error';
-                                                        }
+//                                                        if($result == 0) {
+//                                                            echo 'create view error';
+//                                                        }
 
                                                         if (isset($_GET['Vcity'])) {       //city is selected
                                                             $vcity = $_GET['Vcity'];
@@ -490,10 +517,10 @@
                                                             // output data of each row
                                                             while($row = $result->fetch_assoc()) {
                                                                 echo "<tr><td class='border-class'>".$row["address"].
-//                                                                    "</td><td class='border-class'>".$row["phone"].
-//                                                                    "</td><td class='border-class'>".$row["city"].
-//                                                                    "</td><td class='border-class'>".$row["brand"].
-//                                                                    "</td><td class='border-class'>".$row["opening_time"].
+                                                                    "</td><td class='border-class'>".$row["phone"].
+                                                                    "</td><td class='border-class'>".$row["city"].
+                                                                    "</td><td class='border-class'>".$row["brand"].
+                                                                    "</td><td class='border-class'>".$row["opening_time"].
                                                                     "</td><td class='border-class'>".$row["closing_time"].
                                                                     "	</td><td class='border-class'>".$row["facility_type"].
                                                                     "</td><td>

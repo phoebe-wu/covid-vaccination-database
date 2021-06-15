@@ -119,7 +119,7 @@ session_start();
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
                             <?php
-                                $id = $_POST['new_id'];
+                                $id = $_POST['new_testing_id'];
                                 $sql = "SELECT * FROM Patient WHERE user_ID = $id";
                                 $results = $conn->query($sql);
                                             
@@ -163,7 +163,7 @@ session_start();
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
-                                                                    placeholder="User ID" name="id" readonly="readonly" value="<?= $id?>">
+                                                                    placeholder="User ID" name="new_testing_id" id="new_testing_id" readonly="readonly" value="<?= $id?>">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-person"></i>
                                                                 </div>

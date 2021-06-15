@@ -4,9 +4,7 @@ $conn = OpenCon();
 
 session_start();
     // for single page testing
-    if(!isset($_GET['id'])) {
-        $_GET['id'] = 80002;
-    }
+    $id = $_GET['id'];
 ?>
 
 <!DOCTYPE html>
@@ -182,14 +180,15 @@ session_start();
 								   	$result = $conn->query($sql);
 								   	if ($result->num_rows > 0) {
 								   	// output data of each row
-									while($row = $result->fetch_assoc()) {
-                                        echo "<tr>";
-                                        echo "<td>".$row['record_ID']."</td>";
-                                        echo "<td>".$row['date']."</td>";
-                                        echo "<td>".$row['brand']."</td>";
-                                        echo "<td>".$row['dose']."</td>";
-                                        echo "<td> <a href='patient_record.php?id=".$row["user_ID"]."'class='badge bg-light-danger'> Delete</a></td>";
-                                        echo "</tr>";
+									while($row = $result->fetch_assoc()) {?>
+                                        <tr>
+                                        <td><?php echo $row['record_ID']; ?></td>
+                                        <td><?php echo $row['date']; ?></td>
+                                        <td><?php echo $row['brand']; ?></td>  
+                                        <td><?php echo $row['dose']; ?></td>   
+                                        <td><a type='button' class='badge btn-sm bg-light-danger btn-sm deletebtn'> Delete</a></td>
+                                        </tr>	
+                                        <?php
 								   	}
 								   	echo "</table>";
 								   	} else {
@@ -198,6 +197,40 @@ session_start();
 								    ?>
 									</tbody>
 								</table>
+                                <!-- delete vaccine record modal -->
+                                <div class="modal fade" id="deleteVaccineRecord" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+                                                role="document">
+                                                
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-danger">
+                                                        <h5 class="modal-title white" id="exampleModalCenterTitle"> Confirm Deletion </h5>
+                                                        <button type="button" class="close" data-bs-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <i data-feather="x"></i>
+                                                        </button>
+                                                    </div>
+                                                    <form method="delete_record.php" method="POST">
+                                                    <div class="modal-body">
+                                                        <p style="text-align:center">
+                                                            Permanently delete this record? <br>
+                                                            Deleted records cannot be recovered.
+                                                        </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="hidden" name="delete_id" id="delete_id">
+                                                        <button type="button" class="btn btn-light-secondary"
+                                                                    data-bs-dismiss="modal">
+                                                                    <i class="bx bx-x d-block d-sm-none"></i>
+                                                                    <span class="d-none d-sm-block">Cancel</span>
+                                                                </button>
+                                                        <button type="submit" class="btn btn-danger" name="deleteVaccineBtn">  Delete</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                    </div>
                               </div>
                          </div>
                     </div>
@@ -214,7 +247,7 @@ session_start();
             						</div>
             						<div class="col-sm-2 col-12 d-flex justify-content-end">
 								    <form method="POST" action="new_testing_record.php">
-                                        <input type="hidden" name="new_id" value=<?php $new_id = $_GET['id']; echo "$new_id";?>>
+                                        <input type="hidden" name="new_testing_id" value=<?php $new_testing_id = $_GET['id']; echo "$new_testing_id";?>>
                                         <button type="submit"
                                                 class="btn btn-sm btn-success me-1 mb-1"
                                                 formaction="new_testing_record.php" name="submit">
@@ -244,7 +277,7 @@ session_start();
                                         <td><?php echo $row['date']; ?></td>
                                         <td><?php echo $row['result']; ?></td>    
                                         <td><a href="update_testing_record.php?id=<?php echo $row['record_ID']; ?>" class='badge bg-light-primary'>Edit</a></td>
-                                        <td><a href="delete_testing_record.php?id=<?php echo $row['record_ID']; ?>" class='badge bg-light-danger'>Delete</a></td>
+                                        <td><a type='button' class='badge btn-sm bg-light-danger btn-sm deleteTesting'> Delete</a></td>
                                         </tr>	
                                         <?php
 								   	}
@@ -252,10 +285,43 @@ session_start();
 								   	} else {
 									echo "0 results";
                                     }
-								    CloseCon($conn);
 								?>
 									</tbody>
 								</table>
+                                <!-- Delete Testing Record Modal -->
+                                <div class="modal fade" id="deleteTestingRecord" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+                                                role="document">
+                                                
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-danger">
+                                                        <h5 class="modal-title white" id="exampleModalCenterTitle"> Confirm Deletion </h5>
+                                                        <button type="button" class="close" data-bs-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <i data-feather="x"></i>
+                                                        </button>
+                                                    </div>
+                                                    <form method="delete_record.php" method="POST">
+                                                    <div class="modal-body">
+                                                        <p style="text-align:center">
+                                                            Permanently delete this record? <br>
+                                                            Deleted records cannot be recovered.
+                                                        </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <input type="hidden" name="testingToDelete" id="testingToDelete">
+                                                        <button type="button" class="btn btn-light-secondary"
+                                                                    data-bs-dismiss="modal">
+                                                                    <i class="bx bx-x d-block d-sm-none"></i>
+                                                                    <span class="d-none d-sm-block">Cancel</span>
+                                                                </button>
+                                                        <button type="submit" name="deleteTestingBtn" class="btn btn-danger">Delete</button>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                    </div>
                               </div>
                          </div>
                     </div>
@@ -264,5 +330,40 @@ session_start();
 		<script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 		<script src="../assets/js/bootstrap.bundle.min.js"></script>
 		<script src="../assets/js/main.js"></script>
+        
+        <script> 
+        $(document).ready(function() {
+	        $('.deletebtn').on('click', function() {
+		        $('#deleteVaccineRecord').modal('show');
+
+                $tr = $(this).closest('tr');
+                var data = $tr.children("td").map(function() {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#delete_id').val(data[0]);
+	        });
+        });
+        </script>
+
+        <script>
+        $(document).ready(function() {
+            $('.deleteTesting').on('click', function() {
+                $('#deleteTestingRecord').modal('show');
+
+                $tr = $(this).closest('tr');
+                var data = $tr.children("td").map(function() {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+                
+                $('#testingToDelete').val(data[0]);
+            });
+        });
+        </script>
+
 </body>
 </html>

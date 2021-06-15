@@ -129,7 +129,7 @@
 													<label for="city-column">City</label>
 													<p> Select your preferred city </p>
 													<select class="choices form-select" name="city">
-                                                        <option value=""> All</option>
+                                                        	<option value=""> All</option>
                                                         	<?php 
                                                             $sql = "SELECT city FROM Vaccine_Center";
                                                             $result = $conn->query($sql);

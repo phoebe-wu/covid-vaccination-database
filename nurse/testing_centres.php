@@ -1,4 +1,7 @@
-
+<?php 
+include '../connect.php';
+$conn = OpenCon();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -201,8 +204,6 @@
 									   <th>Closing Time</th>
 								    </tr>
 								    <?php
-								   include '../connect.php';
-                                   	$conn = OpenCon();
 								   $sql = "SELECT * FROM Testing_Center";
 								   $result = $conn->query($sql);
 								   if ($result->num_rows > 0) {

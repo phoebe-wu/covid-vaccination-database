@@ -186,7 +186,7 @@ session_start();
                                         <td><?php echo $row['date']; ?></td>
                                         <td><?php echo $row['brand']; ?></td>  
                                         <td><?php echo $row['dose']; ?></td>   
-                                        <td><a type='button' class='badge btn-sm bg-light-danger btn-sm deletebtn'> Delete</a></td>
+                                        <td><a href="delete_vaccine_record.php?id=<?php echo $row['record_ID']; ?>" class='badge btn-sm bg-light-danger btn-sm'> Delete</a></td>
                                         </tr>	
                                         <?php
 								   	}
@@ -277,7 +277,7 @@ session_start();
                                         <td><?php echo $row['date']; ?></td>
                                         <td><?php echo $row['result']; ?></td>    
                                         <td><a href="update_testing_record.php?id=<?php echo $row['record_ID']; ?>" class='badge bg-light-primary'>Edit</a></td>
-                                        <td><a type='button' class='badge btn-sm bg-light-danger btn-sm deleteTesting'> Delete</a></td>
+                                        <td><a href="delete_testing_record.php?id=<?php echo $row['record_ID']; ?>" class='badge btn-sm bg-light-danger btn-sm'> Delete</a></td>
                                         </tr>	
                                         <?php
 								   	}
@@ -288,40 +288,6 @@ session_start();
 								?>
 									</tbody>
 								</table>
-                                <!-- Delete Testing Record Modal -->
-                                <div class="modal fade" id="deleteTestingRecord" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
-                                                role="document">
-                                                
-                                                <div class="modal-content">
-                                                    <div class="modal-header bg-danger">
-                                                        <h5 class="modal-title white" id="exampleModalCenterTitle"> Confirm Deletion </h5>
-                                                        <button type="button" class="close" data-bs-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <i data-feather="x"></i>
-                                                        </button>
-                                                    </div>
-                                                    <form method="delete_record.php" method="POST">
-                                                    <div class="modal-body">
-                                                        <p style="text-align:center">
-                                                            Permanently delete this record? <br>
-                                                            Deleted records cannot be recovered.
-                                                        </p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <input type="hidden" name="testingToDelete" id="testingToDelete">
-                                                        <button type="button" class="btn btn-light-secondary"
-                                                                    data-bs-dismiss="modal">
-                                                                    <i class="bx bx-x d-block d-sm-none"></i>
-                                                                    <span class="d-none d-sm-block">Cancel</span>
-                                                                </button>
-                                                        <button type="submit" name="deleteTestingBtn" class="btn btn-danger">Delete</button>
-                                                    </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                    </div>
                               </div>
                          </div>
                     </div>
@@ -330,40 +296,6 @@ session_start();
 		<script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 		<script src="../assets/js/bootstrap.bundle.min.js"></script>
 		<script src="../assets/js/main.js"></script>
-        
-        <script> 
-        $(document).ready(function() {
-	        $('.deletebtn').on('click', function() {
-		        $('#deleteVaccineRecord').modal('show');
-
-                $tr = $(this).closest('tr');
-                var data = $tr.children("td").map(function() {
-                    return $(this).text();
-                }).get();
-
-                console.log(data);
-
-                $('#delete_id').val(data[0]);
-	        });
-        });
-        </script>
-
-        <script>
-        $(document).ready(function() {
-            $('.deleteTesting').on('click', function() {
-                $('#deleteTestingRecord').modal('show');
-
-                $tr = $(this).closest('tr');
-                var data = $tr.children("td").map(function() {
-                    return $(this).text();
-                }).get();
-
-                console.log(data);
-                
-                $('#testingToDelete').val(data[0]);
-            });
-        });
-        </script>
 
 </body>
 </html>

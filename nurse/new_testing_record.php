@@ -1,11 +1,8 @@
 <?php 
-include '../../connect.php';
+include '../connect.php';
 $conn = OpenCon();
 
 session_start();
-    // for single page testing
-    $_SESSION['new_id'] = $_POST['new_id'];
-    $id = $_POST['new_id'];
 ?>
 
 <!DOCTYPE html>
@@ -117,6 +114,7 @@ session_start();
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
                             <?php
+                                $id = $_POST['new_id'];
                                 $sql = "SELECT * FROM Patient WHERE user_ID = $id";
                                 $results = $conn->query($sql);
                                             
@@ -150,7 +148,7 @@ session_start();
                               </div>
 						<div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-horizontal">
+                                        <form action="insertTestingRecord.php" method="post" class="form form-horizontal">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
@@ -160,7 +158,7 @@ session_start();
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
-                                                                    placeholder="User ID" id="new_id" name="new_id" readonly="readonly" value="<?= $id?>">
+                                                                    placeholder="User ID" name="id" readonly="readonly" value="<?= $id?>">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-person"></i>
                                                                 </div>
@@ -173,7 +171,7 @@ session_start();
                                                     <div class="col-md-8">
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
-                                                                <input type="date" class="form-control"
+                                                                <input type="date" class="form-control" name="date"
                                                                     placeholder="Date">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-calendar3-event"></i>
@@ -188,22 +186,22 @@ session_start();
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
 												    <div class="form-check">
-                                        					<input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            						id="flexRadioDefault1">
+                                        					<input class="form-check-input" type="radio" name="result"
+                                            						id="flexRadioDefault1" value="Positive">
                                         					<label class="form-check-label" for="flexRadioDefault1">
                                             						Positive
                                         					</label>
                                    					 </div>
 												    <div class="form-check">
-                                        					<input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            						id="flexRadioDefault1">
+                                        					<input class="form-check-input" type="radio" name="result"
+                                            						id="flexRadioDefault1" value="Negative">
                                         					<label class="form-check-label" for="flexRadioDefault1">
                                             						Negative
                                         					</label>
                                    					 </div>
 												    <div class="form-check">
-                                        					<input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            						id="flexRadioDefault1">
+                                        					<input class="form-check-input" type="radio" name="result"
+                                            						id="flexRadioDefault1" value="Results Pending">
                                         					<label class="form-check-label" for="flexRadioDefault1">
                                             						Results Pending
                                         					</label>
@@ -214,8 +212,8 @@ session_start();
                                                     <div class="col-12 d-flex justify-content-end">
                                                         <button type="reset"
                                                             class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                                        <button type="submit"
-                                                            class="btn btn-success me-1 mb-1">Add Record</button>
+                                                        <input type="submit" name="submit" formaction="insertTestingRecord.php"
+                                                            class="btn btn-success me-1 mb-1" value="Add Record"/>
                                                     </div>
                                                 </div>
                                             </div>

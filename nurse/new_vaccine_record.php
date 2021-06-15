@@ -3,8 +3,6 @@ include '../connect.php';
 $conn = OpenCon();
 
 session_start();
-    // for single page testing
-//    $_SESSION['new_id'] = $_POST['new_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -121,7 +119,6 @@ session_start();
                     <div class="col-12 col-md-6 order-md-1 order-last">
                             <?php
                                 $id = $_POST['new_id'];
-                                echo "the patient id is $id";
                                 $sql = "SELECT * FROM Patient WHERE Patient.user_ID = $id";
                                 $results = $conn->query($sql);
 
@@ -192,15 +189,6 @@ session_start();
                                                     <div class="col-md-8">
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
-
-
-
-
-
-
-<!--                                                        <input class="form-check-input" type="radio" name="vaccineBrand"-->
-<!--                                                               value=-->
-
                                                         <?php
                                                         $sqlv = "SELECT brand FROM Vaccine_Brand_Delivery";
                                                         $resultv = $conn->query($sqlv);
@@ -214,9 +202,6 @@ session_start();
                                                             }
                                                         }
                                                         ?>
-
-
-
                                                             </div>
                                                         </div>
                                                     </div>

@@ -22,16 +22,15 @@ function handleSubmitRequest($conn) {
 VALUES ('$recordNum','$date','$dose','$vaccineB','$id')";
 
     if ($conn->query($sql) === TRUE) {
-        header('refresh:10; url=patient_record.php?id='.$id);
-        echo "<br>Vaccine Record added for $id who had brand $vaccineB $dose dose, successfully.<br>";
+        //header('refresh:10; url=patient_record.php?id='.$id);
+        header("location:patient_record.php?id=".$id);
+        //echo "<br>Vaccine Record added for $id who had brand $vaccineB $dose dose, successfully.<br>";
     } else {
-        header('refresh:10; url=booking.php');
+        header("location:patient_record.php?id=".$id);
         echo "Error: Could Not Create New Record " . $sql . "<br>" . $conn->error;
     }
     
 }
-
-
 
 function handlePOSTRequest() {
     $conn = OpenCon();

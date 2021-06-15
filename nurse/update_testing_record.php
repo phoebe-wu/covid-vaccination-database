@@ -16,7 +16,7 @@ if (isset($_POST['update'])) {
 		header("location:patient_record.php?id=".$data['user_ID']);
   //        echo "<br>Appointment booked successfully.<br>";
 	 } else {
-		header('refresh:5; url=booking.php');
+		header("location:patient_record.php?id=".$data['user_ID']);
 		echo "Error: Record update failed" . $sql . "<br>" . $conn->error;
 	 }
 }

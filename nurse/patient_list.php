@@ -73,7 +73,12 @@
                                 <span>Testing Centres</span>
                             </a>
                         </li>
-
+                        <li class="sidebar-item ">
+                            <a href="stats.php" class='sidebar-link'>
+                                <i class="bi bi-bar-chart-line"></i>
+                                <span>Statistics</span>
+                            </a>
+                        </li>
 
                         <li class="sidebar-title">Records</li>
                         

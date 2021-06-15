@@ -1,11 +1,25 @@
 <?php 
-include '../../connect.php';
+include '../connect.php';
 $conn = OpenCon();
 
-session_start();
-    // for single page testing
-    $_SESSION['new_id'] = $_POST['new_id'];
-    $id = $_POST['new_id'];
+session_start(); 
+
+$record = $_GET['id'];
+$query = "SELECT * FROM Testing_Record WHERE record_ID = '$record'";
+$results = $conn->query($query);
+$data = $results->fetch_assoc();
+
+if (isset($_POST['update'])) {
+	$result = $_POST['result'];
+	$sql = "UPDATE Testing_Record SET result = '$result' WHERE record_ID = '$record'";
+	if ($conn->query($sql) === TRUE) {
+		header("location:patient_record.php?id=".$data['user_ID']);
+  //        echo "<br>Appointment booked successfully.<br>";
+	 } else {
+		header('refresh:5; url=booking.php');
+		echo "Error: Record update failed" . $sql . "<br>" . $conn->error;
+	 }
+}
 ?>
 
 <!DOCTYPE html>
@@ -116,13 +130,13 @@ session_start();
 			 <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                            <?php
-                                $sql = "SELECT * FROM Patient WHERE user_ID = $id";
+						<?php
+                                $sql = $sql = "SELECT P.name FROM Testing_Record as T, Patient as P WHERE P.user_ID = T.user_ID AND T.record_ID = $record";
                                 $results = $conn->query($sql);
                                             
-                                $row = $results->fetch_assoc();
-                                echo '<h3 >New Testing Record - ' . $row['name'] . '</h3>';
-                            ?>
+						  $row = $results->fetch_assoc();
+						  echo '<h3 >Update Record - ' . $row['name'] . '</h3>';
+                            	?>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -130,7 +144,7 @@ session_start();
                                 <li class="breadcrumb-item"><a href="nurse_main.html">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="patient_list.php">Patients</a></li>
                                 <li class="breadcrumb-item"><a href="patient_record.php">Record</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">New Testing Record</li>
+                                <li class="breadcrumb-item active" aria-current="page">Update Testing Record</li>
                             </ol>
                         </nav>
                     </div>
@@ -144,15 +158,29 @@ session_start();
                               <div class="card-header">
 							<div class="row">
 								<div class="col-sm-10 col-12">
-									<h4 class="card-title">New Testing Record</h4>
+									<h4 class="card-title">Update Testing Record</h4>
             						</div>
 							</div>
                               </div>
 						<div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-horizontal">
+                                        <form method="POST" class="form form-horizontal">
                                             <div class="form-body">
                                                 <div class="row">
+									   	  <div class="col-md-4">
+                                                        <label>Record Number</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="form-group has-icon-left">
+                                                            <div class="position-relative">
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="Record #" name="record" readonly="readonly" value="<?= $record?>">
+                                                                <div class="form-control-icon">
+                                                                    <i class="bi bi-file-earmark-medical"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-md-4">
                                                         <label>Patient ID</label>
                                                     </div>
@@ -160,7 +188,7 @@ session_start();
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
                                                                 <input type="text" class="form-control"
-                                                                    placeholder="User ID" id="new_id" name="new_id" readonly="readonly" value="<?= $id?>">
+                                                                    placeholder="Patient ID" name="id" readonly="readonly" value="<?= $data['user_ID']?>">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-person"></i>
                                                                 </div>
@@ -173,8 +201,8 @@ session_start();
                                                     <div class="col-md-8">
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
-                                                                <input type="date" class="form-control"
-                                                                    placeholder="Date">
+                                                                <input type="date" class="form-control" name="date"
+                                                                    placeholder="Date" readonly="readonly" value="<?= $data['date']?>">
                                                                 <div class="form-control-icon">
                                                                     <i class="bi bi-calendar3-event"></i>
                                                                 </div>
@@ -185,37 +213,37 @@ session_start();
                                                         <label>Result</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <div class="form-group has-icon-left">
+                                                        <form method="POST" class="form-group has-icon-left">
                                                             <div class="position-relative">
 												    <div class="form-check">
-                                        					<input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            						id="flexRadioDefault1">
+                                        					<input class="form-check-input" type="radio" name="result"
+                                            						id="flexRadioDefault1" value="Positive" <?php echo ($data['result']=='Positive')?'checked':'' ?> />
                                         					<label class="form-check-label" for="flexRadioDefault1">
                                             						Positive
                                         					</label>
                                    					 </div>
 												    <div class="form-check">
-                                        					<input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            						id="flexRadioDefault1">
+                                        					<input class="form-check-input" type="radio" name="result"
+                                            						id="flexRadioDefault1" value="Negative" <?php echo ($data['result']=='Negative')?'checked':'' ?> />
                                         					<label class="form-check-label" for="flexRadioDefault1">
                                             						Negative
                                         					</label>
                                    					 </div>
 												    <div class="form-check">
-                                        					<input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            						id="flexRadioDefault1">
+                                        					<input class="form-check-input" type="radio" name="result"
+                                            						id="flexRadioDefault1" value="Results Pending" <?php echo ($data['result']=='Results Pending')?'checked':'' ?> />
                                         					<label class="form-check-label" for="flexRadioDefault1">
                                             						Results Pending
                                         					</label>
                                    					 </div>
                                                             </div>
-                                                        </div>
+                                                        </form>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end">
                                                         <button type="reset"
                                                             class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                                        <button type="submit"
-                                                            class="btn btn-success me-1 mb-1">Add Record</button>
+                                                        <button type="submit" name="update" 
+                                                            class="btn btn-success me-1 mb-1">Update Record</button>
                                                     </div>
                                                 </div>
                                             </div>

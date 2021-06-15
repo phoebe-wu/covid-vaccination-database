@@ -205,7 +205,10 @@ session_start();
                                     <h4 class="card-title">Testing Record</h4>
             						</div>
             						<div class="col-sm-2 col-12 d-flex justify-content-end">
-								  <a href="new_testing_record.php" type="submit" class="btn btn-sm btn-success me-1 mb-1">New Record</a>
+								    <form method="POST" action="new_testing_record.php">
+								  		<input type="hidden" name="new_id" value="<?= $_GET['id']; ?>"> </>
+                                        <input type="submit" class="btn btn-sm btn-success" value="New Record" />
+									</form>
            						 </div>
 							</div>
 							 <table class="table table-striped" id="table1">
@@ -214,7 +217,7 @@ session_start();
 									<th>Record ID</th>
 									<th>Date</th>
 									<th>Result</th>
-									<th>Update</th>
+									<th>Edit</th>
 									<th>Delete</th>
 									</tr>
 								</thead>
@@ -224,14 +227,15 @@ session_start();
 								   	$result = $conn->query($sql);
 								   	if ($result->num_rows > 0) {
 								   	// output data of each row
-									while($row = $result->fetch_assoc()) {
-                                        echo "<tr>";
-                                        echo "<td>".$row['record_ID']."</td>";
-                                        echo "<td>".$row['date']."</td>";
-                                        echo "<td>".$row['result']."</td>";
-                                        echo "<td> <a href='patient_record.php?id=".$row["user_ID"]."'class='badge bg-light-primary'> Manage</a></td>";
-                                        echo "<td> <a href='patient_record.php?id=".$row["user_ID"]."'class='badge bg-light-danger'> Delete</a></td>";
-                                        echo "</tr>";
+									while($row = $result->fetch_assoc()) { ?>
+                                        <tr>
+                                        <td><?php echo $row['record_ID']; ?></td>
+                                        <td><?php echo $row['date']; ?></td>
+                                        <td><?php echo $row['result']; ?></td>    
+                                        <td><a href="update_testing_record.php?id=<?php echo $row['record_ID']; ?>" class='badge bg-light-primary'>Edit</a></td>
+                                        <td><a href="delete_testing_record.php?id=<?php echo $row['record_ID']; ?>" class='badge bg-light-danger'>Delete</a></td>
+                                        </tr>	
+                                        <?php
 								   	}
 								   	echo "</table>";
 								   	} else {

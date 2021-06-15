@@ -1,12 +1,12 @@
 <?php 
 include '../connect.php';
-
-$conn = OpenCon();
 session_start(); 
+$conn = OpenCon();
+
 
 if (isset($_POST['deleteVaccineBtn'])) {
 	
-	$record = $_GET['delete_id'];
+	$record = $_POST['delete_id'];
 	echo "before change the date is: $record";
 	$sql = "DELETE FROM Vaccine_Record WHERE record_id = '$record' ";
 
@@ -38,5 +38,7 @@ if (isset($_POST['deleteTestingBtn'])) {
 		echo "Error: Could Not delete Record " . $sql . "<br>" . $conn->error;
  	}	
 }
+
+CloseCon($conn);
 
 ?>

@@ -1,6 +1,7 @@
 <?php
-session_start();
 require '../connect.php';
+
+session_start();
 
 function handleSubmitRequest($conn) {
 
@@ -12,7 +13,7 @@ function handleSubmitRequest($conn) {
     $recordNum = ($result->fetch_row())[0] + 1;
 
     $sql = "INSERT INTO `Testing_Record`(`record_id`, `date`, `result`, `user_ID`) 
-VALUES('$recordNum','$date','$result','$id')";
+    VALUES('$recordNum','$date','$result','$id')";
 
     if ($conn->query($sql) === TRUE) {
         header("location:patient_record.php?id=".$id);
@@ -36,4 +37,4 @@ if (isset($_POST['submit'])) {
 
     handlePOSTRequest();
 }
-
+?>

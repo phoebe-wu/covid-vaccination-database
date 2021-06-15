@@ -256,7 +256,7 @@
                                     echo "<td>".$row['address']."</td>";
                                     echo "<td>".$row['age']."</td>";
                                     echo "<td> <a href='patient_record.php?id=".$row["user_ID"]."'class='badge bg-light-primary'> Manage</a></td>";
-                                    echo "<td> <a href='patient_record.php?id=".$row["user_ID"]."'class='badge bg-light-danger'> Delete</a></td>";
+                                    echo "<td> <a href='delete_patient.php?id=".$row["user_ID"]."'class='badge bg-light-danger'> Delete</a></td>";
                                     echo "</tr>";
 								   }
 								   echo "</table>";

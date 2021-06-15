@@ -153,10 +153,21 @@ session_start();
             						</div>
             						<div class="col-sm-2 col-12 d-flex justify-content-end">
 									<form method="POST" action="new_vaccine_record.php">
-								  		<input type="hidden" name="new_id" value="<?= $_GET['id']; ?>"> </>
-                                        <input type="submit" class="btn btn-sm btn-success" value="New Record" />
+<!--								  		<input type="hidden" name="new_id" value= --><?php //$new_id = $_GET['id'];?><!-- .'$new_id'> </>-->
+<!--                                        <input type="submit" class="btn btn-sm btn-success" value="New Record" />-->
+                                        <input type="hidden" name="new_id" value=
+                                        <?php
+                                        $new_id = $_GET['id'];
+                                        echo "$new_id";
+                                        ?>
+                                        >
+
+                                        <button type="submit"
+                                                class="btn btn-primary me-1 mb-1"
+                                                formaction="new_vaccine_record.php" name="submit">
+                                            New Record</button>
 									</form>
-           						</div>
+                    		</div>
 							</div>
 							 <table class="table table-striped" id="table1">
 								<thead>

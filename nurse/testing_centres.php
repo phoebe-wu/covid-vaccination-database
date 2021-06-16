@@ -287,8 +287,8 @@ $conn = OpenCon();
 								   // output data of each row
 								   while($row = $result->fetch_assoc()) {
                                     echo "<tr><td class='border-class'>".$row["address"].
-                                   	"</td><td class='border-class'>".$row["phone"].
                                    	"</td><td class='border-class'>".$row["city"].
+                                   	"</td><td class='border-class'>".$row["phone"].
                                    	"</td><td class='border-class'>".$row["opening_time"].
                                    	"</td><td class='border-class'>".$row["closing_time"].
                                    	"</td></tr>";

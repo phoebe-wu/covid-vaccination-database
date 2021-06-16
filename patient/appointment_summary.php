@@ -113,13 +113,13 @@
             </header>
 
             <div class="page-heading">
-                <h3>Appointment Summary</h3>
+                <h3>Appointment Successfully Booked!</h3>
             </div>
             <div class="page-content">
                 <div class="col-md-8 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Your Appointment</h4>
+                            <h4 class="card-title">Your Appointment Details</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
@@ -132,7 +132,7 @@
                                                    </thead>
                                                     <tbody>
                                                         <?php
-                                                            $sql = "SELECT name, date, time, vaccine_brand, Vaccine_Center.address FROM Appointments, Patient, Vaccine_Center WHERE app_ID = {$_GET['appID']} AND Patient.user_ID = Appointments.p_ID AND Vaccine_Center.facility_ID = Appointments.facility_ID";
+                                                            $sql = "SELECT name, date, time, vaccine_brand, Vaccine_Center.address, city FROM Appointments, Patient, Vaccine_Center WHERE app_ID = {$_GET['appID']} AND Patient.user_ID = Appointments.p_ID AND Vaccine_Center.facility_ID = Appointments.facility_ID";
                                                             $result = $conn->query($sql);
                                                             if ($result->num_rows > 0){
                                                                 $row = $result->fetch_assoc();
@@ -141,6 +141,11 @@
                                                                 <p class=' mb-0'>Name</p>
                                                                 </td><td class='col-auto'>
                                                                 <p class=' mb-0'>".$row["name"]."</p></td></tr>";
+
+                                                                echo "<tr><td class='col-auto'>
+                                                                <p class=' mb-0'>Location</p>
+                                                                </td><td class='col-auto'>
+                                                                <p class=' mb-0'>".$row["address"].", ".$row["city"]."</p></td></tr>";
                     
                                                                 echo "<tr><td class='col-auto'>
                                                                 <p class=' mb-0'>Date</p>
@@ -157,10 +162,7 @@
                                                                 </td><td class='col-auto'>
                                                                 <p class=' mb-0'>".$row["vaccine_brand"]."</p></td></tr>";
                                                                 
-                                                                echo "<tr><td class='col-auto'>
-                                                                <p class=' mb-0'>Location</p>
-                                                                </td><td class='col-auto'>
-                                                                <p class=' mb-0'>".$row["address"]."</p></td></tr>";
+                                                                
 
                                                             }
                                                         ?>
@@ -174,7 +176,7 @@
                                                         import confetti from 'https://cdn.skypack.dev/canvas-confetti';
                                                         confetti();
                                                     </script>
-                                                    <button formaction="index.php">Return to main page</button>
+                                                    <button class="btn btn-light-primary me-1 mb-1" formaction="index.php">Return to Dashboard</button>
                                                 </form>
                                             </div>
                                         </div>

@@ -217,8 +217,8 @@
                                     <label for="checkbox1">Show Only Appointments Administered By You</label>
                                 </div>
                                 <div class="col-12 d-flex justify-content-end">
-                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                    <button class="btn btn-light-primary me-1 mb-1" type="submit" name="submit">Search</button>
+                                    <button type="reset" class="btn btn-secondary me-1 mb-1">Reset</button>
+                                    <button class="btn btn-primary me-1 mb-1" type="submit" name="submit">Search</button>
                                 </div>
                                 
                             </div>
@@ -251,7 +251,7 @@
                                             $name = $_POST['name'];
                                             $nurse = $_POST['nurse'];
 
-                                            $sql = "SELECT app_ID, Patient.name as patient, Nurse.name as nurse, date, time, vaccine_brand, Vaccine_Center.address as address 
+                                            $sql = "SELECT app_ID, Patient.name as patient, Nurse.name as nurse, date, time, vaccine_brand, city, Vaccine_Center.address as address 
                                                 FROM Appointments, Patient, Vaccine_Center, Nurse 
                                                 WHERE Patient.user_ID = Appointments.p_ID 
                                                     AND Vaccine_Center.facility_ID = Appointments.facility_ID 
@@ -301,7 +301,7 @@
                                                     echo "<td>".$row['app_ID']."</td>";
                                                     echo "<td>".$row['date']."</td>";
                                                     echo "<td>".$row['patient']."</td>";
-                                                    echo "<td>".$row['address']."</td>";
+                                                    echo "<td>".$row["address"].", ".$row["city"]."</td>";
                                                     echo "<td>".$row['time']."</td>";
                                                     echo "<td>".$row['vaccine_brand']."</td>";
                                                     echo "<td>".$row['nurse']."</td>";

@@ -150,11 +150,14 @@
                                                         <th>Date</th>
                                                         <th>Time</th>
                                                         <th>Location</th>
+                                                        <th>Contact Info</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                 <?php
-                                                    $sql = "SELECT date, time, address FROM Appointments, Vaccine_Center WHERE p_ID = {$_SESSION['userid']} AND Appointments.facility_ID = Vaccine_Center.facility_ID";
+                                                    $sql = "SELECT date, time, address, city, phone FROM Appointments, Vaccine_Center 
+                                                        WHERE p_ID = {$_SESSION['userid']} AND Appointments.facility_ID = Vaccine_Center.facility_ID 
+                                                        ORDER BY date ASC";
                                                     $results = $conn->query($sql);
                                                     if ($results->num_rows > 0){
                                                         while($row = $results->fetch_assoc()){
@@ -163,7 +166,11 @@
                                                             </div></td><td class='col-auto'>
                                                             <p class=' mb-0'>".$row["time"]."</p>
                                                             </td><td class='col-auto'>
-                                                            <p class=' mb-0'>".$row["address"]."</p></td></tr>";
+                                                            <p class=' mb-0'>".$row["address"].", ".$row["city"]."</p>
+                                                            </td><td class='col-auto'>
+                                                            <p class=' mb-0'>".$row["phone"]."</p>
+                                                            </td></tr>";
+                                                            
                                                         }
                                                     }
                                                 ?>

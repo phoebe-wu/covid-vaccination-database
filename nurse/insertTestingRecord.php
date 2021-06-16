@@ -12,8 +12,8 @@ function handleSubmitRequest($conn) {
     $result = $conn->query("SELECT record_id FROM Testing_Record order by record_id DESC");
     $recordNum = ($result->fetch_row())[0] + 1;
 
-    $sql = "INSERT INTO `Testing_Record`(`record_id`, `date`, `result`, `user_ID`) 
-    VALUES('$recordNum','$date','$result','$id')";
+    $sql = "INSERT INTO Testing_Record(`record_id`, `date`, `result`, `user_ID`) 
+    VALUES('$recordNum','$date','$result','$id') ";
 
     if ($conn->query($sql) === TRUE) {
         header("location:patient_record.php?id=".$id);

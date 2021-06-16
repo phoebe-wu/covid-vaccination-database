@@ -209,9 +209,9 @@
                                                 
                                                 <div class="col-12 d-flex justify-content-end">
                                                     <button type="reset"
-                                                        class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                                        class="btn btn-secondary me-1 mb-1">Reset</button>
 
-                                                    <button class="btn btn-light-primary me-1 mb-1" type="submit" name="nameSubmit"
+                                                    <button class="btn btn-primary me-1 mb-1" type="submit" name="nameSubmit"
                                                     id="search_name">Search</button>
                                                 </div>
                                                 

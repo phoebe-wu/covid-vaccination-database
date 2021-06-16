@@ -169,7 +169,9 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $sql = "SELECT date, time, address FROM Appointments, Vaccine_Center WHERE n_ID = {$_SESSION['userid']} AND Appointments.facility_ID = Vaccine_Center.facility_ID";
+                                                    $sql = "SELECT date, time, address, city FROM Appointments, Vaccine_Center 
+                                                        WHERE n_ID = {$_SESSION['userid']} AND Appointments.facility_ID = Vaccine_Center.facility_ID
+                                                        ORDER BY date ASC";
                                                     $results = $conn->query($sql);
                                                     if ($results->num_rows > 0){
                                                         $minnum = min(3, $results->num_rows);
@@ -180,7 +182,7 @@
                                                             </div></td><td class='col-auto'>
                                                             <p class=' mb-0'>".$row["time"]."</p>
                                                             </td><td class='col-auto'>
-                                                            <p class=' mb-0'>".$row["address"]."</p></td></tr>";
+                                                            <p class=' mb-0'>".$row["address"].", ".$row["city"]."</p></td></tr>";
                                                         }
                                                     }
                                                     ?>
@@ -209,25 +211,25 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                        $sql = "SELECT address FROM Works_At_VC, Vaccine_Center WHERE nurse_ID = {$_SESSION['userid']} AND Works_At_VC.facility_ID = Vaccine_Center.facility_ID";
+                                                        $sql = "SELECT * FROM Works_At_VC, Vaccine_Center WHERE nurse_ID = {$_SESSION['userid']} AND Works_At_VC.facility_ID = Vaccine_Center.facility_ID";
                                                         $results = $conn->query($sql);
                                                         if ($results->num_rows > 0){
                                                             while($row = $results->fetch_assoc()){
                                                                 echo "<tr><td class='col-auto'>
                                                                 <p class=' mb-0'>Vaccine Centre</p>
                                                                 </td><td class='col-auto'>
-                                                                <p class=' mb-0'>".$row["address"]."</p></td></tr>";
+                                                                <p class=' mb-0'>".$row["address"].", ".$row["city"]."</p></td></tr>";
                                                             }
                                                         }
                                                     
-                                                        $sql = "SELECT address FROM Works_At_TC, Testing_Center WHERE nurse_ID = {$_SESSION['userid']} AND Works_At_TC.facility_ID = Testing_Center.facility_ID";
+                                                        $sql = "SELECT * FROM Works_At_TC, Testing_Center WHERE nurse_ID = {$_SESSION['userid']} AND Works_At_TC.facility_ID = Testing_Center.facility_ID";
                                                             $results = $conn->query($sql);
                                                             if ($results->num_rows > 0){
                                                                 while($row = $results->fetch_assoc()){
                                                                     echo "<tr><td class='col-auto'>
                                                                     <p class=' mb-0'>Testing Centre</p>
                                                                     </td><td class='col-auto'>
-                                                                    <p class=' mb-0'>".$row["address"]."</p></td></tr>";
+                                                                    <p class=' mb-0'>".$row["address"].", ".$row["city"]."</p></td></tr>";
                                                                 }
                                                         }
                                                     ?>

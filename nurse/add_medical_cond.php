@@ -123,7 +123,7 @@ session_start();
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="nurse_main.php">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="medical_report.php">Medical Records</a></li>
+                                    <li class="breadcrumb-item"><a href="medical_report.php">Medical Reports</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Add Record</li>
                                 </ol>
                             </nav>

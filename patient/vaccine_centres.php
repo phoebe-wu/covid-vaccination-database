@@ -267,9 +267,9 @@
                                                         class="btn btn-primary me-1 mb-1"
                                                         formaction="vaccine_centres_filter.php" name="submit">
                                                     Submit</button>
-                                                <button type="reset"
-                                                        class="btn btn-light-secondary me-1 mb-1" formaction="vaccine_centres_filter.php" name="reset">
-                                                    Reset</button>
+<!--                                                <button type="reset"-->
+<!--                                                        class="btn btn-light-secondary me-1 mb-1" formaction="vaccine_centres_filter.php" name="reset">-->
+<!--                                                    Reset</button>-->
                                             </div>
 
 

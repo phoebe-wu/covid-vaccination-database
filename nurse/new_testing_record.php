@@ -206,7 +206,7 @@ session_start();
                                    					 </div>
 												    <div class="form-check">
                                         					<input class="form-check-input" type="radio" name="result"
-                                            						id="flexRadioDefault1" value="Results Pending">
+                                            						id="flexRadioDefault1" value="Pending">
                                         					<label class="form-check-label" for="flexRadioDefault1">
                                             						Results Pending
                                         					</label>

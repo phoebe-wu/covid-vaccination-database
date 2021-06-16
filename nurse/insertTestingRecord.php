@@ -18,7 +18,8 @@ function handleSubmitRequest($conn) {
     if ($conn->query($sql) === TRUE) {
         header("location:patient_record.php?id=".$id);
     } else {
-        header("location:patient_list.php");
+        header('refresh:5; url=patient_list.php');
+//        header("location:patient_list.php");
         echo "Error: Could Not Create New Record " . $sql . "<br>" . $conn->error;
     }
     

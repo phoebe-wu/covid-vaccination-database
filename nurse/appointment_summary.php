@@ -1,6 +1,7 @@
 <?php
     include '../connect.php';
     $conn = OpenCon();
+    session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +54,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item active ">
-                                <a href="appointment_summary.html" class='sidebar-link'>
+                                <a href="appointment_summary.php" class='sidebar-link'>
                                     <i class="bi bi-stack"></i>
                                     <span>Upcoming Appointments</span>
                                 </a>
@@ -123,8 +124,9 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>Upcoming Appointments</h3>
-                        <p class="text-subtitle text-muted">Summary page</p>
+                        <h3>Upcoming Appointments (｡･ө･｡)</h3>
+                        <p> View Province Wide Vaccination Appointments</p>
+                        <br>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -141,126 +143,186 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body">
-                                <p>Filter By</p>
-                                <div class="btn-group mb-1">
-                                    <div class="dropdown">
-                                        <button class="btn btn-primary dropdown-toggle me-1" type="button"
-                                                id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false">
-                                            Brand
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Moderna</a>
-                                            <a class="dropdown-item" href="#">Janssen</a>
-                                            <a class="dropdown-item" href="#">Pfizer-BioNTech</a>
-                                            <a class="dropdown-item" href="#">AstraZeneca</a>
-                                            <a class="dropdown-item" href="#">Novavax</a>
-                                            <a class="dropdown-item" href="#">Gamaleya</a>
-                                        </div>
-                                    </div>
+                        <div class="card-header">
+                            <h4 class="card-title">Search Appointments</h4>
+                            <form method ="post" action="appointment_summary.php">
+                                <div class="btn-group me-1 mb-1">
+                                            <select name="brand" class="form-select" id="basicSelect">
+                                                <option value="" selected>Vaccine Brand</option>
+                                                <?php 
+                                                    $sql = "SELECT brand FROM Vaccine_Brand_Delivery";
+                                                    $result = $conn->query($sql);
+                                                    if ($result->num_rows > 0) {
+                                                        while($row = $result->fetch_assoc()) {
+                                                            echo "<option value=".$row["brand"].">".$row["brand"]."</option>";
+                                                        }
+                                                    }
+                                                ?>
+                                            </select>
                                 </div>
-                                <div class="btn-group mb-1">
-                                    <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle me-1" type="button"
-                                                id="dropdownMenuButtonSec" data-bs-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false">
-                                            City
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonSec">
-                                            <a class="dropdown-item" href="#">Richmond</a>
-                                            <a class="dropdown-item" href="#">Vancouver</a>
-                                            <a class="dropdown-item" href="#">Sechelt</a>
-                                            <a class="dropdown-item" href="#">Saanichton</a>
-                                            <a class="dropdown-item" href="#">Kelowna</a>
-                                            <a class="dropdown-item" href="#">Burnaby</a>
-                                            <a class="dropdown-item" href="#">Coquitlam</a>
-                                        </div>
-                                    </div>
+                                <div class="btn-group me-1 mb-1">
+                                            <select name="city" class="form-select" id="basicSelect">
+                                                <option value="" selected> City </option>
+                                                <?php 
+                                                    $sql = "SELECT city FROM Vaccine_Center";
+                                                    $result = $conn->query($sql);
+                                                    if ($result->num_rows > 0) {
+                                                        while($row = $result->fetch_assoc()) {
+                                                            echo "<option value=".$row["city"].">".$row["city"]."</option>";
+                                                        }
+                                                    }
+                                                ?>
+                                        </select>
                                 </div>
-                                <div class="btn-group mb-1">
-                                    <div class="dropdown">
-                                        <button class="btn btn-success dropdown-toggle me-1" type="button"
-                                                id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false">
-                                            Time
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                            <a class="dropdown-item" href="#">tomorrow</a>
-                                            <a class="dropdown-item" href="#">in 7 days</a>
-                                            <a class="dropdown-item" href="#">past</a>
-                                        </div>
-                                    </div>
+                                <div class="btn-group me-1 mb-1">
+                                            <select name="date" class="form-select" id="basicSelect">
+                                                <option value="" selected>All Dates</option>
+                                                <option value="1">Today</option>
+                                                <option value="2">This Week</option>
+                                                <option value="3">This Month</option>
+                                                <option value="4">Past</option>
+                                            </select>
                                 </div>
-
-                                <p>Sort by</p>
-                                <div class="form-check form-check-primary">
-                                    <input class="form-check-input" type="radio" name="Primary" id="Primary"
-                                           checked>
-                                    <label class="form-check-label" for="Primary">
-                                        descending date (future to past)
+                                <br>
+                                <br>
+                                <div class="btn-group me-1 mb-1">
+                                    <h6 class="text-muted font-semibold">Order: </h6>
+                                </div>
+                                <div class="btn-group me-1 mb-1">
+                                    <input class="form-check-input" type="radio" name="order" value=""
+                                            id="flexRadioDefault1" checked>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Ascending dates (Past to Future)
                                     </label>
                                 </div>
-                                <div class="form-check form-check-primary">
-                                    <input class="form-check-input" type="radio" name="Primary" id="Secondary"
-                                           checked>
-                                    <label class="form-check-label" for="Secondary">
-                                        ascending date (past to future)
+                                <div class="btn-group me-1 mb-1">
+                                    <input class="form-check-input" type="radio" name="order" value="1"
+                                            id="flexRadioDefault1" value >
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Descending dates (Future to Past)
                                     </label>
                                 </div>
                                 <br>
-                                <div class="col-md-6 col-12">
-                                    <div class="input-group mb-3">
-                                                    <span class="input-group-text" id="basic-addon1"><i
-                                                            class="bi bi-search"></i></span>
-                                        <input type="text" class="form-control"
-                                               placeholder="Patient id"
-                                               aria-label="Patient id"
-                                               aria-describedby="button-addon2">
-                                        <button class="btn btn-outline-secondary" type="button"
-                                                id="button-addon2">Search</button>
-                                    </div>
+                                <br>
+                                <div class="col-md-6 mb-1">
+                                        <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"> 
+                                             <i class="bi bi-search"></i></span>
+                                            <input type="text" class="form-control" name="name" placeholder="Patient Name"
+                                               aria-label="Recipient's username" aria-describedby="search_name"> 
+                                        </div>
                                 </div>
-                                <table class="table table-striped" id="table1">
-                                    <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Facility id</th>
-                                        <th>Patient id</th>
-                                        <th>Address</th>
-                                        <th>City</th>
-                                        <th>Vaccine Brand</th>
-                                        <th>Dose</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th>2021-05-21</th>
-                                        <td>4201231</td>
-                                        <td>10002</td>
-                                        <td>123 street</td>
-                                        <td>Vancouver</td>
-                                        <td>Moderna</td>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr>
-                                        <th>2021-06-21</th>
-                                        <td>114224</td>
-                                        <td>10004</td>
-                                        <td>234 street</td>
-                                        <td>Richmond</td>
-                                        <td>Janssen</td>
-                                        <td>2</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <div class="col-md-6 mb-1">
+                                    <input type="checkbox" id="checkbox1" class="form-check-input" name="nurse">
+                                    <label for="checkbox1">Show Only Appointments Administered By You</label>
+                                </div>
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                    <button class="btn btn-light-primary me-1 mb-1" type="submit" name="submit">Search</button>
+                                </div>
+                                
                             </div>
-
+                            </form>
                         </div>
                     </div>
                 </div>
             </section>
-            <!-- Basic Dropdown End -->
+            <section id="multiple-column-form">
+                    <div class="row match-height">
+                        <div class="col-12">
+                           <div class="card">
+                              <div class="card-content">
+                                 <div class="card-body">
+                                    <table class="table table-striped" id="table1">
+                                        <tr>
+                                           <th>Appointment ID</th>
+                                           <th>Date</th>
+                                           <th>Patient</th>
+                                           <th>Location</th>
+                                           <th>Time</th>
+                                           <th>Vaccine</th>
+                                           <th>Nurse</th>
+                                        </tr>
+                                        <?php
+                                            $brand = $_POST['brand'];
+                                            $city = $_POST['city'];
+                                            $date = $_POST['date'];
+                                            $order = $_POST['order'];
+                                            $name = $_POST['name'];
+                                            $nurse = $_POST['nurse'];
+
+                                            $sql = "SELECT app_ID, Patient.name as patient, Nurse.name as nurse, date, time, vaccine_brand, Vaccine_Center.address as address 
+                                                FROM Appointments, Patient, Vaccine_Center, Nurse 
+                                                WHERE Patient.user_ID = Appointments.p_ID 
+                                                    AND Vaccine_Center.facility_ID = Appointments.facility_ID 
+                                                    AND Appointments.n_ID = Nurse.user_ID";
+                                            
+                                            if ($name != '') {
+                                                $sql = $sql. " AND Patient.name LIKE '%$name%'";
+                                            }
+                                            if ($brand != '') {
+                                                $sql = $sql. " AND vaccine_brand = '$brand' ";
+                                            }
+                                            if ($city != '') {
+                                                $sql = $sql. " AND city = '$city' ";
+                                            }
+                                            if ($date != '') {
+                                                switch ($date) {
+                                                    case 1:
+                                                        $sql = $sql. " AND date = CURDATE()";
+                                                        break;
+                                                    case 2:
+                                                        $sql = $sql. " AND WEEKOFYEAR(date)=WEEKOFYEAR(NOW())";
+                                                        break;
+                                                    case 3:
+                                                        $sql = $sql. " AND MONTH(date)=MONTH(NOW())";
+                                                        break;
+                                                    case 4:
+                                                        $sql = $sql. " AND date < CURDATE()";
+                                                        break;
+                                                }
+                                            }
+                                            if ($nurse != '') {
+                                                $sql = $sql. " AND Nurse.user_ID = {$_SESSION['userid']} ";
+                                            }
+                                            if ($order == '') {
+                                                $sql = $sql. " ORDER BY date ASC";
+                                            } else {
+                                                $sql = $sql. " ORDER BY date DESC";
+                                            }
+                                            
+                                            //echo $sql;
+                                        
+                                            $result = $conn->query($sql);
+                                            if ($result->num_rows > 0) {
+                                            // output data of each row
+                                                while($row = $result->fetch_assoc()) {
+                                                    echo "<tr>";
+                                                    echo "<td>".$row['app_ID']."</td>";
+                                                    echo "<td>".$row['date']."</td>";
+                                                    echo "<td>".$row['patient']."</td>";
+                                                    echo "<td>".$row['address']."</td>";
+                                                    echo "<td>".$row['time']."</td>";
+                                                    echo "<td>".$row['vaccine_brand']."</td>";
+                                                    echo "<td>".$row['nurse']."</td>";
+                                                    echo "</tr>";
+                                                }
+                                                echo "</table>";
+                                            } else {
+                                                echo "0 results";
+                                            }
+                                            CloseCon($conn);
+
+                                            unset($_POST);
+                                        ?>
+                                    </table>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                    </div>
+               </section>
+            
         </div>
 
         <footer>

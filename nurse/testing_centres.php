@@ -209,7 +209,7 @@ $conn = OpenCon();
 								   if ($result->num_rows > 0) {
 								   // output data of each row
 								   while($row = $result->fetch_assoc()) {
-                                        echo "<tr><td class='border-class'>".$row["address"].
+                                    echo "<tr><td class='border-class'>".$row["address"].
                                    	"</td><td class='border-class'>".$row["phone"].
                                    	"</td><td class='border-class'>".$row["city"].
                                    	"</td><td class='border-class'>".$row["opening_time"].

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 02, 2021 at 08:53 AM
+-- Generation Time: Jun 16, 2021 at 07:25 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -66,8 +66,10 @@ CREATE TABLE `City_In_HA` (
 
 INSERT INTO `City_In_HA` (`city`, `health_authority`) VALUES
 ('Burnaby', 'Fraser'),
+('Maple Ridge', 'Fraser'),
 ('White Rock', 'Fraser'),
 ('Ashcroft', 'Interior'),
+('Kelowna', 'Interior'),
 ('Kitimat', 'Interior'),
 ('Vancouver', 'Coastal'),
 ('Whistler', 'Coastal'),
@@ -305,12 +307,12 @@ CREATE TABLE `Vaccine_Brand_Delivery` (
 --
 
 INSERT INTO `Vaccine_Brand_Delivery` (`brand`, `delivery_system`) VALUES
-('Moderna', 'mRNA'),
 ('Janssen', 'adenovirus'),
-('Pfizer-BioNTech', 'mRNA'),
 ('AstraZeneca', 'adenovirus'),
-('Novavax', 'Protein Subunit'),
-('Gamaleya', 'adenovirus');
+('Gamaleya', 'adenovirus'),
+('Moderna', 'mRNA'),
+('Pfizer-BioNTech', 'mRNA'),
+('Novavax', 'Protein Subunit');
 
 -- --------------------------------------------------------
 
@@ -366,7 +368,7 @@ INSERT INTO `Vaccine_Need_Second_Dose` (`delivery_system`, `need_second_dose`) V
 --
 
 CREATE TABLE `Vaccine_Record` (
-  `record_id` int(11) NOT NULL,
+  `record_ID` int(11) NOT NULL,
   `date` date DEFAULT NULL,
   `dose` int(11) DEFAULT NULL,
   `brand` char(30) DEFAULT NULL,
@@ -377,7 +379,7 @@ CREATE TABLE `Vaccine_Record` (
 -- Dumping data for table `Vaccine_Record`
 --
 
-INSERT INTO `Vaccine_Record` (`record_id`, `date`, `dose`, `brand`, `user_ID`) VALUES
+INSERT INTO `Vaccine_Record` (`record_ID`, `date`, `dose`, `brand`, `user_ID`) VALUES
 (400001, '2021-02-01', 1, 'Moderna', 80001),
 (400002, '2021-03-04', 1, 'Janssen', 80002),
 (400003, '2021-03-14', 1, 'Janssen', 80003),
@@ -498,7 +500,8 @@ ALTER TABLE `Patient`
 ALTER TABLE `Testing_Center`
   ADD PRIMARY KEY (`facility_ID`),
   ADD UNIQUE KEY `phone` (`phone`),
-  ADD UNIQUE KEY `address` (`address`);
+  ADD UNIQUE KEY `address` (`address`),
+  ADD KEY `city` (`city`);
 
 --
 -- Indexes for table `Testing_Kit`
@@ -517,7 +520,8 @@ ALTER TABLE `Testing_Record`
 -- Indexes for table `Vaccine_Brand_Delivery`
 --
 ALTER TABLE `Vaccine_Brand_Delivery`
-  ADD PRIMARY KEY (`brand`);
+  ADD PRIMARY KEY (`brand`),
+  ADD KEY `delivery_system` (`delivery_system`);
 
 --
 -- Indexes for table `Vaccine_Center`
@@ -525,7 +529,8 @@ ALTER TABLE `Vaccine_Brand_Delivery`
 ALTER TABLE `Vaccine_Center`
   ADD PRIMARY KEY (`facility_ID`),
   ADD UNIQUE KEY `phone` (`phone`),
-  ADD UNIQUE KEY `address` (`address`);
+  ADD UNIQUE KEY `address` (`address`),
+  ADD KEY `city` (`city`);
 
 --
 -- Indexes for table `Vaccine_Need_Second_Dose`
@@ -537,7 +542,7 @@ ALTER TABLE `Vaccine_Need_Second_Dose`
 -- Indexes for table `Vaccine_Record`
 --
 ALTER TABLE `Vaccine_Record`
-  ADD PRIMARY KEY (`record_id`),
+  ADD PRIMARY KEY (`record_ID`),
   ADD KEY `user_ID` (`user_ID`);
 
 --
@@ -594,10 +599,28 @@ ALTER TABLE `Inventory_Of_Vaccine`
   ADD CONSTRAINT `inventory_of_vaccine_ibfk_2` FOREIGN KEY (`brand`) REFERENCES `Vaccine_Brand_Delivery` (`brand`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `Testing_Center`
+--
+ALTER TABLE `Testing_Center`
+  ADD CONSTRAINT `testing_center_ibfk_1` FOREIGN KEY (`city`) REFERENCES `City_In_HA` (`city`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `Testing_Record`
 --
 ALTER TABLE `Testing_Record`
   ADD CONSTRAINT `testing_record_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `Patient` (`user_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Vaccine_Brand_Delivery`
+--
+ALTER TABLE `Vaccine_Brand_Delivery`
+  ADD CONSTRAINT `vaccine_brand_delivery_ibfk_1` FOREIGN KEY (`delivery_system`) REFERENCES `Vaccine_Need_Second_Dose` (`delivery_system`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Vaccine_Center`
+--
+ALTER TABLE `Vaccine_Center`
+  ADD CONSTRAINT `vaccine_center_ibfk_1` FOREIGN KEY (`city`) REFERENCES `City_In_HA` (`city`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Vaccine_Record`

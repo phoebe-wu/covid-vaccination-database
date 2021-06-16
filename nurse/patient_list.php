@@ -138,146 +138,210 @@
                                 <div class="card-header">
                                     <h4 class="card-title">Find a Patient</h4>
 							 <p> Look up a patient with their name <span style="font-weight:bold;"> OR </span> personal health number </p>
-                                        <form method="post" action="patient_list.php">
-                                            <div class="btn-group me-1 mb-1">
-                                                    <select class="form-select" id="basicSelect">
-                                                        <option selected>Vaccination Status</option>
-                                                        <option>Vaccinated with One Dose</option>
-                                                        <option>Vaccinated with Two Doses</option>
-                                                        <option>Unvaccinated</option>
-                                                    </select>
-                                            </div>
-                                            <div class="btn-group me-1 mb-1">
-                                                    <select class="form-select" id="basicSelect">
-                                                        <option selected>Vaccine Brand</option>
-                                                        <option>Moderna</option>
-                                                        <option>Pfizer</option>
-                                                        <option>Janssen</option>
-                                                        <option>Astra Zeneca</option>
-                                                    </select>
-                                            </div>
-                                            <div class="btn-group me-1 mb-1">
-                                                    <select class="form-select" id="basicSelect">
-                                                        <option selected>Test Result</option>
-                                                        <option>Positive</option>
-                                                        <option>Negative</option>
-                                                    </select>
-                                            </div>
+                                    <form method="post" action="patient_list.php">
+                                        <div class="btn-group me-1 mb-1">
+                                            <select name="dosage" class="form-select" id="basicSelect">
+                                                <option value="" selected>Vaccination Status</option>
+                                                <option value="1">Vaccinated with One Dose</option>
+                                                <option value="2">Vaccinated with Two Doses</option>
+                                                <option value="0">Unvaccinated</option>
+                                            </select>
+                                        </div>
+                                        <div class="btn-group me-1 mb-1">
+                                            <select name="brand" class="form-select" id="basicSelect">
+                                                <option value="" selected>Vaccine Brand</option>
+                                                <?php 
+                                                    $sql = "SELECT brand FROM Vaccine_Brand_Delivery";
+                                                    $result = $conn->query($sql);
+                                                    if ($result->num_rows > 0) {
+                                                        while($row = $result->fetch_assoc()) {
+                                                            echo "<option value=".$row["brand"].">".$row["brand"]."</option>";
+                                                        }
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="btn-group me-1 mb-1">
+                                            <select name="result" class="form-select" id="basicSelect">
+                                                <option value="" selected>Test Result</option>
+                                                <?php 
+                                                    $sql = "SELECT result FROM Testing_Record GROUP BY result";
+                                                    $result = $conn->query($sql);
+                                                    if ($result->num_rows > 0) {
+                                                        while($row = $result->fetch_assoc()) {
+                                                            echo "<option value=".$row["result"].">".$row["result"]."</option>";
+                                                        }
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
 
-                                            <div class="btn-group me-12 mb-1">
-                                                    <select name="location" class="choices form-select">
-                                                        <option selected value="">Choose...</option>
-                                                        <optgroup label="Health Authority">
-                                                            <option value="fraser">Fraser</option>
-                                                            <option value="coastal">Coastal</option>
-                                                            <option value="island">Island</option>
-                                                            <option value="northern">Northern</option>
-                                                            <option value="interior">Interior</option>
-                                                        </optgroup>
-                                                        <optgroup label="City">
-                                                        <?php 
-                                                            $sql = "SELECT city FROM Vaccine_Center";
-                                                            $result = $conn->query($sql);
-                                                            if ($result->num_rows > 0) {
-                                                            // output data of each row
-                                                                while($row = $result->fetch_assoc()) {
-                                                                    echo "<option value=".$row["city"].">".$row["city"]."</option>";
-                                                                }
-                                                            }
-                                                        ?>
-                                                        </optgroup>
-                                                    </select>
-                                            </div>
-                                            <div class="btn-group me-1 mb-1">
-                                                    <input type="text" class="form-control" id="basicInput"
-                                                    placeholder="Medical Condition">
-                                            </div>
-                                            <br>
-                                            <div class="card-content">
-                                                 <div class="card-body">
+                                        <div class="btn-group me-1 mb-1">
+                                                
+                                                <input type="text" class="form-control form-control" name="medical_cond" placeholder="Medical Condition">
+                                        </div>
+                                        <br>
+                                        <div class="card-content">
+                                            <div class="card-body">
                                                 <div class="row">
-                                            <div class="col-md-6 mb-1">
-                                            <div class="input-group mb-3">
-									   		<span class="input-group-text" id="basic-addon1"><i
-                                                            class="bi bi-search"></i></span>
-                                                    	<input type="text" class="form-control" name="nameToSearch"
-                                                        	placeholder="Name"
-                                                       	aria-label="Recipient's username"
-                                                        	aria-describedby="search_name">
-                                                    	<button class="btn btn-outline-secondary" type="submit" name="nameSubmit"
-                                                        id="search_name">Search</button>
+                                                    <div class="col-md-6 mb-1">
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1"> 
+                                                                <i class="bi bi-search"></i></span>
+                                                            <input type="text" class="form-control" name="nameToSearch"
+                                                                placeholder="Name"
+                                                                aria-label="Recipient's username"
+                                                                aria-describedby="search_name">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-1">
+                                                        <div class="input-group mb-3">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="bi bi-search"></i></span>
+                                                            <input type="text" class="form-control" name="phn"
+                                                                    placeholder="Personal Health Number"
+                                                                    aria-label="Recipient's username"
+                                                                    aria-describedby="button-addon2">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6 mb-1">
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text" id="basic-addon1"><i
-                                                            class="bi bi-search"></i></span>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Personal Health Number"
-                                                        aria-label="Recipient's username"
-                                                        aria-describedby="button-addon2">
-                                                    <button class="btn btn-outline-secondary" type="button"
-                                                        id="button-addon2">Search</button>
+                                                
+                                                <div class="col-12 d-flex justify-content-end">
+                                                    <button class="btn btn-outline-secondary" type="submit" name="nameSubmit"
+                                                    id="search_name">Search</button>
+                                                    <button type="reset"
+                                                        class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                                 </div>
+                                                
                                             </div>
                                         </div>
-                                    </div>
-                                  </form>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-			 <section id="multiple-column-form">
-			<div class="row match-height">
-			    <div class="col-12">
-				   <div class="card">
-					  <div class="card-content">
-						 <div class="card-body">
-							<form class="form">
-							    <table class="table table-striped" id="table1">
-								    <tr>
-									   <th>PHN</th>
-									   <th>Name</th>
-                                       <th>Address</th>
-									   <th>Age</th>
-									   <th>Manage Record</th>
-                                       <th>Delete Patient</th>
-								    </tr>
-								    <?php
-								   $sql = "SELECT * FROM Patient";
-								   $result = $conn->query($sql);
-								   if ($result->num_rows > 0) {
-								   // output data of each row
-								   while($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>".$row['phn']."</td>";
-                                    echo "<td>".$row['name']."</td>";
-                                    echo "<td>".$row['address']."</td>";
-                                    echo "<td>".$row['age']."</td>";
-                                    echo "<td> <a href='patient_record.php?id=".$row["user_ID"]."'class='badge bg-light-primary'> Manage</a></td>";
-                                    echo "<td> <a href='delete_patient.php?id=".$row["user_ID"]."'class='badge bg-light-danger'> Delete</a></td>";
-                                    echo "</tr>";
-								   }
-								   echo "</table>";
-								   } else {
-								   echo "0 results";
-								   }
-								   CloseCon($conn);
-								    ?>
-								</tbody>
-							 </table>
-							</form>
-						 </div>
-					  </div>
-				   </div>
-			    </div>
-			</div>
-				   
-			    </div>
-			</div>
+               </section>
+               <section id="multiple-column-form">
+                    <div class="row match-height">
+                        <div class="col-12">
+                           <div class="card">
+                              <div class="card-content">
+                                 <div class="card-body">
+                                    <table class="table table-striped" id="table1">
+                                        <tr>
+                                           <th>PHN</th>
+                                           <th>Name</th>
+                                           <th>Address</th>
+                                           <th>Age</th>
+                                           <th>Manage Record</th>
+                                           <th>Delete Patient</th>
+                                        </tr>
+                                        <?php
+                                        
+                                            $sql = "SELECT Patient.name, Patient.age, Patient.phn, Patient.address
+                                            FROM Patient, Has_Medical_Condition
+                                            WHERE Patient.user_ID = Has_Medical_Condition.user_ID and description = '{$_POST['medical_cond']}'";
+                                            echo $str;
 
-		 </section>
+                                            $sql = "SELECT Patient.name, Patient.age, Patient.phn, Patient.address
+                                                FROM Patient";   
+                                            if ($_POST['medical_cond'] != ''){
+                                                $sql = $sql.", Has_Medical_Condition";
+                                                }
+                                            if (($_POST['dosage'] != '') or ($_POST['brand'] != '')){
+                                                $sql = $sql.", Vaccine_Record";
+                                                }
+                                            if ($_POST['result'] != ''){
+                                                $sql = $sql.", Testing_Record";
+                                            }
+                                            if (($_POST['medical_cond'] != '') or ($_POST['dosage'] != '') 
+                                                or ($_POST['brand'] != '') or ($_POST['result'] != '') 
+                                                or ($_POST['nameToSearch'] != '') or ($_POST['phn'] != '')) {
+                                                
+                                                $sql = $sql." WHERE";
+                                                $and = 0;
+                                                if ($_POST['medical_cond'] != ''){
+                                                    $sql = $sql." Patient.user_ID = Has_Medical_Condition.user_ID AND description = '{$_POST['medical_cond']}'";
+                                                    $and = 1;
+                                                }
+                                                if (($_POST['dosage'] != '') or ($_POST['brand'] != '')){
+                                                    if ($and == 1) {
+                                                        $sql = $sql." AND";
+                                                        $and = 0;
+                                                    }
+                                                    $sql = $sql." Patient.user_ID = Vaccine_Record.user_ID";
+                                                    $and = 1;
+                                                    
+                                                    if ($_POST['dosage'] != ''){
+                                                        $sql = $sql." AND Vaccine_Record.dose = {$_POST['dosage']}";
+                                                    }
+                                                    if ($_POST['brand'] != ''){
+                                                        if ($and == 1) {
+                                                            $sql = $sql." AND";
+                                                            $and = 0;
+                                                        }
+                                                        $sql = $sql." Vaccine_Record.brand = '{$_POST['brand']}'";
+                                                        $and = 1;
+                                                    }
+                                                }
+                                                if ($_POST['result'] != ''){
+                                                    if ($and == 1) {
+                                                        $sql = $sql." AND";
+                                                        $and = 0;
+                                                    }
+                                                    $sql = $sql." Patient.user_ID = Testing_Record.user_ID AND Testing_Record.result = '{$_POST['result']}'";
+                                                    $and = 1;
+                                                }
+                                                if ($_POST['nameToSearch'] != ''){
+                                                    if ($and == 1) {
+                                                        $sql = $sql." AND";
+                                                        $and = 0;
+                                                    }
+                                                    $sql = $sql." Patient.name LIKE '%{$_POST['nameToSearch']}%'";
+                                                    $and = 1;
+                                                }
+                                                if ($_POST['phn'] != ''){
+                                                    if ($and == 1) {
+                                                        $sql = $sql." AND";
+                                                        $and = 0;
+                                                    }
+                                                    $sql = $sql." Patient.phn = {$_POST['phn']}";
+                                                }
+                                            }
+                                                
+                                            $result = $conn->query($sql);
+                                            if ($result->num_rows > 0) {
+                                            // output data of each row
+                                                while($row = $result->fetch_assoc()) {
+                                                    echo "<tr>";
+                                                    echo "<td>".$row['phn']."</td>";
+                                                    echo "<td>".$row['name']."</td>";
+                                                    echo "<td>".$row['address']."</td>";
+                                                    echo "<td>".$row['age']."</td>";
+                                                    echo "<td> <a href='patient_record.php?id=".$row["user_ID"]."'class='badge bg-light-primary'> Manage</a></td>";
+                                                    echo "<td> <a href='delete_patient.php?id=".$row["user_ID"]."'class='badge bg-light-danger'> Delete</a></td>";
+                                                    echo "</tr>";
+                                                }
+                                                echo "</table>";
+                                            } else {
+                                                echo "0 results";
+                                            }
+                                            CloseCon($conn);
+
+                                            unset($_POST);
+                                        ?>
+                                    </table>
+                                     
+                                     
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                    </div>
+               </section>
+            </div>
+        </div>
     </div>
     <script src="../assets~/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 </body>

@@ -24,7 +24,7 @@ if (isset($_POST['allkits'])){
     }
     if ($city !='' && $vkinds !=''){
         header("location:testing_centres.php?Vcity=".$city.'&Vkinds='.$vkinds.'&Division='.$division);
-        //echo "filter page: with $city and $vkinds";
+
     }
 
 

@@ -194,10 +194,10 @@
 <!--                                                </li>-->
 
                                                 <?php
-                                                $arrayAttr1 = array( 'All','Address', 'Phone','City','Opening Time',
-                                                    'Closing Time','Facility Type','Link to Book');
-                                                $arrayAttr2 = array( 'All','Address', 'Phone','City','Brand','Opening Time',
-                                                    'Closing Time','Facility Type','Link to Book');
+                                                $arrayAttr1 = array( 'All','address', 'phone','city','opening_time',
+                                                    'closing_time','facility_type','Link to Book');
+                                                $arrayAttr2 = array( 'All','address', 'phone','city','brand','opening_time',
+                                                    'closing_time','facility_type','Link to Book');
                                                 if (isset($_GET['Vbrands'])) { //vbrands selected, two table join
                                                     foreach ($arrayAttr2 as $attr) {
 
@@ -355,7 +355,7 @@
                                                         array_pop($temp);
                                                     }
                                                     $coln = implode(' , ',$temp);
-                                                    var_dump($coln);
+//                                                    var_dump($coln);
 
                                                     $result2 = '';
 
@@ -375,14 +375,16 @@
                                                             if (isset($_GET['Vcity'])) {       //city is selected
                                                                 $vcity = $_GET['Vcity'];
                                                                 $sql = " SELECT $coln FROM vc_iv_join Where city like '$vcity' AND brand like '$vbrand'";
-                                                                $sql2 = " SELECT facility_ID FROM vc_iv_join Where city like '$vcity' AND brand like '$vbrand'";
+                                                                $sql2 = " SELECT * FROM vc_iv_join Where city like '$vcity' AND brand like '$vbrand'";
 //                                                                var_dump($sql);
 //                                                                var_dump($sql2);
                                                                 $result = mysqli_query($conn, $sql);
                                                                 $result2 = mysqli_query($conn,$sql2);
                                                             } else {        //city is not selected
                                                                 $sql = " SELECT $coln FROM vc_iv_join Where brand like '$vbrand'";
-                                                                $sql2 =" SELECT facility_ID FROM vc_iv_join Where brand like '$vbrand'";
+                                                                $sql2 =" SELECT * FROM vc_iv_join Where brand like '$vbrand'";
+//                                                                var_dump($sql);
+//                                                                var_dump($sql2);
                                                                 $result = mysqli_query($conn, $sql);
                                                                 $result2 = mysqli_query($conn,$sql2);
                                                             }
@@ -432,7 +434,7 @@
                                                             if (isset($_GET['Vcity'])) {        //city is selected
                                                                 $vcity = $_GET['Vcity'];
                                                                 $sql = "SELECT $coln FROM Vaccine_Center Where city like '$vcity'";
-                                                                $sql2 = " SELECT facility_ID FROM Vaccine_Center Where city like '$vcity'";
+                                                                $sql2 = " SELECT * FROM Vaccine_Center Where city like '$vcity'";
 //                                                                var_dump($sql);
 //                                                                var_dump($sql2);
                                                                 $result = $conn->query($sql);
@@ -440,9 +442,13 @@
 
                                                             } else {
                                                                 $sql = "SELECT $coln FROM Vaccine_Center";
-                                                                $sql2 = "SELECT facility_ID FROM Vaccine_Center";
+                                                                $sql2 = "SELECT * FROM Vaccine_Center";
+//                                                                var_dump($sql);
+//                                                                var_dump($sql2);
                                                                 $result = $conn->query($sql);
-                                                                $result2 = $conn->query($sql);
+                                                                $result2 = $conn->query($sql2);
+
+//                                                                var_dump($result2);
 //                                                                if ($result==0) {
 //                                                                    echo "FAILED";
 //                                                                } else {
@@ -452,8 +458,9 @@
                                                             }
                                                             if ($result->num_rows > 0) {
                                                                 // output data of each row
-                                                                while(($row = $result->fetch_array(MYSQLI_NUM))&&($row2 = $result2->fetch_assoc())) {
+                                                                while(($row = $result->fetch_array(MYSQLI_NUM))&&($row2 = $result2->fetch_array(MYSQLI_NUM))) {
                                                                     if (!in_array('Link to Book',$attrib)){
+                                                                        echo $row2;
                                                                         echo "<tr>";
                                                                         for ($i = 0; $i < count($temp); $i++) {
                                                                             echo "<td class='border-class'>".$row["$i"];
@@ -477,7 +484,7 @@
 //                                                                            echo "<tr><td class='border-class'>".$row['$input'];
 //                                                                        }
                                                                         echo "</td> 
-                                                                                <td> <a href='booking.php?f_ID=".$row2["facility_ID"]."'
+                                                                                <td> <a href='booking.php?f_ID=".$row2["0"]."'
                                                                                         class='badge bg-light-primary'> Book Here</a> 
                                                                                         </td>
                                                                                         ";

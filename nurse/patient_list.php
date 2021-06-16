@@ -239,12 +239,7 @@
                                         </tr>
                                         <?php
                                         
-                                            $sql = "SELECT Patient.name, Patient.age, Patient.phn, Patient.address
-                                            FROM Patient, Has_Medical_Condition
-                                            WHERE Patient.user_ID = Has_Medical_Condition.user_ID and description = '{$_POST['medical_cond']}'";
-                                            echo $str;
-
-                                            $sql = "SELECT Patient.name, Patient.age, Patient.phn, Patient.address
+                                            $sql = "SELECT Patient.user_ID, Patient.name, Patient.age, Patient.phn, Patient.address
                                                 FROM Patient";   
                                             if ($_POST['medical_cond'] != ''){
                                                 $sql = $sql.", Has_Medical_Condition";

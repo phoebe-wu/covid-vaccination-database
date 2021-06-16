@@ -256,7 +256,7 @@ session_start();
                                                 $vcity = $_GET['Vcity'];
                                                 $sql = "SELECT * FROM Testing_Center Where city like '$vcity'";
                                                 $result = $conn->query($sql);
-                                                var_dump($result);
+//                                                var_dump($result);
                                             } else {
                                                 $sql = "SELECT * FROM Testing_Center";
                                                 $result = $conn->query($sql);

@@ -29,7 +29,7 @@ function handleLoginRequest($conn) {
             //echo "<br>Hi Nurse. Logged In Successfully!<br>";
             header("location:nurse/nurse_main.php");
         } else if ($num_n == 0) {
-            header("location=login.html");
+            header("location:login.html");
             //echo "<br>Email or password wrong. Auto-refresh in 1 seconds.<br>";
         }
     }

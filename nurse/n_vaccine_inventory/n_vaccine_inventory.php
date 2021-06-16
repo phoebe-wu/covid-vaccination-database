@@ -229,7 +229,8 @@ session_start();
                                         <thead>
                                         <tr>
                                             <!--(facility_ID: INTEGER, brand: ENUM , amount: INTEGER-->
-                                            <th>Facility id</th>
+                                            <th>Facility</th>
+                                            <th>Location</th>
                                             <th>Vaccine Brand</th>
                                             <th>Amount</th>
                                         </tr>
@@ -240,10 +241,12 @@ session_start();
 
                                         if (isset($_GET['v_brand'])) {
                                             $brand = str_replace('_', " ",$_GET['v_brand']);
-                                            $sql = "SELECT * FROM Inventory_Of_Vaccine WHERE (Inventory_Of_Vaccine.brand like '$brand')";
+                                            $sql = "SELECT * FROM Inventory_Of_Vaccine, Vaccine_Center 
+                                                WHERE Inventory_Of_Vaccine.brand like '%$brand%' AND Inventory_Of_Vaccine.facility_ID = Vaccine_Center.facility_ID";
                                             $result = mysqli_query($conn, $sql);
                                         } else {
-                                            $sql = "SELECT * FROM Inventory_Of_Vaccine";
+                                            $sql = "SELECT * FROM Inventory_Of_Vaccine, Vaccine_Center 
+                                            WHERE Inventory_Of_Vaccine.facility_ID = Vaccine_Center.facility_ID";
                                             $result = $conn->query($sql);
                                         }
 
@@ -251,6 +254,7 @@ session_start();
                                             while($row = $result->fetch_assoc()){
                                                 echo "<tr>
                                             <td>".$row["facility_ID"]."</td>
+                                            <td>".$row["address"].", ".$row["city"]."</p></td>
                                             <td>".$row["brand"]."</td>
                                             <td>".$row["amount"]."</td>
                                             </tr>";

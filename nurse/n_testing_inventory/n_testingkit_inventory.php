@@ -57,7 +57,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item  ">
-                        <a href="../appointment_summary.html" class='sidebar-link'>
+                        <a href="../appointment_summary.php" class='sidebar-link'>
                             <i class="bi bi-stack"></i>
                             <span>Upcoming Appointments</span>
                         </a>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 16, 2021 at 07:25 AM
+-- Generation Time: Jun 16, 2021 at 07:53 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -47,7 +47,8 @@ INSERT INTO `Appointments` (`app_ID`, `time`, `date`, `p_ID`, `n_ID`, `vaccine_b
 (900003, '11:10:00', '2021-07-13', 80002, 10003, 'Pfizer-BioNTech', 20003),
 (900004, '11:10:00', '2021-07-23', 80003, 10004, 'AstraZeneca', 20004),
 (900005, '15:30:00', '2021-07-14', 80004, 10003, 'Janssen', 20002),
-(900007, '15:30:00', '2021-06-30', 80005, 10005, 'Novavax', 20005);
+(900007, '15:30:00', '2021-06-30', 80005, 10005, 'Novavax', 20005),
+(900008, '22:55:00', '2021-06-17', 80002, 10003, 'Gamaleya', 20002);
 
 -- --------------------------------------------------------
 
@@ -86,8 +87,8 @@ INSERT INTO `City_In_HA` (`city`, `health_authority`) VALUES
 
 CREATE TABLE `Has_Medical_Condition` (
   `user_ID` int(11) NOT NULL,
-  `name` char(20) NOT NULL,
-  `description` char(100) DEFAULT NULL
+  `name` char(20) DEFAULT NULL,
+  `description` char(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -459,7 +460,7 @@ ALTER TABLE `City_In_HA`
 -- Indexes for table `Has_Medical_Condition`
 --
 ALTER TABLE `Has_Medical_Condition`
-  ADD PRIMARY KEY (`user_ID`,`name`);
+  ADD PRIMARY KEY (`user_ID`,`description`);
 
 --
 -- Indexes for table `Health_Authority`

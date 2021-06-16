@@ -50,6 +50,12 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
+                    <li class="sidebar-item ">
+                        <a href="../stats.php" class='sidebar-link'>
+                            <i class="bi bi-bar-chart-line"></i>
+                            <span>Statistics</span>
+                        </a>
+                    </li>
                     <li class="sidebar-item  ">
                         <a href="../appointment_summary.html" class='sidebar-link'>
                             <i class="bi bi-stack"></i>
@@ -59,7 +65,7 @@
                     <li class="sidebar-item  ">
                         <a href="application-gallery.html" class='sidebar-link'>
                             <i class="bi bi-pen-fill"></i>
-                            <span>Job Signup</span>
+                            <span>Special Medical Report</span>
                         </a>
                     </li>
 
@@ -74,12 +80,6 @@
                         <a href="../testing_centres.php" class='sidebar-link'>
                             <i class="bi bi-egg-fill"></i>
                             <span>Testing Centres</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item ">
-                        <a href="stats.php" class='sidebar-link'>
-                            <i class="bi bi-bar-chart-line"></i>
-                            <span>Statistics</span>
                         </a>
                     </li>
 
@@ -106,7 +106,7 @@
                     <li class="sidebar-title"></li>
 
                     <li class="sidebar-item  ">
-                        <a href="#" class='sidebar-link'>
+                        <a href="../../logout.php" class='sidebar-link'>
                             <i class="bi bi-person-badge-fill"></i>
                             <span>Logout</span>
                         </a>
@@ -129,7 +129,6 @@
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
                         <h3>Testing Kit Inventory</h3>
-                        <p class="text-subtitle text-muted">summary page</p>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">

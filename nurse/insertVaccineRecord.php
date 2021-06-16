@@ -6,10 +6,8 @@ require '../connect.php';
 
 function handleSubmitRequest($conn) {
 
-//    $date = DateTime::createFromFormat('m/d/Y', $_POST['date']);
     $date = $_POST['date'];
     echo "before change the date is: $date";
-//    $sqldate = $date->format('Y-m-d');
     
     $vaccineB = $_POST['vaccineBrand'];
     $id = $_POST['new_id'];

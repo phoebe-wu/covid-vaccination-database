@@ -36,7 +36,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="nurse_main.html"><img src="../medical.png" alt="Logo" srcset=""></a>
+                            <a href="nurse_main.php"><img src="../medical.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -53,8 +53,14 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
+                        <li class="sidebar-item ">
+                            <a href="stats.php" class='sidebar-link'>
+                                <i class="bi bi-bar-chart-line"></i>
+                                <span>Statistics</span>
+                            </a>
+                        </li>
                         <li class="sidebar-item  ">
-                            <a href="appointment_summary.php" class='sidebar-link'>
+                            <a href="appointment_summary.html" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
                                 <span>Upcoming Appointments</span>
                             </a>
@@ -62,7 +68,7 @@
                         <li class="sidebar-item  ">
                             <a href="application-gallery.html" class='sidebar-link'>
                                 <i class="bi bi-pen-fill"></i>
-                                <span>Job Signup</span>
+                                <span>Special Medical Report</span>
                             </a>
                         </li>
 
@@ -77,12 +83,6 @@
                             <a href="testing_centres.php" class='sidebar-link'>
                                 <i class="bi bi-egg-fill"></i>
                                 <span>Testing Centres</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item ">
-                            <a href="stats.php" class='sidebar-link'>
-                                <i class="bi bi-bar-chart-line"></i>
-                                <span>Statistics</span>
                             </a>
                         </li>
 
@@ -127,7 +127,7 @@
             </header>
 
             <div class="page-heading">
-                <h3>Hi Nurse </h3>
+                <h3>Welcome Nurse! (•̀ᴗ•́)و ̑̑</h3>
             </div>
             <div class="page-content">
                 <section class="row">
@@ -196,7 +196,7 @@
                             <div class="col-12 col-xl-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4>job locations</h4>
+                                        <h4>Job Locations</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -214,7 +214,7 @@
                                                         if ($results->num_rows > 0){
                                                             while($row = $results->fetch_assoc()){
                                                                 echo "<tr><td class='col-auto'>
-                                                                <p class=' mb-0'>Vaccine centre</p>
+                                                                <p class=' mb-0'>Vaccine Centre</p>
                                                                 </td><td class='col-auto'>
                                                                 <p class=' mb-0'>".$row["address"]."</p></td></tr>";
                                                             }
@@ -225,7 +225,7 @@
                                                             if ($results->num_rows > 0){
                                                                 while($row = $results->fetch_assoc()){
                                                                     echo "<tr><td class='col-auto'>
-                                                                    <p class=' mb-0'>Testing centre</p>
+                                                                    <p class=' mb-0'>Testing Centre</p>
                                                                     </td><td class='col-auto'>
                                                                     <p class=' mb-0'>".$row["address"]."</p></td></tr>";
                                                                 }
@@ -247,7 +247,7 @@
                             <div class="card-content pb-4">
                                 <div class="summary d-flex px-6 py-3">
                                     <div class="name ms-4">
-                                        <h5 class="text-center"># Vaccine centres</h5>
+                                        <h5 class="text-center"># Vaccine Centres</h5>
                                         <?php
                                             $sql = "SELECT COUNT(*) AS total FROM Works_At_VC WHERE nurse_ID = {$_SESSION['userid']}";
                                             $results = $conn->query($sql);
@@ -258,7 +258,7 @@
                                 </div>
                                 <div class="summary d-flex px-6 py-3">
                                     <div class="name ms-4">
-                                        <h5 class="text-center"># Testing centres</h5>
+                                        <h5 class="text-center"># Testing Centres</h5>
                                         <?php
                                             $sql = "SELECT COUNT(*) AS total FROM Works_At_TC WHERE nurse_ID = {$_SESSION['userid']}";
                                             $results = $conn->query($sql);

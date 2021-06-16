@@ -128,8 +128,8 @@
                     <table class="table table-striped" id="table1">
                         <thead>
                         <tr>
-                            <th>User id</th>
-                            <th>Record id</th>
+                            <th>Patient ID</th>
+                            <th>Record ID</th>
                             <th>Date</th>
                             <th>Result</th>
                         </tr>

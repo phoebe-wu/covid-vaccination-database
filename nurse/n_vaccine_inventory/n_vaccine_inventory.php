@@ -33,7 +33,7 @@ session_start();
                     <div class="sidebar-header">
                         <div class="d-flex justify-content-between">
                             <div class="logo">
-                                <a href="nurse_main.html"><img src="../../medical.png" alt="Logo" srcset=""></a>
+                                <a href="../nurse_main.php"><img src="../../medical.png" alt="Logo" srcset=""></a>
                             </div>
                             <div class="toggler">
                                 <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -45,9 +45,15 @@ session_start();
                             <li class="sidebar-title">Menu</li>
     
                             <li class="sidebar-item ">
-                                <a href="nurse_main.html" class='sidebar-link'>
+                                <a href="../nurse_main.php" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item ">
+                                <a href="../stats.php" class='sidebar-link'>
+                                    <i class="bi bi-bar-chart-line"></i>
+                                    <span>Statistics</span>
                                 </a>
                             </li>
                             <li class="sidebar-item  ">
@@ -59,7 +65,7 @@ session_start();
                             <li class="sidebar-item  ">
                                 <a href="application-gallery.html" class='sidebar-link'>
                                     <i class="bi bi-pen-fill"></i>
-                                    <span>Job Signup</span>
+                                    <span>Special Medical Report</span>
                                 </a>
                             </li>
     
@@ -76,12 +82,6 @@ session_start();
                                     <span>Testing Centres</span>
                                 </a>
                             </li>
-                            <li class="sidebar-item ">
-                                <a href="stats.php" class='sidebar-link'>
-                                    <i class="bi bi-bar-chart-line"></i>
-                                    <span>Statistics</span>
-                                </a>
-                            </li>
     
                             <li class="sidebar-title">Records</li>
                             
@@ -92,7 +92,7 @@ session_start();
                                 </a>
                             </li>
                             <li class="sidebar-item active ">
-                                <a href="n_vaccine_inventory.php" class='sidebar-link'>
+                                <a href="../n_vaccine_inventory/n_vaccine_inventory.php" class='sidebar-link'>
                                     <i class="bi bi-collection-fill"></i>
                                     <span>Vaccine Inventory</span>
                                 </a>
@@ -106,7 +106,7 @@ session_start();
                             <li class="sidebar-title"> </li>
                             
                             <li class="sidebar-item  ">
-                                <a href="#" class='sidebar-link'>
+                                <a href="../../logout.php" class='sidebar-link'>
                                     <i class="bi bi-person-badge-fill"></i>
                                     <span>Logout</span>
                                 </a>
@@ -129,12 +129,11 @@ session_start();
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
                         <h3>Vaccine Inventory</h3>
-                        <p class="text-subtitle text-muted">summary page</p>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="nurse_main.html">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="nurse_main.php">Dashboard</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Vaccine Inventory</li>
                             </ol>
                         </nav>
@@ -147,7 +146,7 @@ session_start();
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title">filter by brand</h5>
+                                <h5 class="card-title">Filter by Brand</h5>
                             </div>
 
                                 <div class="card-body">

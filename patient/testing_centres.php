@@ -35,7 +35,7 @@ session_start();
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="../medical.png" alt="Logo" srcset=""></a>
+                            <a href="index.php"><img src="../medical.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -47,13 +47,13 @@ session_start();
                         <li class="sidebar-title">Menu</li>
 
                         <li class="sidebar-item ">
-                            <a href="index.html" class='sidebar-link'>
+                            <a href="index.php" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="booking.html" class='sidebar-link'>
+                            <a href="booking.php" class='sidebar-link'>
                                 <i class="bi bi-pen-fill"></i>
                                 <span>Book An Appointment</span>
                             </a>
@@ -77,13 +77,13 @@ session_start();
                         <li class="sidebar-title">My Records</li>
                         
                         <li class="sidebar-item  ">
-                            <a href="p_testing_record.html" class='sidebar-link'>
+                            <a href="p_testing_record.php" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>Testing Records</span>
                             </a>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="p_vaccine_record.html" class='sidebar-link'>
+                            <a href="p_vaccine_record.php" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>Vaccine Records</span>
                             </a>
@@ -92,7 +92,7 @@ session_start();
                         <li class="sidebar-title"> </li>
                         
                         <li class="sidebar-item  ">
-                            <a href="login.html" class='sidebar-link'>
+                            <a href="../logout.php" class='sidebar-link'>
                                 <i class="bi bi-person-badge-fill"></i>
                                 <span>Logout</span>
                             </a>
@@ -110,7 +110,7 @@ session_start();
             </header>
 
             <div class="page-heading">
-                <h3>Cough Here Often? ;)</h3>
+                <h3>BC Covid-19 Testing Centres</h3>
             </div>
 		  <section id="multiple-column-form">
 			<div class="row match-height">
@@ -188,7 +188,7 @@ session_start();
                                             }
                                             ?>
                                         >
-										<label for="checkbox5"> Show Testing centres that have all kits in stock</label>
+										<label for="checkbox5"> Show Testing Centres that have All Kits in Stock</label>
 									 </div>
 								   </div>
 <!--								   <div class="col-md-6 col-12">-->
@@ -239,7 +239,7 @@ session_start();
 
                                             $result = mysqli_query($conn, $sql_join);
                                             if ($result ==0) {
-                                                echo "join unseccessful";
+                                                //echo "join unseccessful";
                                             }
 
                                             if (isset($_GET['Vcity'])){       //city is selected

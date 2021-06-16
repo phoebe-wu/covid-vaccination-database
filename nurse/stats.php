@@ -15,7 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - BC Health COVID-19</title>
+    <title>Statistics  - BC Health COVID-19</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -36,7 +36,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="nurse_main.html"><img src="../medical.png" alt="Logo" srcset=""></a>
+                            <a href="nurse_main.php"><img src="../medical.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -53,8 +53,14 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
+                        <li class="sidebar-item active ">
+                            <a href="stats.php" class='sidebar-link'>
+                                <i class="bi bi-bar-chart-line"></i>
+                                <span>Statistics</span>
+                            </a>
+                        </li>
                         <li class="sidebar-item  ">
-                            <a href="appointment_summary.php" class='sidebar-link'>
+                            <a href="appointment_summary.html" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
                                 <span>Upcoming Appointments</span>
                             </a>
@@ -62,7 +68,7 @@
                         <li class="sidebar-item  ">
                             <a href="application-gallery.html" class='sidebar-link'>
                                 <i class="bi bi-pen-fill"></i>
-                                <span>Job Signup</span>
+                                <span>Special Medical Report</span>
                             </a>
                         </li>
 
@@ -80,12 +86,6 @@
                             </a>
                         </li>
                         
-                        <li class="sidebar-item active ">
-                            <a href="stats.php" class='sidebar-link'>
-                                <i class="bi bi-bar-chart-line"></i>
-                                <span>Statistics</span>
-                            </a>
-                        </li>
 
 
 
@@ -98,13 +98,13 @@
                             </a>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="n_vaccine_inventory.php" class='sidebar-link'>
+                            <a href="n_vaccine_inventory/n_vaccine_inventory.php" class='sidebar-link'>
                                 <i class="bi bi-collection-fill"></i>
                                 <span>Vaccine Inventory</span>
                             </a>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="n_testingkit_inventory.php" class='sidebar-link'>
+                            <a href="n_testing_inventory/n_testingkit_inventory.php" class='sidebar-link'>
                                 <i class="bi bi-collection-fill"></i>
                                 <span>Testing Kit Inventory</span>
                             </a>
@@ -128,10 +128,24 @@
                     <i class="bi bi-justify fs-3"></i>
                 </a>
             </header>
-
+        
             <div class="page-heading">
-                <h3> Fun Stats :) </h3>
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>Fun Statistics ฅ(≚ᄌ≚) </h3>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="nurse_main.php">Dashboard</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Statistics</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
             </div>
+                    
             <div class="page-content">
                 
                 <section class="row">
@@ -140,7 +154,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">find facilities with </h4>
+                                        <h4 class="card-title">Find Facilities with ... </h4>
                                     </div>
                                     <div class="card-content">
                                         <div class="card-body">
@@ -149,7 +163,7 @@
                                                 <div class="form-body">
                                                     <div class="row">
                                                         <div class="col-md-10 mb-2">
-                                                            <h6>(Opening/closing) times</h6>
+                                                            <h6>(Opening/Closing) times</h6>
                                                             <div class="input-group mb-3">
                                                                 <label class="input-group-text" for="inputGroupSelect01">Options</label>
                                                                 <select name="time1" class="form-select" id="inputGroupSelect01">
@@ -160,39 +174,39 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-10 mb-2">
-                                                            <h6>(Before/after) [inclusive]</h6>
+                                                            <h6>(Before/After) [inclusive]</h6>
                                                             <div class="input-group mb-3">
                                                                 <label class="input-group-text" for="inputGroupSelect01">Options</label>
                                                                 <select name="greater_less1" class="form-select" id="inputGroupSelect01">
                                                                     <option selected>Choose...</option>
-                                                                    <option value="<=">before</option>
-                                                                    <option value=">">after</option>
+                                                                    <option value="<=">Before</option>
+                                                                    <option value=">">After</option>
                                                                 </select>
                                                             </div>
                                                         </div>                             
                                                         <div class="col-md-10 mb-2">
-                                                            <h6>all (earliest, latest, or average) appointment times</h6>
+                                                            <h6>All (Earliest, Latest, or Average) Appointment Times</h6>
                                                             <div class="input-group mb-3">
                                                                 <label class="input-group-text" for="inputGroupSelect01">Options</label>
                                                                 <select name="agg1" class="form-select" id="inputGroupSelect01">
                                                                     <option selected>Choose...</option>
-                                                                    <option value="MIN">earliest</option>
-                                                                    <option value="MAX">latest</option>
-                                                                    <option value="AVG">average</option>
+                                                                    <option value="MIN">Earliest</option>
+                                                                    <option value="MAX">Latest</option>
+                                                                    <option value="AVG">Average</option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-10 mb-2">
-                                                            <h6>with the same</h6>
+                                                            <h6>With the same ... </h6>
                                                             <div class="input-group mb-3">
                                                                 <label class="input-group-text" for="inputGroupSelect01">Options</label>
                                                                 <select name="group1" class="form-select" id="inputGroupSelect01">
                                                                     <option selected>Choose...</option>
-                                                                    <option value="vaccine_brand">vaccine brand</option>
-                                                                    <option value="vaccine_center.facility_type">facility type</option>
-                                                                    <option value="vaccine_center.city">city</option>
-                                                                    <option value="health_authority">health authority</option>
-                                                                    <option value="date">appointment date</option>
+                                                                    <option value="vaccine_brand">Vaccine Brand</option>
+                                                                    <option value="vaccine_center.facility_type">Facility Type</option>
+                                                                    <option value="vaccine_center.city">City</option>
+                                                                    <option value="health_authority">Health Authority</option>
+                                                                    <option value="date">Appointment Date</option>
                                                                 </select>
                                                             </div>
                                                         </div> 
@@ -253,7 +267,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Numbers Per health authority </h4>
+                                        <h4 class="card-title">Numbers per Health Authority </h4>
                                     </div>
                                     <div class="card-content">
                                         <div class="card-body">
@@ -262,16 +276,16 @@
                                                 <div class="form-body">
                                                     <div class="row">
                                                         <div class="col-md-10 mb-2">
-                                                            <h6>(list, total, average #, min #, max#)</h6>
+                                                            <h6>(List, Total, Average#, Min#, Max#)</h6>
                                                             <div class="input-group mb-3">
                                                                 <label class="input-group-text" for="inputGroupSelect01">Options</label>
                                                                 <select name="agg2" class="form-select" id="inputGroupSelect01">
                                                                     <option selected>Choose...</option>
-                                                                    <option value="c">list</option>
-                                                                    <option value="SUM(c)">total</option>
-                                                                    <option value="AVG(c)">average</option>
-                                                                    <option value="MIN(c)">minimum</option>
-                                                                    <option value="MAX(c)">maximum</option>
+                                                                    <option value="c">List</option>
+                                                                    <option value="SUM(c)">Total</option>
+                                                                    <option value="AVG(c)">Average</option>
+                                                                    <option value="MIN(c)">Minimum</option>
+                                                                    <option value="MAX(c)">Maximum</option>
                                                                 </select>
                                                             </div>
                                                         </div>                             
@@ -359,7 +373,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Vaccine Numbers in inventory per brand or inventory</h4>
+                                        <h4 class="card-title">Vaccine Numbers in Inventory per Brand or Inventory</h4>
                                     </div>
                                     <div class="card-content">
                                         <div class="card-body">
@@ -368,24 +382,24 @@
                                                 <div class="form-body">
                                                     <div class="row">
                                                         <div class="col-md-10 mb-2">
-                                                            <h6>(total, # of brands)</h6>
+                                                            <h6>(Total, Num of Brands)</h6>
                                                             <div class="input-group mb-3">
                                                                 <label class="input-group-text" for="inputGroupSelect01">Options</label>
                                                                 <select name="agg3" class="form-select" id="inputGroupSelect01">
                                                                     <option selected>Choose...</option>
-                                                                    <option value="SUM(amount)">total</option>
-                                                                    <option value="COUNT(amount)"># of brands/ facilities </option>
+                                                                    <option value="SUM(amount)">Total</option>
+                                                                    <option value="COUNT(amount)"># of Brands/Facilities </option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-10 mb-2">
-                                                            <h6>per (brand/facility) </h6>
+                                                            <h6>per (Brand/Facility) </h6>
                                                             <div class="input-group mb-3">
                                                                 <label class="input-group-text" for="inputGroupSelect01">Options</label>
                                                                 <select name="type3" class="form-select" id="inputGroupSelect01">
                                                                     <option selected>Choose...</option>
-                                                                    <option value="brand">brand</option>
-                                                                    <option value="facility_ID">facility Centres</option>
+                                                                    <option value="brand">Brand</option>
+                                                                    <option value="facility_ID">Facility Centres</option>
                                                                 </select>
                                                             </div>
                                                         </div>

@@ -127,8 +127,8 @@
                         <table class="table table-striped" id="table1">
                             <thead>
                             <tr>
-                                <th>User id</th>
-                                <th>Record id</th>
+                                <th>User ID</th>
+                                <th>Record ID</th>
                                 <th>Date</th>
                                 <th>Dose</th>
                                 <th>Brand</th>

@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vaccination Centres - BC Health COVID-19</title>
+    <title>Book an Appointment - BC Health COVID-19</title>
 
     <link href="../patient/appointment_booking%20page/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="../patient/appointment_booking%20page/css/wickedpicker.css" rel="stylesheet" type='text/css' media="all" />  <!-- time-picker-CSS -->
@@ -115,7 +115,7 @@
             </a>
         </header>
         <div class="page-heading">
-            <h3>Book an Appointment</h3>
+            <h3>Book a Vaccination Appointment</h3>
         </div>
 
         <div class="agileits_reservation">

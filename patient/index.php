@@ -110,7 +110,7 @@
             </header>
 
             <div class="page-heading">
-                <h3>Cough Here Often? ∠( ᐛ 」∠)＿</h3>
+                <h3> Welcome! ∠( ᐛ 」∠)＿</h3>
             </div>
             <div class="page-content">
                 <section class="row">

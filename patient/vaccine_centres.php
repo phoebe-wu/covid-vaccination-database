@@ -110,7 +110,7 @@
 			</header>
 
 			<div class="page-heading">
-				<h3>Vaccination Centres</h3>
+				<h3>BC Covid-19 Vaccination Centres</h3>
 			</div>
 			<section id="multiple-column-form">
 				<div class="row match-height">
@@ -194,10 +194,10 @@
 <!--                                                </li>-->
 
                                                 <?php
-                                                $arrayAttr1 = array( 'All','address', 'phone','city','opening_time',
-                                                    'closing_time','facility_type','Link to Book');
-                                                $arrayAttr2 = array( 'All','address', 'phone','city','brand','opening_time',
-                                                    'closing_time','facility_type','Link to Book');
+                                                $arrayAttr1 = array( 'All','Address', 'Phone','City','Opening Time',
+                                                    'Closing Time','Facility Type','Link to Book');
+                                                $arrayAttr2 = array( 'All','Address', 'Phone','City','Brand','Opening Time',
+                                                    'Closing Time','Facility Type','Link to Book');
                                                 if (isset($_GET['Vbrands'])) { //vbrands selected, two table join
                                                     foreach ($arrayAttr2 as $attr) {
 
@@ -314,7 +314,7 @@
                                                         if (isset($_GET['Column'])) {       //columns selected
                                                             $attrib = json_decode($_GET['Column']);
 
-                                                            echo "the passed attrib is".print_r($attrib);
+                                                            //echo "the passed attrib is".print_r($attrib);
 
                                                             if (in_array("All", $attrib)){
                                                                 echo'<th>Address</th>
@@ -508,7 +508,7 @@
                                                             $sql = " SELECT * FROM vc_iv_join Where city like '$vcity' AND brand like '$vbrand'";
                                                             $result = mysqli_query($conn, $sql);
                                                         } else {        //city is not selected
-                                                            echo 'city is not selected';
+                                                            //echo 'city is not selected';
                                                             $sql = " SELECT * FROM vc_iv_join Where brand like '$vbrand'";
                                                             $result = mysqli_query($conn, $sql);
                                                         }

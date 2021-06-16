@@ -10,8 +10,8 @@ function handleLoginRequest($conn) {
     $password = $_POST['password'];
     $_SESSION['userid'] = $userid;
     if (($userid == '') || ($password == '')) {
-        header("refresh:2; url='login.html'");
-        echo "<br>Email or password cannot be empty. Auto-refresh in 1 second.<br>";
+        header("location:login.html");
+        //echo "<br>Email or password cannot be empty. Auto-refresh in 1 second.<br>";
         exit;
     }
     $sql = "SELECT Count(*) FROM Patient WHERE (Patient.user_ID='$userid' and Patient.PASSWORD='$password')";
@@ -19,18 +19,18 @@ function handleLoginRequest($conn) {
     $num = ($result->fetch_array())[0];
 
     if ($num == 1) {
-        echo "<br>Logged In Successfully!<br>";
-        header('refresh:0.5; url=patient/index.php');
+        // echo "<br>Logged In Successfully!<br>";
+        header("location:patient/index.php");
     } else if ($num == 0) {
         $sql_n = "SELECT Count(*) FROM Nurse WHERE (Nurse.user_ID='$userid' and Nurse.password='$password')";
         $result_n = mysqli_query($conn, $sql_n);
         $num_n = ($result_n->fetch_array())[0];
         if ($num_n == 1) {
-            echo "<br>Hi Nurse. Logged In Successfully!<br>";
-            header('refresh:0.5; url=nurse/nurse_main.php');
+            //echo "<br>Hi Nurse. Logged In Successfully!<br>";
+            header("location:nurse/nurse_main.php");
         } else if ($num_n == 0) {
-            header('refresh:2; url=login.html');
-            echo "<br>Email or password wrong. Auto-refresh in 1 seconds.<br>";
+            header("location=login.html");
+            //echo "<br>Email or password wrong. Auto-refresh in 1 seconds.<br>";
         }
     }
     # CloseCon($conn);

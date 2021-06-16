@@ -15,24 +15,24 @@ function handleRegisterRequest($conn) {
 
 
     if( ($name == '') || ($userid == '') || ($phn == '') ||($address == '') || ($pwd == '') ||($cpwd == '') || ($age == '')) {
-        header("refresh:2; url='register.html'");
-        echo "<br>All fields are required. Auto-refresh in 1 second.<br>";
+        header("location:register.html");
+        echo "<br>All Fields are Required.<br>";
         exit;
     }
 
     if (strcmp($pwd, $cpwd) !== 0) {
-        header("refresh:2; url='register.html'");
-        echo '<br>two passwords do not match. Auto-refresh in 1 second.<br>" ';
+        header("location:register.html");
+        echo '<br>The Two Passwords do not Match.<br>" ';
         exit;
     }
     $sql = "INSERT INTO Patient VALUES('$userid', '$pwd', '$name', '$age', '$phn', '$address')";
     $result = mysqli_query($conn, $sql);
     if ($result == false) {
-        header("refresh:2; url='register.html'");
-        echo "<br>Register Unsuccessful, try again. Auto-refresh in 1 second.<br>";
+        header("location:register.html");
+        echo "<br>Register Unsuccessful, Please Try Again.<br>";
         exit;
     } else {
-        header('refresh:2; url=login.html');
+        header("location:login.html");
         echo "<br>Registered Successfully! Please Log in<br>";
 
     }

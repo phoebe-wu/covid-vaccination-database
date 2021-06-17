@@ -151,7 +151,7 @@ $conn = OpenCon();
                                         <select class="choices form-select" name="city">
                                             <option value=""> All</option>
                                             <?php
-                                            $sql = "SELECT city FROM Testing_Center";
+                                            $sql = "SELECT DISTINCT city FROM Testing_Center";
                                             $result = $conn->query($sql);
                                             if ($result->num_rows > 0) {
                                                 // output data of each row
@@ -232,8 +232,8 @@ $conn = OpenCon();
 							    <table class="table table-striped" id="table1">
 								    <tr>
 									   <th>Address</th>
-									   <th>City</th>
 									   <th>Phone</th>
+									   <th>City</th>
 									   <th>Opening Time</th>
 									   <th>Closing Time</th>
 								    </tr>

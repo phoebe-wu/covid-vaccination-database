@@ -158,7 +158,7 @@
 													<select class="choices form-select" name="city">
                                                         	<option value=""> All</option>
                                                         	<?php 
-                                                            $sql = "SELECT city FROM Vaccine_Center";
+                                                            $sql = "SELECT DISTINCT city FROM Vaccine_Center";
                                                             $result = $conn->query($sql);
                                                             if ($result->num_rows > 0) {
                                                             // output data of each row

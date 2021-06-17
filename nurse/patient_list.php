@@ -144,7 +144,6 @@
                                                 <option value="" selected>Vaccination Status</option>
                                                 <option value="1">Vaccinated with One Dose</option>
                                                 <option value="2">Vaccinated with Two Doses</option>
-                                                <option value="0">Unvaccinated</option>
                                             </select>
                                         </div>
                                         <div class="btn-group me-1 mb-1">

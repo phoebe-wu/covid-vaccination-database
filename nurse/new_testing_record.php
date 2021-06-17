@@ -60,7 +60,7 @@ session_start();
                             </a>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="application-gallery.html" class='sidebar-link'>
+                            <a href="medical_report.php" class='sidebar-link'>
                                 <i class="bi bi-pen-fill"></i>
                                 <span>Special Medical Report</span>
                             </a>

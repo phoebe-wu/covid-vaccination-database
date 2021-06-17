@@ -208,6 +208,8 @@ INSERT INTO `Inventory_Of_Tests` (`facility_ID`, `kind`, `amount`) VALUES
 (30015, 'Blood test', 8500),
 (30019, 'Blood test', 4500),
 (30020, 'Blood test', 900),
+(30014, 'Nasopharyngeal swab', 1400),
+(30003, 'Nasopharyngeal swab', 300),
 (30005, 'Nasopharyngeal swab', 7000);
 
 -- --------------------------------------------------------

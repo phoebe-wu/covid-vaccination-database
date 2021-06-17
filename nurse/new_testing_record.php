@@ -60,7 +60,7 @@ session_start();
                             </a>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="application-gallery.html" class='sidebar-link'>
+                            <a href="medical_report.php" class='sidebar-link'>
                                 <i class="bi bi-pen-fill"></i>
                                 <span>Special Medical Report</span>
                             </a>
@@ -206,7 +206,7 @@ session_start();
                                    					 </div>
 												    <div class="form-check">
                                         					<input class="form-check-input" type="radio" name="result"
-                                            						id="flexRadioDefault1" value="Results Pending">
+                                            						id="flexRadioDefault1" value="Pending">
                                         					<label class="form-check-label" for="flexRadioDefault1">
                                             						Results Pending
                                         					</label>

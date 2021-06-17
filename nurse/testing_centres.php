@@ -61,7 +61,7 @@ $conn = OpenCon();
                             </a>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="application-gallery.html" class='sidebar-link'>
+                            <a href="medical_report.php" class='sidebar-link'>
                                 <i class="bi bi-pen-fill"></i>
                                 <span>Special Medical Report</span>
                             </a>
@@ -142,57 +142,91 @@ $conn = OpenCon();
 					  </div>
 					  <div class="card-content">
 						 <div class="card-body">
-							<form class="form">
+							<form class="form" action="testing_centres_filter.php" method="post">
 							    <div class="row">
 								   <div class="col-md-6 col-12">
-									    <div class="form-group">
-									        <label for="city-column">City</label>
-                                            <p> Select your preferred city </p>
-									        <select class="choices form-select">
-										        <option selected> Choose... </option>
-										        <option value="richmond">Richmond</option>
-										        <option value="vancouver">Vancouver</option>
-										        <option value="sechelt">Sechelt</option>
-										        <option value="saanichton">Saanichton</option>
-										        <option value="kelowna">Kelowna</option>
-										        <option value="burnaby">Burnaby</option>
-										        <option value="coquitlam">Coquitlam</option>
-									        </select>
-                                        </div>
-								    </div>
-                                    <div class="col-md-6 col-12">
+									<div class="form-group">
+									    <label for="city-column">City</label>
+                                        <p> Select your preferred city </p>
+                                        <select class="choices form-select" name="city">
+                                            <option value=""> All</option>
+                                            <?php
+                                            $sql = "SELECT city FROM Testing_Center";
+                                            $result = $conn->query($sql);
+                                            if ($result->num_rows > 0) {
+                                                // output data of each row
+                                                while($row = $result->fetch_assoc()) {
+
+                                                    echo "<option value=".$row["city"];
+                                                    if(isset($_GET['Vcity'])) {
+                                                        if($_GET['Vcity'] == $row["city"]){
+                                                            echo " selected='selected'";
+                                                        }
+                                                    }
+                                                    echo ">".$row["city"]."</option>";
+//
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+									</div>
+								   </div>
+                                   <div class="col-md-6 col-12">
 												<div class="form-group">
 													<label for="vaccine-column">Testing Method</label>
 													<p> Select all your preferred testing methods </p>
-                                                    	<select class="choices form-select multiple-remove" multiple="multiple">
-                                                        	<option value="nasal swab">Nasal Swab</option>
-                                                        	<option value="saliva test">Saliva Test</option>
-                                                        	<option value="rapid test">Rapid Test</option>
-                                                        	<option value="blood test">Blood Test</option>
-                                                            <option value="nasopharyngeal test">Nasopharyngeal Test</option>
-                                                    	</select>
+                                                    <select class="choices form-select" name="vkinds">
+                                                        <option value=""> All</option>
+                                                        <?php
+                                                        $sql = "SELECT kind FROM Testing_Kit";
+                                                        $result = $conn->query($sql);
+                                                        if ($result->num_rows > 0) {
+                                                            // output data of each row
+                                                            while($row = $result->fetch_assoc()) {
+                                                                $k = str_replace(' ', '_', $row["kind"]);
+                                                                echo "<option value=".$k;
+                                                                if(isset($Vkinds)) {
+                                                                    $Vkinds = str_replace("_", " ", $_GET['Vkinds']);
+                                                                    if($Vkinds == $row["kind"]){
+                                                                        echo " selected='selected'";
+                                                                    }
+                                                                }
+                                                                echo ">".$row["kind"]."</option>";
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </select>
 											    </div>
                                     </div>
 								   <div class="col-md-6 col-12">
 									 <div class="checkbox">
 										<input type="checkbox" id="checkbox5"
-										    class='form-check-input' unchecked>
-										<label for="checkbox5"> Offers Drive Through Testing</label>
+										    class='form-check-input' name="allkits" value="division"
+                                            <?php
+                                            if (!empty($_GET['Division'])) {       //columns selected
+                                                    echo "checked";
+                                            }
+                                            ?>
+                                        >
+										<label for="checkbox5"> Show Testing Centres that have All Kits in Stock</label>
 									 </div>
 								   </div>
-								   <div class="col-md-6 col-12">
-									<div class="checkbox">
-									    <input type="checkbox" id="checkbox5"
-										   class='form-check-input' unchecked>
-									    <label for="checkbox5"> Tested Positive Cases</label>
-									</div>
-								  </div>
-								   <div class="col-12 d-flex justify-content-end">
-									  <button type="submit"
-										 class="btn btn-primary me-1 mb-1">Filter</button>
-									  <button type="reset"
-										 class="btn btn-light-secondary me-1 mb-1">Reset</button>
-								   </div>
+<!--								   <div class="col-md-6 col-12">-->
+<!--									<div class="checkbox">-->
+<!--									    <input type="checkbox" id="checkbox5"-->
+<!--										   class='form-check-input' unchecked>-->
+<!--									    <label for="checkbox5"> Open Now</label>-->
+<!--									</div>-->
+<!--								  </div>-->
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="submit"
+                                                class="btn btn-primary me-1 mb-1"
+                                                formaction="testing_centres_filter.php" name="submit">
+                                            Submit</button>
+<!--                                        <button type="reset"-->
+<!--                                                class="btn btn-light-secondary me-1 mb-1" formaction="vaccine_centres_filter.php" name="reset">-->
+<!--                                            Reset</button>-->
+                                    </div>
 							    </div>
                                 <br>
 							    <table class="table table-striped" id="table1">
@@ -204,7 +238,50 @@ $conn = OpenCon();
 									   <th>Closing Time</th>
 								    </tr>
 								    <?php
-								   $sql = "SELECT * FROM Testing_Center";
+                                    $result = '';
+                                    if (isset($_GET['Division']) && ($_GET['Division'] == "division")){
+
+                                        $sql_division = "SELECT * FROM Testing_Center AS tc Where 
+                                                NOT EXISTS 
+                                                ((SELECT tk.kind FROM Testing_Kit AS tk) 
+                                                EXCEPT 
+                                                (SELECT it.kind FROM Inventory_Of_Tests AS it where tc.facility_ID = it.facility_ID))";
+                                        $result = mysqli_query($conn, $sql_division);
+                                    } else {
+                                        if (isset($_GET['Vkinds'])) {
+                                            $vkind = str_replace("_"," ",$_GET['Vkinds']);
+                                            $sql_join = "CREATE VIEW tc_it_join AS
+                                                                        SELECT tc.facility_ID, tc.phone, tc.address, tc.opening_time, tc.closing_time, tc.drivethru, tc.city,
+                                                                                it.kind
+                                                                        FROM Testing_Center AS tc
+                                                                        JOIN Inventory_Of_Tests AS it
+                                                                        ON tc.facility_ID = it.facility_ID";
+
+                                            $result = mysqli_query($conn, $sql_join);
+                                            if ($result ==0) {
+                                                //echo "join unseccessful";
+                                            }
+
+                                            if (isset($_GET['Vcity'])){       //city is selected
+                                                $vcity = $_GET['Vcity'];
+                                                $sql = " SELECT * FROM tc_it_join Where city like '$vcity' AND kind like '$vkind'";
+                                                $result = mysqli_query($conn, $sql);
+                                            } else {
+                                                    $sql = "SELECT * FROM tc_it_join Where kind like '$vkind'";
+                                                    $result = $conn->query($sql);
+                                                    }
+                                            } else{
+                                            if (isset($_GET['Vcity'])){
+                                                $vcity = $_GET['Vcity'];
+                                                $sql = "SELECT * FROM Testing_Center Where city like '$vcity'";
+                                                $result = $conn->query($sql);
+                                                var_dump($result);
+                                            } else {
+                                                $sql = "SELECT * FROM Testing_Center";
+                                                $result = $conn->query($sql);
+                                            }
+                                        }
+                                    }
 								   $result = $conn->query($sql);
 								   if ($result->num_rows > 0) {
 								   // output data of each row
@@ -222,7 +299,6 @@ $conn = OpenCon();
 								   }
 								   CloseCon($conn);
 								    ?>
-								</tbody>
 							 </table>
 							</form>
 						 </div>
@@ -231,8 +307,6 @@ $conn = OpenCon();
 			    </div>
 			</div>
 				   
-			    </div>
-			</div>
 
 		 </section>
 
@@ -251,7 +325,7 @@ $conn = OpenCon();
     </div>
     <script src="../assets~/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script src="../assets/choices.min.js"></script>	
-    
+    </div>
 </body>
 
 </html>

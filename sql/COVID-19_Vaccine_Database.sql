@@ -42,13 +42,22 @@ CREATE TABLE `Appointments` (
 --
 
 INSERT INTO `Appointments` (`app_ID`, `time`, `date`, `p_ID`, `n_ID`, `vaccine_brand`, `facility_ID`) VALUES
-(900001, '09:30:00', '2021-06-30', 80001, 10001, 'Moderna', 20001),
-(900002, '14:30:00', '2021-06-30', 80005, 10002, 'Moderna', 20001),
-(900003, '11:10:00', '2021-07-13', 80002, 10003, 'Pfizer-BioNTech', 20003),
-(900004, '11:10:00', '2021-07-23', 80003, 10004, 'AstraZeneca', 20004),
-(900005, '15:30:00', '2021-07-14', 80004, 10003, 'Janssen', 20002),
-(900007, '15:30:00', '2021-06-30', 80005, 10005, 'Novavax', 20005),
-(900008, '22:55:00', '2021-06-17', 80002, 10003, 'Gamaleya', 20002);
+(90000, '09:30:00', '2021-06-30', 80001, 10001, 'Moderna', 20001),
+(90001, '11:10:00', '2021-07-13', 80002, 10003, 'Pfizer-BioNTech', 20003),
+(90002, '14:30:00', '2021-06-30', 80008, 10002, 'Moderna', 20001),
+(90003, '15:15:00', '2021-07-13', 80002, 10003, 'Pfizer-BioNTech', 20003),
+(90004, '08:45:00', '2021-06-23', 80003, 10004, 'AstraZeneca', 20004),
+(90005, '15:30:00', '2021-05-14', 80004, 10000, 'Janssen', 20002),
+(90006, '17:45:00', '2021-05-13', 80002, 10000, 'Pfizer-BioNTech', 20003),
+(90007, '15:30:00', '2021-06-30', 80005, 10003, 'Novavax', 20005),
+(90008, '11:15:00', '2021-02-25', 80003, 10002, 'Pfizer-BioNTech', 20003),
+(90009, '13:30:00', '2021-03-13', 80009, 10003, 'Pfizer-BioNTech', 20020),
+(90010, '12:10:00', '2021-02-14', 80007, 10002, 'Moderna', 20013),
+(90011, '18:30:00', '2021-08-11', 80006, 10004, 'Pfizer-BioNTech', 20009),
+(90012, '16:15:00', '2021-04-12', 80007, 10005, 'Moderna', 20017),
+(90013, '14:30:00', '2021-07-16', 80008, 10004, 'Moderna', 20008),
+(90014, '08:10:00', '2021-05-11', 80010, 10005, 'Pfizer-BioNTech', 20002),
+(90015, '10:45:00', '2021-03-23', 80005, 10000, 'Pfizer-BioNTech', 20007);
 
 -- --------------------------------------------------------
 
@@ -67,6 +76,7 @@ CREATE TABLE `City_In_HA` (
 
 INSERT INTO `City_In_HA` (`city`, `health_authority`) VALUES
 ('Burnaby', 'Fraser'),
+('Hope', 'Fraser'),
 ('Maple Ridge', 'Fraser'),
 ('White Rock', 'Fraser'),
 ('Ashcroft', 'Interior'),
@@ -75,8 +85,23 @@ INSERT INTO `City_In_HA` (`city`, `health_authority`) VALUES
 ('Vancouver', 'Coastal'),
 ('Whistler', 'Coastal'),
 ('McBride', 'Northern'),
+('Mackenzie', 'Northern'),
 ('Smithers', 'Northern'),
 ('Pender Island', 'Island'),
+('Surrey', 'Fraser'),
+('Delta', 'Fraser'),
+('Abbotsford', 'Fraser'),
+('Squamish', 'Coastal'),
+('West Vancouver', 'Coastal'),
+('Bowen Island', 'Coastal'),
+('Pemberton', 'Coastal'),
+('North Vancouver', 'Coastal'),
+('Richmond', 'Coastal'),
+('Sechelt', 'Coastal'),
+('Gibsons', 'Coastal'),
+('Powell River', 'Coastal'),
+('Nanaimo', 'Island'),
+('Saanichton', 'Island'),
 ('Victoria', 'Island');
 
 -- --------------------------------------------------------
@@ -96,11 +121,15 @@ CREATE TABLE `Has_Medical_Condition` (
 --
 
 INSERT INTO `Has_Medical_Condition` (`user_ID`, `name`, `description`) VALUES
-(80001, 'Julie Berry', 'constant crying'),
-(80002, 'Arnold Apple', 'always shaking'),
-(80003, 'Bridget Banana', 'banana allergy'),
+(80001, 'Julie Berry', 'Pregnant'),
+(80002, 'Johnny Appleseed', 'Constipation'),
+(80003, 'Bridget Banana', 'Banana Allergy'),
 (80004, 'Toto Flower', 'Insomnia'),
-(80005, 'Emily Chow', 'anemia');
+(80005, 'Emily Chow', 'Anemia'),
+(80006, 'Armin Rose', 'Penicillin Allergy'),
+(80007, 'Matthew Chen', 'Constipation'),
+(80008, 'Kobe Fraser', 'Anemia');
+
 
 -- --------------------------------------------------------
 
@@ -142,9 +171,41 @@ CREATE TABLE `Inventory_Of_Tests` (
 
 INSERT INTO `Inventory_Of_Tests` (`facility_ID`, `kind`, `amount`) VALUES
 (30001, 'Nasal swab', 10000),
+(30003, 'Nasal swab', 400),
+(30004, 'Nasal swab', 4000),
+(30006, 'Nasal swab', 5000),
+(30007, 'Nasal swab', 8000),
+(30015, 'Nasal swab', 7900),
+(30013, 'Nasal swab', 4000),
+(30014, 'Nasal swab', 3000),
+(30012, 'Nasal swab', 1000),
+(30016, 'Nasal swab', 400),
+(30020, 'Nasal swab', 1000),
 (30002, 'Saliva test', 3000),
-(30003, 'Rapid test', 200),
-(30004, 'Blood test', 500),
+(30014, 'Saliva test', 3200),
+(30015, 'Saliva test', 330),
+(30018, 'Saliva test', 3000),
+(30003, 'Saliva test', 2300),
+(30019, 'Saliva test', 2500),
+(30020, 'Saliva test', 8800),
+(30005, 'Saliva test', 7800),
+(30008, 'Saliva test', 8700),
+(30018, 'Rapid test', 200),
+(30004, 'Rapid test', 200),
+(30005, 'Rapid test', 2030),
+(30014, 'Rapid test', 3200),
+(30012, 'Rapid test', 6200),
+(30013, 'Rapid test', 9200),
+(30007, 'Rapid test', 200),
+(30003, 'Rapid test', 2900),
+(30001, 'Blood test', 2500),
+(30003, 'Blood test', 300),
+(30002, 'Blood test', 2500),
+(30014, 'Blood test', 1500),
+(30018, 'Blood test', 4500),
+(30015, 'Blood test', 8500),
+(30019, 'Blood test', 4500),
+(30020, 'Blood test', 900),
 (30005, 'Nasopharyngeal swab', 7000);
 
 -- --------------------------------------------------------
@@ -165,8 +226,28 @@ CREATE TABLE `Inventory_Of_Vaccine` (
 
 INSERT INTO `Inventory_Of_Vaccine` (`facility_ID`, `brand`, `amount`) VALUES
 (20001, 'Moderna', 1000),
+(20002, 'Moderna', 1030),
+(20003, 'Moderna', 1130),
+(20004, 'Moderna', 1230),
+(20005, 'Moderna', 10),
+(20006, 'Moderna', 230),
+(20012, 'Moderna', 760),
+(20015, 'Moderna', 800),
+(20001, 'Pfizer-BioNTech', 200),
 (20002, 'Pfizer-BioNTech', 200),
-(20003, 'Janssen', 5000),
+(20003, 'Pfizer-BioNTech', 200),
+(20020, 'Pfizer-BioNTech', 200),
+(20001, 'Janssen', 5000),
+(20002, 'Janssen', 5000),
+(20003, 'Janssen', 4000),
+(20004, 'Janssen', 5000),
+(20005, 'Janssen', 5500),
+(20006, 'Janssen', 2300),
+(20007, 'Janssen', 700),
+(20008, 'Janssen', 800),
+(20009, 'Janssen', 200),
+(20010, 'Janssen', 5000),
+(20018, 'Janssen', 5400),
 (20004, 'AstraZeneca', 6000),
 (20005, 'Novavax', 1);
 
@@ -187,8 +268,9 @@ CREATE TABLE `Nurse` (
 --
 
 INSERT INTO `Nurse` (`user_ID`, `password`, `name`) VALUES
+(10000, 'iamn10000', 'Farrah Cortez'),
 (10001, 'iamn10001', 'Alex Vu'),
-(10002, 'iamn10002', ' Rose Logan'),
+(10002, 'iamn10002', 'Jackson Pouf'),
 (10003, 'iamn10003', 'Eli Long'),
 (10004, 'iamn10004', 'Aria Hilton'),
 (10005, 'iamn10005', 'Louie Archer');
@@ -213,11 +295,19 @@ CREATE TABLE `Patient` (
 --
 
 INSERT INTO `Patient` (`user_ID`, `password`, `name`, `age`, `phn`, `address`) VALUES
-(80001, '9ads8f7h', 'Julie Berry', 23, 8492309, '123 Sesame Street'),
-(80002, 'potatoes', 'Arnold Apple', 78, 1820937, '289-2313 Toronto Ave'),
-(80003, '90joker38', 'Bridget Banana', 4, 3920384, '9203 West 23rd Avenue'),
-(80004, '092jkpoppyseed', 'Toto Flower', 23, 8892309, '34-3822 Tinkle Drive'),
-(80005, 'purple90923', 'Emily Chow', 90, 3251309, '8778 Lucas Rd');
+(80000, 'patient80000', 'Beau Heart', 8, 8376482, '6675 Orange Street'),
+(80001, 'patient80001', 'Julie Berry', 23, 8492309, '123 Sesame Street'),
+(80002, 'patient80002', 'Johnny Appleseed', 78, 1820937, '289-2313 Toronto Ave'),
+(80003, 'patient80003', 'Bridget Banana', 4, 3920384, '9203 West 23rd Avenue'),
+(80004, 'patient80004', 'Toto Flower', 23, 8892309, '34-3822 Tinkle Drive'),
+(80005, 'patient80005', 'Emily Chow', 90, 3251309, '8778 Lucas Rd'),
+(80006, 'patient80006', 'Armin Rose', 15, 2390293, '2833-483 Thompson Drive'),
+(80007, 'patient80007', 'Matthew Chen', 34, 9437332, '18829 39th Avenue'),
+(80008, 'patient80008', 'Evan Lee', 43, 3738291, '8377 Victoria Drive'),
+(80009, 'patient80009', 'Kobe Fraser', 55, 4763992, '1484-777 Maple Road'),
+(80010, 'patient80010', 'Jean Paul Portier', 78, 3823392, '5774 Bridge Street');
+
+
 
 -- --------------------------------------------------------
 
@@ -240,11 +330,27 @@ CREATE TABLE `Testing_Center` (
 --
 
 INSERT INTO `Testing_Center` (`facility_ID`, `phone`, `address`, `opening_time`, `closing_time`, `drivethru`, `city`) VALUES
-(30001, '6048717000', '1155 E. Broadway', '09:00:00', '19:30:00', 1, 'Vancouver'),
-(30002, '6045873936', '153-11762 Laity Street', '09:00:00', '16:00:00', 0, 'Maple Ridge'),
-(30003, '2504570374', '700 Ashe-Cache Creek Hwy', '09:00:00', '17:00:00', 1, 'Ashcroft'),
-(30004, '18777407747', '2180 Ethel Street', '09:30:00', '20:30:00', 0, 'Kelowna'),
-(30005, '6049661428', '201-4380 Lorimer Rd', '08:30:00', '16:00:00', 0, 'Whistler');
+(30000, '(604) 587-3936', '14577 66th Avenue', '10:00:00', '18:00:00', 1, 'Surrey'),
+(30001, NULL, '1128 Hornby Street', '09:30:00', '17:30:00', 0, 'Vancouver'),
+(30002, '(604) 587-3936', '153-11762 Laity Street', '09:00:00', '16:00:00', 0, 'Maple Ridge'),
+(30003, '(250) 457-0374', '700 Ashe-Cache Creek Hwy', '09:00:00', '17:00:00', 1, 'Ashcroft'),
+(30004, '1-877 740-7747', '2180 Ethel Street', '09:30:00', '20:30:00', 0, 'Kelowna'),
+(30005, '(604) 966-1428', '201-4380 Lorimer Rd', '08:30:00', '16:00:00', 0, 'Whistler'),
+(30006, '(604) 871-7000', '1155 E. Broadway', '09:00:00', '19:30:00', 1, 'Vancouver'),
+(30007, '(604) 359-9559', '40456 Government Road', '09:00:00', '16:00:00', 1, 'Squamish'),
+(30008, NULL, '5911 North Service Road', '08:00:00', '19:00:00', 1, 'Richmond'),
+(30009, NULL, '4875 Heather Street', '08:00:00', '19:00:00', 1, 'Vancouver'),
+(30010, '(604) 216-3138', '1145 Commercial Dr', '08:00:00', '22:00:00', 1, 'Vancouver'),
+(30011, '(604) 587-3936', '3700 Willingdon Avenue', '09:30:00', '18:15:00', 0, 'Burnaby'),
+(30012, NULL, '4500 Oak Street', '07:00:00', '15:00:00', 0, 'Vancouver'),
+(30013, '(604) 587-3936', '1395 McKenzie Road', '08:30:00', '15:30:00', 0, 'Abbotsford'),
+(30014, '(604) 587-3936', '4470 Clarence Taylor Crescent', '08:30:00', '15:30:00', 0, 'Delta'),
+(30015, '1-844-901-8442', '900 Fifth Street', '08:30:00', '20:00:00', 0, 'Nanaimo'),
+(30016, '(604)-973-1600', 'Suite 200-221 West Esplanade', '19:00:00', '21:00:00', 0, 'North Vancouver'),
+(30017, '(604)-894-6633', '1403 Pemberton Portage Road', '13:00:00', '15:00:00', 0, 'Pemberton'),
+(30018, '1-844-901-8442', '2170 Mt.Newton X Rd', '08:30:00', '20:00:00', 0, 'Saanichton'),
+(30019, '1-844-901-8442', '3800 Finnerty Road', '08:30:00', '20:00:00', 0, 'Victoria'),
+(30020, '1-844-901-8442', '1767 Island Highway', '08:30:00', '20:00:00', 0, 'Victoria');
 
 -- --------------------------------------------------------
 
@@ -277,7 +383,7 @@ INSERT INTO `Testing_Kit` (`kind`, `result_time`) VALUES
 CREATE TABLE `Testing_Record` (
   `record_ID` int(11) NOT NULL,
   `date` date DEFAULT NULL,
-  `result` char(10) DEFAULT NULL,
+  `result` char(20) DEFAULT NULL,
   `user_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -286,11 +392,12 @@ CREATE TABLE `Testing_Record` (
 --
 
 INSERT INTO `Testing_Record` (`record_ID`, `date`, `result`, `user_ID`) VALUES
-(600001, '2021-01-01', 'positive', 80001),
-(600002, '2021-01-04', 'negative', 80002),
-(600003, '2021-03-09', 'negative', 80003),
-(600004, '2021-04-12', 'negative', 80004),
-(600005, '2021-05-26', 'negative', 80005);
+(60000, '2021-05-21', 'Results Pending', 80001),
+(60001, '2021-01-01', 'Positive', 80001),
+(60002, '2021-01-04', 'Negative', 80002),
+(60003, '2021-03-09', 'Negative', 80003),
+(60004, '2021-04-12', 'Negative', 80004),
+(60005, '2021-05-26', 'Negative', 80005);
 
 -- --------------------------------------------------------
 
@@ -336,11 +443,32 @@ CREATE TABLE `Vaccine_Center` (
 --
 
 INSERT INTO `Vaccine_Center` (`facility_ID`, `phone`, `address`, `opening_time`, `closing_time`, `facility_type`, `city`) VALUES
-(20001, '6045584006', '1025 W 15th Ave', '10:00:00', '20:00:00', 'Pharmacy', 'Vancouver'),
-(20002, '6042922500', '3713 Kensington Ave', '09:00:00', '17:00:00', 'Clinic', 'Burnaby'),
-(20003, '2506322121', '920 Lahakas Blvd S', '13:00:00', '20:00:00', 'Hospital', 'Kitimat'),
-(20004, '2503611000', '720 Douglas St', '09:30:00', '16:30:00', 'Clinic', 'Victoria'),
-(20005, '2505690189', '441 Columbia St', '09:00:00', '17:00:00', 'Clinic', 'McBride');
+(20000, '(250) 391-1738', '1089 Langford Pkwy', '8:30:00', '00:00:00', 'Community Centre', 'Victoria'),
+(20001, '(604) 558-4006', '1025 W 15th Ave', '10:00:00', '20:00:00', 'Pharmacy', 'Vancouver'),
+(20002, '(604)292-2500', '3713 Kensington Ave', '09:00:00', '17:00:00', 'Clinic', 'Burnaby'),
+(20003, '(250) 632-2121', '920 Lahakas Blvd S', '13:00:00', '20:00:00', 'Hospital', 'Kitimat'),
+(20004, '(250)361-1000', '720 Douglas St', '09:30:00', '16:30:00', 'Clinic', 'Victoria'),
+(20005, '(250) 569-0189', '441 Columbia St', '09:00:00', '17:00:00', 'Clinic', 'McBride'),
+(20006, '(604) 860-7630', '444 Park St.', '08:30:00', '04:00:00', 'Health Unit', 'Hope'),
+(20007, '(250) 997-3263', '45 Centennial Drive', NULL, NULL, 'Hospital', 'Mackenzie'),
+(20008, '(604) 430-3337', '3075 Slocan St.', '09:00:00', '19:00:00', 'Community Centre', 'Vancouver'),
+(20009, '(604) 257-8100', '5851 West Blvd.', '09:00:00', '19:00:00', 'Seniors Centre', 'Vancouver'),
+(20010, '(604) 827-2584', '2405 Wesbrook Mall', '09:30:00', '16:30:00', 'University Campus', 'Vancouver'),
+(20011, '(604)947-2216', '1041 Mt. Gardner Road', '10:30:00', '16:30:00', 'Community School', 'Bowen Island'),
+(20012, '(604) 925-7270', '2121 Marine Dr.', '09:00:00', '19:00:00', 'Community Centre', 'West Vancouver'),
+(20013, '(604) 599-2000', '8771 Lansdowne Rd', '09:00:00', '19:00:00', 'University Campus', 'Richmond'),
+(20014, '(604) 247-8900', '8811 River Rd.', '09:00:00', '19:00:00', 'Casino', 'Richmond'),
+(20015, '(604) 885-3513', '5604 Trail Ave.', '09:00:00', '17:00:00', 'Seniors Centre', 'Sechelt'),
+(20016, '(604) 886-2411', '747 Gibsons Way', '09:00:00', '17:00:00', 'Legion Branch', 'Gibsons'),
+(20017, '604-485-2891', '5001 Joyce Ave.', '09:15:00', '16:00:00', 'Community Centre', 'Powell River'),
+(20018, '(604) 932-3928', '4010 Whistler Way', '10:00:00', '17:00:00', 'Conference Centre', 'Whistler'),
+(20019, '604-894-1418', '7390 Cottonwood St', '10:00:00', '17:00:00', 'Community Centre', 'Pemberton'),
+(20020, '(604) 898-3604', '1009 Centennial Way', '10:00:00', '17:00:00', 'Community Centre', 'Squamish'),
+(20021, NULL, '10025 King George Boulevard', '11:00:00', '19:00:00', 'Community Centre', 'Surrey'),
+(20022, '(604) 598-5898', '13458 107A Avenue', '11:00:00', '19:00:00', 'Community Centre', 'Surrey'),
+(20023, '(604) 855-0020', '30640 Bluedridge Drive', '10:00:00', '15:30:00', 'Health Clinic', 'Abbotsford'),
+(20024, '(604) 294-1936', '4585 Albert Street', '10:00:00', '17:00:00', 'Seniors Centre', 'Burnaby'),
+(20025, '(604) 502-6360', '15105 105 Ave', '08:00:00', '18:00:00', 'Community Centre', 'Surrey');
 
 -- --------------------------------------------------------
 
@@ -381,13 +509,22 @@ CREATE TABLE `Vaccine_Record` (
 --
 
 INSERT INTO `Vaccine_Record` (`record_ID`, `date`, `dose`, `brand`, `user_ID`) VALUES
-(400001, '2021-02-01', 1, 'Moderna', 80001),
-(400002, '2021-03-04', 1, 'Janssen', 80002),
-(400003, '2021-03-14', 1, 'Janssen', 80003),
-(400004, '2021-04-01', 2, 'Moderna', 80001),
-(400005, '2021-04-10', 1, 'AstraZeneca', 80004),
-(400006, '2021-04-11', 1, 'Pfizer-BioNTech', 80005),
-(400007, '2021-05-04', 2, 'Janssen', 80002);
+(40000, '2021-07-11', 1, 'Moderna', 80008),
+(40001, '2021-02-01', 1, 'Moderna', 80001),
+(40002, '2021-03-04', 1, 'Janssen', 80002),
+(40003, '2021-03-14', 1, 'Janssen', 80003),
+(40004, '2021-04-01', 2, 'Moderna', 80001),
+(40005, '2021-04-10', 1, 'AstraZeneca', 80004),
+(40006, '2021-04-11', 1, 'Pfizer-BioNTech', 80005),
+(40007, '2021-05-04', 1, 'Janssen', 80002),
+(40008, '2021-06-11', 1, 'Pfizer-BioNTech', 80009),
+(40009, '2021-06-24', 2, 'Pfizer-BioNTech', 80009),
+(40010, '2021-06-05', 1, 'Pfizer-BioNTech', 80010),
+(40011, '2021-06-11', 2, 'Pfizer-BioNTech', 80010),
+(40012, '2021-04-22', 1, 'Moderna', 80006),
+(40013, '2021-05-11', 2, 'Moderna', 80006),
+(40014, '2021-06-11', 1, 'Moderna', 80007),
+(40015, '2021-07-11', 2, 'Moderna', 80007);
 
 -- --------------------------------------------------------
 
@@ -430,9 +567,19 @@ CREATE TABLE `Works_At_VC` (
 INSERT INTO `Works_At_VC` (`nurse_ID`, `facility_ID`) VALUES
 (10001, 20001),
 (10002, 20001),
-(10003, 20002),
+(10002, 20003),
 (10003, 20003),
+(10003, 20005),
 (10004, 20004),
+(10000, 20002),
+(10000, 20003),
+(10003, 20020),
+(10002, 20013),
+(10004, 20009),
+(10005, 20017),
+(10004, 20008),
+(10005, 20002),
+(10000, 20007),
 (10005, 20005);
 
 --
@@ -500,7 +647,6 @@ ALTER TABLE `Patient`
 --
 ALTER TABLE `Testing_Center`
   ADD PRIMARY KEY (`facility_ID`),
-  ADD UNIQUE KEY `phone` (`phone`),
   ADD UNIQUE KEY `address` (`address`),
   ADD KEY `city` (`city`);
 

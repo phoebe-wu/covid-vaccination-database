@@ -232,8 +232,8 @@ $conn = OpenCon();
 							    <table class="table table-striped" id="table1">
 								    <tr>
 									   <th>Address</th>
-									   <th>Phone</th>
 									   <th>City</th>
+									   <th>Phone</th>
 									   <th>Opening Time</th>
 									   <th>Closing Time</th>
 								    </tr>
